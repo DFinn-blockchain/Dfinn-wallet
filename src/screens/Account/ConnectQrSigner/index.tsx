@@ -26,6 +26,7 @@ import { RootStackParamList } from 'routes/index';
 import { QrAccount } from 'types/qr/attach';
 import { backToHome } from 'utils/navigation';
 import createStyle from './styles';
+import { Images } from 'assets/index';
 
 interface Props {
   title: string;
@@ -107,7 +108,7 @@ const ConnectQrSigner: React.FC<Props> = (props: Props) => {
         <Text style={styles.subTitle}>{subTitle}</Text>
         <View>
           <DualLogo
-            leftLogo={<Image {...imageProps} src={ImageLogosMap.subwallet} />}
+            leftLogo={<Image {...imageProps} src={Images.subwalletDappLogo} />}
             rightLogo={<Image {...imageProps} src={logoUrl} />}
           />
         </View>

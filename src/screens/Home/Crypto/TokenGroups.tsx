@@ -29,6 +29,7 @@ import useBuyToken from 'hooks/screen/Home/Crypto/useBuyToken';
 import { ServiceModal } from 'screens/Home/Crypto/ServiceModal';
 import { useToast } from 'react-native-toast-notifications';
 import { TokenSearchModal } from 'screens/Home/Crypto/TokenSearchModal';
+import { ColorMap } from 'styles/color';
 
 const renderActionsStyle: StyleProp<any> = {
   flexDirection: 'row',
@@ -250,7 +251,9 @@ export const TokenGroups = () => {
 
   return (
     <ScreenContainer
-      gradientBackground={isTotalBalanceDecrease ? GradientBackgroundColorSet[1] : GradientBackgroundColorSet[0]}>
+      backgroundColor={ColorMap.dark}
+      //gradientBackground={isTotalBalanceDecrease ? GradientBackgroundColorSet[1] : GradientBackgroundColorSet[0]}
+    >
       <>
         <Header />
 

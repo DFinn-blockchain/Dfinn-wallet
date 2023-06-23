@@ -1,7 +1,7 @@
 {
-  "name": "SubWalletMobile",
-  "version": "1.0.3",
-  "build": "162",
+  "name": "DfinnWalletMobile",
+  "version": "0.0.1",
+  "build": "1",
   "private": true,
   "license": "Apache-2.0",
   "bin": {
@@ -20,6 +20,7 @@
   "scripts": {
     "postinstall": "patch-package && rm -rf node_modules/react-native-qrcode-scanner/node_modules/react-native-permissions && npx react-native setup-ios-permissions",
     "android": "react-native run-android",
+    "release-apk": "cd android && ./gradlew assembleRelease && cd ..",
     "ios": "react-native run-ios",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "start": "react-native start",

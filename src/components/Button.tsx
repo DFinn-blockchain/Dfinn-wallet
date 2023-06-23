@@ -17,6 +17,8 @@ function getButtonWrapperStyle(): StyleProp<any> {
     height: 40,
     minWidth: 40,
     display: 'flex',
+    backgroundColor: ColorMap.dark2,
+    borderRadius: 30,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

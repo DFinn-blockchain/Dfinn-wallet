@@ -11,6 +11,7 @@ import useGoHome from 'hooks/screen/useGoHome';
 import useHandlerHardwareBackPress from 'hooks/screen/useHandlerHardwareBackPress';
 import { EVM_ACCOUNT_TYPE, SUBSTRATE_ACCOUNT_TYPE } from 'constants/index';
 import useGetDefaultAccountName from 'hooks/useGetDefaultAccountName';
+import { AccountNamePasswordCreation } from 'screens/Shared/AccountNamePasswordCreation';
 
 const ViewStep = {
   INIT_SP: 1,
@@ -44,7 +45,7 @@ export const CreateAccount = ({ route: { params } }: CreateAccountProps) => {
         // @ts-ignore
         setSeed(response.seed);
       })
-      .catch(console.error);
+      .catch(console.log);
   }, [params]);
 
   const onPressBack = () => {
@@ -61,18 +62,44 @@ export const CreateAccount = ({ route: { params } }: CreateAccountProps) => {
     setCurrentViewStep(ViewStep.VERIFY_SP);
   };
 
-  // const onPressSubmitVerifySecretPhrase = () => {
-  //   setCurrentViewStep(ViewStep.CREATE_ACCOUNT);
+  const onPressSubmitVerifySecretPhrase = () => {
+    setCurrentViewStep(ViewStep.CREATE_ACCOUNT);
+  };
+
+  // const onCreateAccount = () => {
+  //   if (seed) {
+  //     setIsBusy(true);
+  //     createAccountSuriV2({
+  //       name: accountName,
+  //       suri: seed,
+  //       types: params?.keyTypes || defaultKeyTypes,
+  //       isAllowed: true,
+  //     })
+  //       .then(() => {
+  //         if (!params.isBack) {
+  //           backToHome(goHome);
+  //         } else {
+  //           navigation.goBack();
+  //         }
+  //       })
+  //       .catch((error: Error): void => {
+  //         setIsBusy(false);
+  //         console.error(error);
+  //       });
+  //   }
   // };
 
-  const onCreateAccount = () => {
-    if (seed) {
+  const onCreateAccount = (curName: string, password: string) => {
+    console.log('here');
+
+    if (curName && password && seed) {
       setIsBusy(true);
       createAccountSuriV2({
-        name: accountName,
+        name: curName,
+        password,
         suri: seed,
-        types: params?.keyTypes || defaultKeyTypes,
         isAllowed: true,
+        types: [params?.keyTypes] || [defaultKeyTypes],
       })
         .then(() => {
           if (!params.isBack) {
@@ -97,7 +124,10 @@ export const CreateAccount = ({ route: { params } }: CreateAccountProps) => {
               <InitSecretPhrase seed={seed} onPressSubmit={onPressSubmitInitSecretPhrase} />
             )}
             {currentViewStep === ViewStep.VERIFY_SP && (
-              <VerifySecretPhrase seed={seed} onPressSubmit={onCreateAccount} isBusy={isBusy} />
+              <VerifySecretPhrase seed={seed} onPressSubmit={onPressSubmitVerifySecretPhrase} isBusy={isBusy} />
+            )}
+            {currentViewStep === ViewStep.CREATE_ACCOUNT && (
+              <AccountNamePasswordCreation isBusy={isBusy} onCreateAccount={onCreateAccount} />
             )}
           </>
         )}

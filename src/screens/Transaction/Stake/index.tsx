@@ -46,6 +46,7 @@ import { StakeProps } from 'routes/transaction/transactionAction';
 import { MarginBottomForSubmitButton } from 'styles/sharedStyles';
 import { accountFilterFunc } from 'screens/Transaction/helper/base';
 import useFetchChainState from 'hooks/screen/useFetchChainState';
+import { SubmitButton } from 'components/SubmitButton';
 
 export const Stake = ({
   route: {
@@ -468,7 +469,8 @@ export const Stake = ({
           selectedValue={asset}
         />
         <View style={{ paddingHorizontal: 16, paddingTop: 16, ...MarginBottomForSubmitButton }}>
-          <Button
+          <SubmitButton onPress={onPreCheckReadOnly(onSubmit)} title="Stake" leftIcon={PlusCircle} isBusy={loading} />
+          {/* <Button
             disabled={isDisabledButton}
             loading={loading}
             icon={
@@ -481,7 +483,7 @@ export const Stake = ({
             }
             onPress={onPreCheckReadOnly(onSubmit)}>
             Stake
-          </Button>
+          </Button> */}
         </View>
 
         {chainStakingMetadata && (

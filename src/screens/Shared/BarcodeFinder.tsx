@@ -1,3 +1,4 @@
+import { SVGImages } from 'assets/index';
 import React from 'react';
 import { StyleProp, View } from 'react-native';
 
@@ -35,7 +36,8 @@ const topLeftEdge: StyleProp<any> = {
 export const BarcodeFinder = ({ width, height, borderColor, borderWidth }: Props) => {
   return (
     <View style={container}>
-      <View style={[finder, { width, height }]}>
+      <SVGImages.Scanner height={height} />
+      {/* <View style={[finder, { width, height }]}>
         <View
           style={[
             topLeftEdge,
@@ -45,7 +47,7 @@ export const BarcodeFinder = ({ width, height, borderColor, borderWidth }: Props
             },
           ]}
         />
-      </View>
+      </View> */}
     </View>
   );
 };

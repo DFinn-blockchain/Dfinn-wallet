@@ -4,15 +4,15 @@ export const ColorMap = {
   transparent: 'transparent',
   light: '#fff',
   dark: '#000',
-  dark1: '#0c0c0c',
-  dark2: '#222',
-  backgroundSecondary: '#1A1A1A',
-  backgroundDefault: '#0c0c0c',
-  primary: '#42C59A',
-  secondary: '#004BFF',
+  dark1: '#040200',
+  dark2: '#212121',
+  primary: '#81FF81',
+  secondary: '#3854FF',
+  tertiary: '#FF8BEC',
   danger: '#F5000E',
-  disabled: '#999',
+  disabled: '#A2A2AA',
   warning: '#E7B917',
+  verified: '#00acee',
   iconWarningColor: '#FF7D01',
   disabledTextColor: 'rgba(255, 255, 255, 0.4)',
   notification: 'rgba(0, 0, 0, 0.8)',
@@ -42,5 +42,5 @@ export const ColorMap = {
 };
 
 export const Background = StyleSheet.create({
-  transparentDark: { backgroundColor: 'rgba(0, 0, 0, 0.5)' },
+  transparentDark: { backgroundColor: 'rgb(0,0,0)' },
 });

@@ -1,21 +1,37 @@
 import React from 'react';
-import { StyleProp, TouchableOpacityProps, View, ViewStyle } from 'react-native';
+import { StyleProp, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
 import Text from '../components/Text';
 import { FontMedium } from 'styles/sharedStyles';
-import { Button } from 'components/design-system-ui';
-import { ThemeTypes } from 'styles/themes';
-import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
-import { ButtonPropsType } from 'components/design-system-ui/button/PropsType';
+import { ColorMap } from 'styles/color';
 
 interface Props extends TouchableOpacityProps {
-  label?: string;
-  icon: ButtonPropsType['icon'];
-  buttonWrapperStyle?: StyleProp<ViewStyle>;
+  label: string;
+  icon: JSX.Element;
+  buttonWrapperStyle: any;
 }
 
-function getButtonTextStyle(disabled: boolean, theme: ThemeTypes) {
+const buttonContainerStyle: StyleProp<any> = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  marginHorizontal: 15,
+};
+
+const buttonWrapperStyle: StyleProp<any> = {
+  //backgroundColor: ColorMap.secondary,
+  width: 60,
+  height: 60,
+  borderRadius: 50,
+  borderWidth: 2,
+  borderColor: ColorMap.dark,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+};
+
+function getButtonTextStyle(disabled: boolean) {
   return {
-    color: disabled ? theme.colorTextLight4 : theme.colorTextLight1,
+    color: ColorMap.dark,
     fontSize: 15,
     lineHeight: 26,
     ...FontMedium,
@@ -23,23 +39,25 @@ function getButtonTextStyle(disabled: boolean, theme: ThemeTypes) {
   };
 }
 
-const ActionButton = (actionButtonProps: Props) => {
-  const theme = useSubWalletTheme().swThemes;
-  const { label, icon, disabled, onPress, buttonWrapperStyle } = actionButtonProps;
-  return (
-    <View style={{ alignItems: 'center' }}>
-      <View style={buttonWrapperStyle}>
-        <Button
-          shape={'squircle'}
-          size={'sm'}
-          disabled={!!disabled}
-          icon={icon}
-          // @ts-ignore
-          onPress={() => onPress && onPress()}
-        />
-      </View>
+const disabledOverlay: StyleProp<any> = {
+  position: 'absolute',
+  right: 0,
+  top: 0,
+  left: 0,
+  bottom: 0,
+  borderRadius: 18,
+  backgroundColor: ColorMap.disabledOverlay,
+};
 
-      {!!label && <Text style={getButtonTextStyle(!!disabled, theme)}>{label}</Text>}
+const ActionButton = (actionButtonProps: Props) => {
+  const { label, icon, disabled } = actionButtonProps;
+  return (
+    <View style={{ alignItems: 'center', opacity: disabled ? 0.5 : 1 }}>
+      <TouchableOpacity style={buttonContainerStyle} {...actionButtonProps} disabled={disabled} activeOpacity={0.5}>
+        <View style={buttonWrapperStyle}>{icon}</View>
+        {/* {disabled && <View style={disabledOverlay} />} */}
+      </TouchableOpacity>
+      <Text style={getButtonTextStyle(!!disabled)}>{label}</Text>
     </View>
   );
 };

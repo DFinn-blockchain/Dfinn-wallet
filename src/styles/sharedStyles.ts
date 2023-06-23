@@ -1,6 +1,7 @@
 import { Platform, StyleProp, StyleSheet } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { ColorMap } from 'styles/color';
+import { statusBarHeight } from 'constants/index';
 
 export const STATUS_BAR_HEIGHT = getStatusBarHeight();
 export const STATUS_BAR_LIGHT_CONTENT = 'light-content';
@@ -19,8 +20,12 @@ export const FontSize2 = { fontSize: 15 };
 export const FontSize3 = { fontSize: 18 };
 export const FontSize4 = { fontSize: 20 };
 export const FontSize5 = { fontSize: 40 };
+export const TitleFont = {
+  fontFamily: 'PlusJakartaSans-Bold',
+  fontSize: 30,
+};
 export const ContainerHorizontalPadding = { paddingLeft: 16, paddingRight: 16 };
-export const MarginBottomForSubmitButton = { marginBottom: 16 };
+export const MarginBottomForSubmitButton = { marginBottom: 18 };
 export const ScrollViewStyle = { marginLeft: -16, marginRight: -16, ...ContainerHorizontalPadding };
 export const centerStyle: StyleProp<any> = {
   justifyContent: 'center',
@@ -43,7 +48,7 @@ export const getStatusBarPlaceholderStyle = (backgroundColor = ColorMap.dark1): 
     position: 'absolute',
     left: 0,
     right: 0,
-    height: STATUS_BAR_HEIGHT,
+    height: statusBarHeight + 13.5,
     backgroundColor: backgroundColor,
     zIndex: 10,
   };

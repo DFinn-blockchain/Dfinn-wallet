@@ -14,6 +14,7 @@ import FilterModal, { OptionType } from 'components/common/FilterModal';
 import { useFilterModal } from 'hooks/useFilterModal';
 import { SectionListData } from 'react-native/Libraries/Lists/SectionList';
 import { LazySectionList, SectionItem } from 'components/LazySectionList';
+import { ColorMap } from 'styles/color';
 
 //TODO: split FlatList in FlatListScreen to new component, use ImperativeHandle to setPageNumber
 export interface RightIconOpt {

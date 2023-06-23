@@ -7,6 +7,7 @@ import { SwNumberProps } from 'components/design-system-ui/number';
 import { useSelector } from 'react-redux';
 import { RootState } from 'stores/index';
 import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
+import { ColorMap } from 'styles/color';
 
 type Props = {
   value: SwNumberProps['value'];
@@ -32,7 +33,7 @@ export const BalancesVisibility = ({ value, symbol, startWithSymbol = true, subF
           prefix={startWithSymbol ? (symbol ? symbol : '$') : undefined}
           suffix={!startWithSymbol ? (symbol ? symbol : '$') : undefined}
           size={38}
-          textStyle={{ ...FontSemiBold, lineHeight: 20, paddingTop: 24 }}
+          textStyle={{ ...FontSemiBold, lineHeight: 20, paddingTop: 24, color: ColorMap.dark }}
           subFloatNumber={subFloatNumber}
           decimalOpacity={0.45}
         />
@@ -42,7 +43,8 @@ export const BalancesVisibility = ({ value, symbol, startWithSymbol = true, subF
             ...FontSemiBold,
             fontSize: 38,
             lineHeight: 38,
-            color: theme.colorTextLight1,
+            color: ColorMap.dark,
+            //color: theme.colorTextLight1,
           }}>
           ******
         </Text>

@@ -29,6 +29,7 @@ import { _AssetType, _ChainInfo } from '@subwallet/chain-list/types';
 import { Button } from 'components/design-system-ui';
 import { ContainerHorizontalPadding, MarginBottomForSubmitButton } from 'styles/sharedStyles';
 import { TokenTypeSelector } from 'components/Modal/common/TokenTypeSelector';
+import { SubmitButton } from 'components/SubmitButton';
 
 const ContainerHeaderStyle: StyleProp<any> = {
   width: '100%',
@@ -364,12 +365,18 @@ const ImportNft = ({ route: { params: routeParams } }: ImportNftProps) => {
       </ScrollView>
 
       <View style={{ ...ContainerHorizontalPadding, ...MarginBottomForSubmitButton, paddingTop: 16 }}>
-        <Button
+        <SubmitButton
+          title={i18n.importEvmNft.importNft}
+          onPress={() => handleAddToken(formState)}
+          disabled={isDisableAddNFT || !isNetConnected || !isReady || loading}
+          isBusy={loading}
+        />
+        {/* <Button
           loading={loading}
           onPress={() => handleAddToken(formState)}
           disabled={isDisableAddNFT || !isNetConnected || !isReady || loading}>
           {i18n.importEvmNft.importNft}
-        </Button>
+        </Button> */}
       </View>
     </ContainerWithSubHeader>
   );

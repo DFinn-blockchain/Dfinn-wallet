@@ -32,6 +32,8 @@ interface Props {
   disabled?: boolean;
 }
 
+const outerStyle: StyleProp<any> = { marginBottom: 4, borderRadius: 20 };
+
 export const ChainSelectContainer = ({
   originChain,
   destinationChain,
@@ -43,7 +45,7 @@ export const ChainSelectContainer = ({
     <View style={{ position: 'relative', marginBottom: 12 }}>
       <OriginChainSelectField
         disabled={disabled}
-        outerStyle={{ marginBottom: 4, paddingLeft: 58 }}
+        outerStyle={outerStyle}
         label={i18n.sendAssetScreen.originChain}
         networkKey={originChain}
         onPressField={() => {
@@ -53,7 +55,7 @@ export const ChainSelectContainer = ({
 
       <DestinationChainSelectField
         disabled={disabled}
-        outerStyle={{ marginBottom: 4, paddingLeft: 58 }}
+        outerStyle={outerStyle}
         label={i18n.sendAssetScreen.destinationChain}
         networkKey={destinationChain}
         onPressField={() => {

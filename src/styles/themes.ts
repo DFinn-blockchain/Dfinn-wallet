@@ -32,7 +32,7 @@ export const THEME_PRESET: Record<string, SWTheme> = {
     colors: {
       primary: '#42C59A',
       secondary: '#004BFF',
-      background: '#161616',
+      background: '#000000',
       card: 'rgb(18, 18, 18)',
       text: 'rgb(229, 229, 231)',
       border: '#222222',

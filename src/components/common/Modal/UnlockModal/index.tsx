@@ -10,6 +10,7 @@ import { CheckCircle } from 'phosphor-react-native';
 import { keyringUnlock } from 'messaging/index';
 import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
 import createStyle from './style';
+import { SubmitButton } from 'components/SubmitButton';
 
 interface Props {
   onPasswordComplete: VoidFunction;
@@ -91,7 +92,14 @@ export const UnlockModal: React.FC<Props> = (props: Props) => {
       footer={
         <>
           <View style={styles.footer}>
-            <Button
+            <SubmitButton
+              isBusy={loading}
+              disabled={isDisabled}
+              leftIcon={CheckCircle}
+              onPress={onSubmit}
+              title="Apply"
+            />
+            {/* <Button
               loading={loading}
               disabled={isDisabled}
               icon={
@@ -104,7 +112,7 @@ export const UnlockModal: React.FC<Props> = (props: Props) => {
               }
               onPress={onSubmit}>
               {'Apply'}
-            </Button>
+            </Button> */}
           </View>
         </>
       }

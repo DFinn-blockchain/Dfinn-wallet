@@ -3,6 +3,33 @@ apply plugin: "com.facebook.react"
 
 import com.android.build.OutputFile
 
+// Import JSON parser, place it at the top of the file
+import groovy.json.JsonSlurper
+
+// Read package.json and return `version` field
+def getVersionFromNpm() {
+    //  Read and parse package.json file from project root
+    def inputFile = new File("$rootDir/../package.json")
+    def packageJson = new JsonSlurper().parseText(inputFile.text)
+
+
+    println ("Version Name: " +  packageJson["version"]);
+    // Return the version, you can get any value this way
+    return packageJson["version"]
+}
+
+// Convert version name to a version number
+def getNumericVersionFromNpm() {
+
+    def inputFile = new File("$rootDir/../package.json")
+    def packageJson = new JsonSlurper().parseText(inputFile.text)
+
+
+    println ("Version Number: " +  packageJson["build"]);
+    // Return the version, you can get any value this way
+    return packageJson["build"] as int
+}
+
 /**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
@@ -93,8 +120,8 @@ android {
         applicationId "app.subwallet.mobile"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 162
-        versionName "1.0.3"
+         versionCode getNumericVersionFromNpm()
+        versionName getVersionFromNpm()
         missingDimensionStrategy 'react-native-camera', 'general'
     }
 

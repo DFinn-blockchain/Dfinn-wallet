@@ -53,7 +53,7 @@ const subWalletModalSeparator: StyleProp<any> = {
 const titleMap: Record<ConfirmationType, string> = {
   addNetworkRequest: 'Add Network Request',
   addTokenRequest: 'Add Token Request',
-  authorizeRequest: 'Connect to SubWallet',
+  authorizeRequest: 'Connect to Dfinn Wallet',
   evmSendTransactionRequest: 'Transaction Request',
   evmSignatureRequest: 'Signature request',
   metadataRequest: 'Update Metadata',

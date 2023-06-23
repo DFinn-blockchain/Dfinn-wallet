@@ -8,6 +8,8 @@ const CheckBoxFilledIcon = React.lazy(() => import('./checkbox-filled.svg'));
 const NftIcon = React.lazy(() => import('./logo-nft.svg'));
 const Logo = React.lazy(() => import('./subwallet-logo.svg'));
 const MenuBarLogo = React.lazy(() => import('./menu-bar.svg'));
+const FirstPageImage = React.lazy(() => import('./new_splash_img.svg'));
+const Scanner = React.lazy(() => import('./Scanner.svg'));
 
 export const SVGImages = {
   Logo,
@@ -17,11 +19,17 @@ export const SVGImages = {
   SignalIcon: SignalIcon,
   SignalSplashIcon: SignalSplashIcon,
   MenuBarLogo: MenuBarLogo,
+  FirstPageImg: FirstPageImage,
+  Scanner,
 };
 
 export const Images = {
   ...ImageLogosMap,
-  loading: require('./loading.gif'),
+  wallet: require('./Wallet.png'),
+  browser: require('./Browser.png'),
+  swap: require('./Swap.png'),
+  setting: require('./Setting.png'),
+  loading: require('./new_loading.gif'),
   stackingEmptyList: require('./stacking-empty-list.png'),
   successStatusImg: require('./success-status.png'),
   failStatusImg: require('./fail-status.png'),
@@ -29,5 +37,6 @@ export const Images = {
   historyEmpty: require('./transaction-history-coming-soon.png'),
   squircleBorder: require('./squircleBorder.png'),
   avatarPlaceholder: require('./avatar-placeholder.png'),
-  subwalletDappLogo: require('./subwallet-dapp-logo.png'),
+  subwalletDappLogo: require('./dfinn_logo.png'),
+  radialBg1: require('./radial_bg1.png'),
 };

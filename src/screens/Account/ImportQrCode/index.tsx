@@ -25,6 +25,7 @@ import { RootStackParamList } from 'routes/index';
 import { QrAccount } from 'types/qr/attach';
 import { backToHome } from 'utils/navigation';
 import createStyle from './styles';
+import { Images } from 'assets/index';
 
 type Props = {};
 
@@ -122,7 +123,7 @@ const ImportQrCode: React.FC<Props> = (props: Props) => {
         </Text>
         <View>
           <DualLogo
-            leftLogo={<Image {...imageProps} src={ImageLogosMap.subwallet} />}
+            leftLogo={<Image {...imageProps} src={Images.subwalletDappLogo} />}
             linkIcon={<Icon phosphorIcon={Scan} size="md" />}
             rightLogo={<Image {...imageProps} src={ImageLogosMap.__qr_code__} />}
           />

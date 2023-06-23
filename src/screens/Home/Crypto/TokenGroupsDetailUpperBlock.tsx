@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { ImageBackground, Platform, StyleSheet, View } from 'react-native';
 import ActionButton from 'components/ActionButton';
 import i18n from 'utils/i18n/i18n';
 import { CaretLeft } from 'phosphor-react-native';
@@ -14,6 +14,7 @@ import { RootState } from 'stores/index';
 import { useSelector } from 'react-redux';
 import { ThemeTypes } from 'styles/themes';
 import { ButtonIcon } from 'screens/Home/Crypto/shared/Button';
+import { Images } from 'assets/index';
 
 interface Props {
   balanceValue: SwNumberProps['value'];
@@ -66,7 +67,10 @@ export const TokenGroupsDetailUpperBlock = ({
   }, [accounts, currentAccount?.address, isAllAccount, groupSymbol]);
 
   return (
-    <View style={_style.containerStyle} pointerEvents="box-none">
+    <ImageBackground
+      source={Images.radialBg1}
+      style={_style.containerStyle}
+      imageStyle={{ borderTopLeftRadius: 50, borderTopRightRadius: 50, marginTop: 10 }}>
       <View style={_style.topArea}>
         <Button
           type="ghost"
@@ -75,7 +79,7 @@ export const TokenGroupsDetailUpperBlock = ({
           onPress={onClickBack}
         />
         <View style={_style.tokenDisplay}>
-          <Typography.Title level={4} style={{ color: theme.colorTextLight1, ...FontSemiBold }}>
+          <Typography.Title level={4} style={FontSemiBold}>
             {`${i18n.title.token}: ${groupSymbol}`}
           </Typography.Title>
         </View>
@@ -101,7 +105,7 @@ export const TokenGroupsDetailUpperBlock = ({
           buttonWrapperStyle={{ paddingHorizontal: theme.marginXS }}
         />
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 

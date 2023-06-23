@@ -2,11 +2,13 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { IconProps } from 'phosphor-react-native';
 import { IconWeight } from 'phosphor-react-native/lib/typescript';
 import React from 'react';
-import { StyleProp, View, ViewStyle } from 'react-native';
+import { ImageBackground, StyleProp, View, ViewStyle } from 'react-native';
 import { Icon, Squircle } from '..';
 import BackgroundIconStyles from './style';
 import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
 import { ImageShape } from '@subwallet/react-ui/es/image';
+import { getRandom } from 'assets/logo_bg';
+import { ColorMap } from 'styles/color';
 
 interface BackgroundIconProps {
   shape?: ImageShape;
@@ -71,16 +73,26 @@ const BackgroundIcon: React.FC<BackgroundIconProps> = ({
   }
 
   return (
-    <View style={[{ backgroundColor }, _style[`${shape}Icon`], style]}>
+    <ImageBackground source={getRandom()} style={{ padding: 10 }} imageStyle={{ borderRadius: 15 }}>
       <Icon
         type={type}
         phosphorIcon={phosphorIcon}
         fontawesomeIcon={fontawesomeIcon}
-        iconColor={iconColor}
+        iconColor={ColorMap.dark}
         customSize={getBackgroundIconSize()}
         weight={weight}
       />
-    </View>
+    </ImageBackground>
+    // <View style={[{ backgroundColor }, _style[`${shape}Icon`], style]}>
+    //   <Icon
+    //     type={type}
+    //     phosphorIcon={phosphorIcon}
+    //     fontawesomeIcon={fontawesomeIcon}
+    //     iconColor={iconColor}
+    //     customSize={getBackgroundIconSize()}
+    //     weight={weight}
+    //   />
+    // </View>
   );
 };
 

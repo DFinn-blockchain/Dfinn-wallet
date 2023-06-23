@@ -41,6 +41,7 @@ const Logo: React.FC<SWLogoProps> = ({
   const { chainLogoMap, assetLogoMap } = useSelector((state: RootState) => state.logoMaps);
   const _style = LogoStyles(theme);
   const subLogoSize = size / 2.5;
+
   let srcLogo;
   if (token) {
     srcLogo = assetLogoMap[token] || assetLogoMap[defaultLogoKey];

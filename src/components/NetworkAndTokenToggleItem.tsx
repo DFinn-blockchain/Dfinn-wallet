@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleProp, Switch, View, ViewStyle } from 'react-native';
+import { StyleProp, Switch, View } from 'react-native';
 import Text from 'components/Text';
+import { getNetworkLogo } from 'utils/index';
 import { ColorMap } from 'styles/color';
-import { FontSemiBold } from 'styles/sharedStyles';
-import { BackgroundIcon, Button, Icon, Logo } from 'components/design-system-ui';
-import { PencilSimpleLine, WifiHigh, WifiSlash } from 'phosphor-react-native';
-import { _ChainConnectionStatus } from '@subwallet/extension-base/services/chain-service/types';
+import { FontSemiBold, sharedStyles } from 'styles/sharedStyles';
+import { Divider } from './Divider';
+import GradientCheck from './GradientCheck';
 
 interface Props {
   itemName: string;
@@ -13,19 +13,14 @@ interface Props {
   isEnabled: boolean;
   onValueChange: () => void;
   isDisableSwitching?: boolean;
-  connectionStatus?: _ChainConnectionStatus;
-  onPressEditBtn?: () => void;
-  showEditButton?: boolean;
-  style?: ViewStyle;
 }
 
 const itemArea: StyleProp<any> = {
   flexDirection: 'row',
   justifyContent: 'space-between',
-  paddingVertical: 6,
+  paddingVertical: 16,
   alignItems: 'center',
-  paddingLeft: 12,
-  paddingRight: 4,
+  paddingHorizontal: 16,
   flex: 1,
 };
 
@@ -37,19 +32,23 @@ const itemBodyArea: StyleProp<any> = {
 };
 
 const itemSeparator: StyleProp<any> = {
-  backgroundColor: 'rgba(33, 33, 33, 0.8)',
+  backgroundColor: ColorMap.dark2,
   height: 1,
-  marginLeft: 60,
-  marginRight: 12,
+  marginLeft: 64,
+  marginRight: 16,
 };
 
 const itemTextStyle: StyleProp<any> = {
-  paddingLeft: 12,
+  paddingLeft: 16,
   color: ColorMap.light,
-  fontSize: 16,
-  lineHeight: 24,
+  ...sharedStyles.mediumText,
   ...FontSemiBold,
   flex: 1,
+};
+
+const logoWrapperStyle: StyleProp<any> = {
+  backgroundColor: ColorMap.dark,
+  borderRadius: 40,
 };
 
 export const NetworkAndTokenToggleItem = ({
@@ -58,53 +57,27 @@ export const NetworkAndTokenToggleItem = ({
   isEnabled,
   onValueChange,
   isDisableSwitching,
-  connectionStatus,
-  onPressEditBtn,
-  showEditButton,
-  style,
 }: Props) => {
   return (
-    <View style={[{ marginBottom: 8 }, style]}>
+    <View style={{}}>
       <View style={itemArea}>
         <View style={itemBodyArea}>
-          <Logo
-            size={36}
-            network={itemKey}
-            isShowSubIcon
-            subIcon={
-              <BackgroundIcon
-                phosphorIcon={connectionStatus === _ChainConnectionStatus.CONNECTED ? WifiHigh : WifiSlash}
-                size={'xs'}
-                backgroundColor={connectionStatus === _ChainConnectionStatus.CONNECTED ? '#2DA73F' : '#737373'}
-                shape={'circle'}
-              />
-            }
-          />
+          <View style={logoWrapperStyle}>{getNetworkLogo(itemKey, 40)}</View>
 
           <Text numberOfLines={1} style={itemTextStyle}>
             {itemName}
           </Text>
         </View>
-
-        <Switch
+        <GradientCheck checked={isEnabled} disabled={isDisableSwitching} onPress={onValueChange} />
+        {/* <Switch
           disabled={isDisableSwitching}
           ios_backgroundColor={ColorMap.switchInactiveButtonColor}
           value={isEnabled}
           onValueChange={onValueChange}
-        />
-
-        {showEditButton && (
-          <Button
-            style={{ marginLeft: 8 }}
-            size={'xs'}
-            type={'ghost'}
-            icon={<Icon phosphorIcon={PencilSimpleLine} size={'sm'} iconColor={'rgba(166, 166, 166, 1)'} />}
-            onPress={onPressEditBtn}
-          />
-        )}
+        /> */}
       </View>
 
-      <View style={itemSeparator} />
+      <Divider style={{ paddingLeft: 72, paddingRight: 16, paddingBottom: 1 }} color={ColorMap.dark2} />
     </View>
   );
 };

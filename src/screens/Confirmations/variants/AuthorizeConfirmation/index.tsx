@@ -23,6 +23,8 @@ import { isAccountAll } from 'utils/accountAll';
 import i18n from 'utils/i18n/i18n';
 
 import createStyle from './styles';
+import { SubmitButton } from 'components/SubmitButton';
+import { ColorMap } from 'styles/color';
 
 interface Props {
   request: AuthorizeRequest;
@@ -230,7 +232,22 @@ const AuthorizeConfirmation: React.FC<Props> = (props: Props) => {
           </>
         ) : (
           <>
-            <Button
+            <SubmitButton
+              leftIcon={XCircle}
+              onPress={onCancel}
+              backgroundColor={ColorMap.dark2}
+              title={i18n.common.cancel}
+              style={{ flex: 1 }}
+            />
+
+            <SubmitButton
+              leftIcon={PlusCircle}
+              onPress={onPressCreateOne(onAddAccount)}
+              title={'Create One'}
+              style={{ flex: 1 }}
+            />
+
+            {/* <Button
               icon={<Icon phosphorIcon={XCircle} weight="fill" />}
               block={true}
               type="secondary"
@@ -242,7 +259,7 @@ const AuthorizeConfirmation: React.FC<Props> = (props: Props) => {
               onPress={onPressCreateOne(onAddAccount)}
               icon={<Icon phosphorIcon={PlusCircle} weight="fill" />}>
               Create one
-            </Button>
+            </Button> */}
             <UnlockModal onPasswordComplete={onPasswordComplete} visible={visible} onHideModal={onHideModal} />
           </>
         )}

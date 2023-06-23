@@ -11,9 +11,9 @@ type DeviceInfo = {
 };
 
 export const WIKI_URL = 'https://docs.subwallet.app/';
-export const PRIVACY_AND_POLICY_URL = 'https://docs.subwallet.app/privacy-and-security/privacy-policy';
-export const TERMS_OF_SERVICE_URL = 'https://docs.subwallet.app/privacy-and-security/terms-of-service';
-export const WEBSITE_URL = 'https://subwallet.app/';
+export const PRIVACY_AND_POLICY_URL = 'https://dfinn.money/privacy-policy';
+export const TERMS_OF_SERVICE_URL = 'https://dfinn.money/terms-and-conditions';
+export const WEBSITE_URL = 'https://dfinn.money/';
 export const TELEGRAM_URL = 'https://t.me/subwallet';
 export const TWITTER_URL = 'https://twitter.com/subwalletapp';
 export const DISCORD_URL = 'https://discord.com/invite/vPCN4vdB8v';

@@ -2,7 +2,7 @@ import { StyleProp, TouchableOpacity, TouchableOpacityProps } from 'react-native
 import React from 'react';
 import Text from '../components/Text';
 import { ColorMap } from 'styles/color';
-import { FontMedium, sharedStyles } from 'styles/sharedStyles';
+import { FontBold, FontMedium, FontSemiBold, FontSize1, sharedStyles } from 'styles/sharedStyles';
 import { BUTTON_ACTIVE_OPACITY } from 'constants/index';
 
 interface SeedWordProps extends TouchableOpacityProps {
@@ -13,27 +13,30 @@ interface SeedWordProps extends TouchableOpacityProps {
   prefixText?: string;
   isActivated?: boolean;
   isError?: boolean;
+  small?: boolean;
+  removeBoundary?: boolean;
 }
 
 function getWrapperStyle(seedWordProps: SeedWordProps): StyleProp<any> {
-  const { prefixText, backgroundColor, style, isActivated, isError } = seedWordProps;
+  const { prefixText, backgroundColor, style, isActivated, isError, small, removeBoundary } = seedWordProps;
   const styleMap: StyleProp<any> = {
     position: 'relative',
-    height: 40,
-    borderRadius: 8,
+    height: removeBoundary ? 25 : small ? 40 : 55,
+    borderRadius: 20,
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    backgroundColor: backgroundColor || ColorMap.dark2,
-    borderColor: backgroundColor || ColorMap.dark2,
-    paddingLeft: prefixText ? 12 : 12,
-    paddingRight: 12,
-    // minWidth: 106,
+    backgroundColor: removeBoundary ? 'transparent' : backgroundColor || ColorMap.dark2,
+    borderColor: 'transparent',
+    paddingLeft: prefixText ? 12 : 0,
+    //paddingRight: 12,
+    minWidth: removeBoundary ? '20%' : small ? '40%' : '45%',
   };
 
   if (isActivated) {
     styleMap.backgroundColor = 'transparent';
     styleMap.borderStyle = 'dashed';
+    styleMap.borderColor = backgroundColor || ColorMap.dark2;
   }
 
   if (isError) {
@@ -52,14 +55,13 @@ function getWrapperStyle(seedWordProps: SeedWordProps): StyleProp<any> {
 }
 
 const textStyle = {
-  ...sharedStyles.mainText,
-  ...FontMedium,
+  ...FontSize1,
 };
 
 function getPrefixTextStyle(isActivated?: boolean): StyleProp<any> {
   return {
-    ...textStyle,
     color: ColorMap.disabled,
+    ...FontSemiBold,
     marginRight: 8,
     opacity: isActivated ? 0 : 1,
   };
@@ -67,8 +69,9 @@ function getPrefixTextStyle(isActivated?: boolean): StyleProp<any> {
 
 function getTitleStyle(color: string = ColorMap.light, isActivated?: boolean) {
   return {
-    ...textStyle,
     color,
+    ...FontSemiBold,
+    ...textStyle,
     opacity: isActivated ? 0 : 1,
   };
 }

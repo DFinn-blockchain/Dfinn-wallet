@@ -98,7 +98,7 @@ export function LazyFlatList<T>({
           style={[
             isShowListWrapper
               ? {
-                  backgroundColor: '#1A1A1A',
+                  //backgroundColor: '#1A1A1A',
                   marginHorizontal: 16,
                   borderRadius: 8,
                   // marginBottom: 94,

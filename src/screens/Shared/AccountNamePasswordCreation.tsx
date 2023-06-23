@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
-import { Keyboard, ScrollView, StyleProp, View } from 'react-native';
+import { Keyboard, ScrollView, StyleProp, TextStyle, View } from 'react-native';
 import Text from 'components/Text';
 import { ColorMap } from 'styles/color';
 import { FontMedium, MarginBottomForSubmitButton, ScrollViewStyle, sharedStyles } from 'styles/sharedStyles';
+import { SubmitButton } from 'components/SubmitButton';
 import { AccountNameAndPasswordArea } from 'components/AccountNameAndPasswordArea';
 import i18n from 'utils/i18n/i18n';
 import useFormControl, { FormState } from 'hooks/screen/useFormControl';
-import { Button } from 'components/design-system-ui';
+import GradientButton from 'components/GradientButton';
 
 const bodyAreaStyle: StyleProp<any> = {
   flex: 1,
@@ -17,6 +18,12 @@ const footerAreaStyle: StyleProp<any> = {
   marginTop: 8,
   ...MarginBottomForSubmitButton,
 };
+const infoTextStyle: StyleProp<any> = {
+  color: ColorMap.disabledTextColor,
+  textAlign: 'center',
+  paddingHorizontal: 20,
+  paddingBottom: 26,
+};
 
 const titleStyle: StyleProp<any> = {
   ...sharedStyles.mainText,
@@ -25,6 +32,10 @@ const titleStyle: StyleProp<any> = {
   paddingHorizontal: 20,
   ...FontMedium,
   paddingBottom: 26,
+};
+const buttonTextStyle: TextStyle = {
+  ...sharedStyles.smallText,
+  textAlign: 'center',
 };
 
 interface Props {
@@ -97,17 +108,26 @@ export const AccountNamePasswordCreation = ({ isBusy, onCreateAccount }: Props) 
   return (
     <View style={sharedStyles.layoutContainer}>
       <ScrollView style={bodyAreaStyle}>
-        <Text style={titleStyle}>{i18n.common.createWalletNotification}</Text>
+        <Text style={infoTextStyle}>{i18n.common.createWalletNotification}</Text>
 
         <AccountNameAndPasswordArea formState={formState} onChangeValue={onChangeValue} onSubmitField={onSubmitField} />
       </ScrollView>
       <View style={footerAreaStyle}>
-        <Button
+        {/* <GradientButton
           disabled={!checkValidateForm(formState.isValidated)}
-          loading={isBusy}
-          onPress={() => _onCreateAccount(formState)}>
-          {i18n.common.finish}
-        </Button>
+          onPress={() => _onCreateAccount(formState)}
+          viewStyle={{
+            height: 60,
+            borderRadius: 40,
+          }}>
+          <Text style={{ color: ColorMap.dark, ...buttonTextStyle }}>{i18n.common.finish}</Text>
+        </GradientButton> */}
+        <SubmitButton
+          disabled={!checkValidateForm(formState.isValidated)}
+          isBusy={isBusy}
+          title={i18n.common.finish}
+          onPress={() => _onCreateAccount(formState)}
+        />
       </View>
     </View>
   );

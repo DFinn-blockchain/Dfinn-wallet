@@ -5,7 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0C0C0C">
-
+  <ImageView
+      android:id="@+id/imageView"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_alignParentStart="true"
+      android:layout_alignParentEnd="true"
+      android:layout_marginStart="0dp"
+      android:layout_marginEnd="0dp"
+      android:scaleType="fitXY"
+      android:src="@drawable/splash_background" />
   <LinearLayout
       android:layout_width="wrap_content"
       android:layout_height="407dp"
@@ -25,27 +34,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="fitCenter"
-        android:src="@drawable/logo" />
+        android:src="@drawable/splash_logo" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="center"
-        android:layout_marginTop="5dp"
-        android:src="@drawable/sublogo" />
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:scaleType="center"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:src="@drawable/sublogo" />-->
   </LinearLayout>
 
-  <ImageView
-      android:id="@+id/imageView"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_alignParentStart="true"
-      android:layout_alignParentEnd="true"
-      android:layout_marginStart="0dp"
-      android:layout_marginEnd="0dp"
-      android:scaleType="fitXY"
-      android:src="@drawable/splash_background" />
+
 
   <TextView
       android:id="@+id/second"

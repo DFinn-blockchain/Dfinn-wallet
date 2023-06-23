@@ -1,11 +1,19 @@
 import React from 'react';
-import { ActivityIndicator, StyleProp, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import {
+  ActivityIndicator,
+  ImageBackground,
+  StyleProp,
+  TouchableOpacity,
+  TouchableOpacityProps,
+  View,
+} from 'react-native';
 import { ColorMap } from 'styles/color';
 import Text from '../components/Text';
 import { FontMedium, sharedStyles } from 'styles/sharedStyles';
 import Loading from 'components/Loading';
 import { BUTTON_ACTIVE_OPACITY } from 'constants/index';
 import { CaretRight, IconProps } from 'phosphor-react-native';
+import { Images } from 'assets/index';
 
 interface ButtonProps extends TouchableOpacityProps {
   title: string;
@@ -19,22 +27,21 @@ interface ButtonProps extends TouchableOpacityProps {
   disabledColor?: string;
 }
 
-function getWrapperStyle(backgroundColor: string = ColorMap.secondary, style: StyleProp<any> = {}): StyleProp<any> {
+function getWrapperStyle(backgroundColor: string = ColorMap.tertiary, style: StyleProp<any> = {}): StyleProp<any> {
   return {
-    position: 'relative',
     height: 52,
-    borderRadius: 5,
+    borderRadius: 30,
     backgroundColor,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingLeft: 16,
-    paddingRight: 16,
+    // paddingLeft: 16,
+    // paddingRight: 16,
     ...style,
   };
 }
 
-function getTextStyle(color: string = ColorMap.light, isShowLeftIcon: boolean) {
+function getTextStyle(color: string = ColorMap.dark, isShowLeftIcon: boolean) {
   return {
     ...sharedStyles.mediumText,
     ...FontMedium,
@@ -50,7 +57,7 @@ function disabledOverlayStyle(color?: string): StyleProp<any> {
     top: 0,
     left: 0,
     bottom: 0,
-    borderRadius: 5,
+    borderRadius: 40,
     backgroundColor: color ? color : ColorMap.disabledOverlay,
   };
 }
@@ -81,7 +88,7 @@ export const SubmitButton = (buttonProps: ButtonProps) => {
     backgroundColor,
     loadingLeftIcon,
     color,
-    style,
+    style = {},
     hasRightArrow,
     disabled,
     isBusy,
@@ -90,22 +97,49 @@ export const SubmitButton = (buttonProps: ButtonProps) => {
 
   return (
     <TouchableOpacity
+      style={style}
       activeOpacity={BUTTON_ACTIVE_OPACITY}
       {...buttonProps}
-      disabled={disabled || isBusy}
-      style={getWrapperStyle(backgroundColor, style)}>
-      {loadingLeftIcon && (
-        <ActivityIndicator animating={true} size={'small'} color={ColorMap.light} style={LoadingLeftIconStyle} />
-      )}
-      {!!LeftIcon && <LeftIcon size={20} weight={'bold'} color={ColorMap.light} />}
-      <Text style={getTextStyle(color, !!LeftIcon)}>{title}</Text>
-      {hasRightArrow && (
-        <View style={iconStyle}>
-          <CaretRight size={20} color={color || ColorMap.light} weight={'bold'} />
+      disabled={disabled || isBusy}>
+      <ImageBackground
+        source={backgroundColor ? {} : Images.radialBg1}
+        style={getWrapperStyle(backgroundColor, {})}
+        imageStyle={{ borderRadius: 30 }}>
+        <View
+          style={{
+            flex: 1,
+            height: 50,
+            borderRadius: 30,
+            margin: 2,
+            borderWidth: 2,
+            borderColor: backgroundColor ? backgroundColor : ColorMap.dark,
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+          }}>
+          {loadingLeftIcon && (
+            <ActivityIndicator
+              animating={true}
+              size={'small'}
+              color={backgroundColor ? ColorMap.light : ColorMap.dark}
+              style={LoadingLeftIconStyle}
+            />
+          )}
+          {!!LeftIcon && (
+            <LeftIcon size={20} weight={'bold'} color={backgroundColor ? ColorMap.light : ColorMap.dark} />
+          )}
+          <Text style={getTextStyle(color || backgroundColor ? ColorMap.light : ColorMap.dark, !!LeftIcon)}>
+            {title}
+          </Text>
+          {hasRightArrow && (
+            <View style={iconStyle}>
+              <CaretRight size={20} color={color || ColorMap.dark} weight={'bold'} />
+            </View>
+          )}
+          {(disabled || isBusy) && <View style={disabledOverlayStyle(disabledColor)} />}
+          {isBusy && <Loading width={32} height={32} style={loadingStyle} />}
         </View>
-      )}
-      {(disabled || isBusy) && <View style={disabledOverlayStyle(disabledColor)} />}
-      {isBusy && <Loading width={32} height={32} style={loadingStyle} />}
+      </ImageBackground>
     </TouchableOpacity>
   );
 };

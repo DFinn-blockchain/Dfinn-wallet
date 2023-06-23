@@ -1,6 +1,6 @@
 import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 import { ThemeTypes } from 'styles/themes';
-import { FontSemiBold } from 'styles/sharedStyles';
+import { FontBold, FontSemiBold } from 'styles/sharedStyles';
 import { ColorMap } from 'styles/color';
 
 export interface TokenGroupBalanceItemStyles {
@@ -21,6 +21,7 @@ export default (theme: ThemeTypes) =>
       overflow: 'hidden',
       height: 68,
       alignItems: 'center',
+      backgroundColor: ColorMap.dark,
     },
     chainBalancePart1: {
       justifyContent: 'center',
@@ -36,7 +37,7 @@ export default (theme: ThemeTypes) =>
     textStyle: {
       fontSize: theme.fontSizeLG,
       lineHeight: theme.fontSizeLG * theme.lineHeightLG,
-      ...FontSemiBold,
+      ...FontBold,
       color: ColorMap.light,
       overflow: 'hidden',
     },

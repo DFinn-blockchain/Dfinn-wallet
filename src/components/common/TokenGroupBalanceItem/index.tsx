@@ -5,7 +5,8 @@ import { Icon, Logo, Number, Typography } from 'components/design-system-ui';
 import { CaretRight } from 'phosphor-react-native';
 import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
 import TokenGroupBalanceItemStyles from './style';
-import { FontMedium, FontSemiBold } from 'styles/sharedStyles';
+import { FontBold, FontMedium, FontSemiBold } from 'styles/sharedStyles';
+import { ColorMap } from 'styles/color';
 
 interface Props extends TokenBalanceItemType, TouchableOpacityProps {
   isShowBalance?: boolean;
@@ -25,7 +26,15 @@ export const TokenGroupBalanceItem = ({
   const isTotalBalanceDecrease = priceChangeStatus === 'decrease';
 
   return (
-    <TouchableOpacity style={{ width: '100%' }} {...wrapperProps}>
+    <TouchableOpacity
+      style={{
+        width: '100%',
+        borderBottomWidth: 0.25,
+        paddingBottom: 5,
+        backgroundColor: ColorMap.dark,
+        borderColor: ColorMap.disabled,
+      }}
+      {...wrapperProps}>
       <View style={_style.chainBalanceMainArea}>
         <View style={_style.chainBalancePart1}>
           <Logo size={40} token={symbol.toLowerCase()} />
@@ -40,11 +49,11 @@ export const TokenGroupBalanceItem = ({
             value={isTestnet ? 0 : priceValue}
             decimal={0}
             prefix={'$'}
-            intColor={isTotalBalanceDecrease ? theme.colorError : theme.colorSuccess}
-            decimalColor={isTotalBalanceDecrease ? theme.colorError : theme.colorSuccess}
-            unitColor={isTotalBalanceDecrease ? theme.colorError : theme.colorSuccess}
+            intColor={isTotalBalanceDecrease ? theme.colorError : ColorMap.primary}
+            decimalColor={isTotalBalanceDecrease ? theme.colorError : ColorMap.primary}
+            unitColor={isTotalBalanceDecrease ? theme.colorError : ColorMap.primary}
             size={theme.fontSizeSM}
-            textStyle={{ ...FontMedium, lineHeight: theme.lineHeightSM * theme.fontSizeSM }}
+            textStyle={{ ...FontSemiBold, lineHeight: theme.lineHeightSM * theme.fontSizeSM }}
           />
         </View>
 
@@ -57,7 +66,7 @@ export const TokenGroupBalanceItem = ({
                   decimal={0}
                   decimalOpacity={0.45}
                   size={theme.fontSizeLG}
-                  textStyle={{ ...FontSemiBold, lineHeight: theme.lineHeightLG * theme.fontSizeLG }}
+                  textStyle={{ ...FontBold, lineHeight: theme.lineHeightLG * theme.fontSizeLG }}
                 />
                 <Number
                   value={total.convertedValue}
@@ -67,7 +76,11 @@ export const TokenGroupBalanceItem = ({
                   decimalOpacity={0.45}
                   prefix={'$'}
                   size={theme.fontSizeSM}
-                  textStyle={{ ...FontMedium, lineHeight: theme.lineHeightSM * theme.fontSizeSM }}
+                  textStyle={{
+                    ...FontSemiBold,
+                    lineHeight: theme.lineHeightSM * theme.fontSizeSM,
+                    //color: ColorMap.disabled,
+                  }}
                 />
               </>
             )}

@@ -1,10 +1,11 @@
-import { StyleProp, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import { StyleProp, TouchableOpacity, TouchableOpacityProps, View, ImageBackground } from 'react-native';
 import React from 'react';
 import Text from 'components/Text';
-import { CaretRight, IconProps } from 'phosphor-react-native';
+import { ArrowRight, CaretRight, IconProps } from 'phosphor-react-native';
 import { ColorMap } from 'styles/color';
-import { FontMedium, FontSemiBold, sharedStyles } from 'styles/sharedStyles';
+import { FontMedium, FontRegular, FontSemiBold, sharedStyles } from 'styles/sharedStyles';
 import { BUTTON_ACTIVE_OPACITY } from 'constants/index';
+import { getRandom } from 'assets/logo_bg';
 
 interface ActionItemProps extends TouchableOpacityProps {
   title: string;
@@ -27,14 +28,13 @@ function getWrapperStyle(
 ): StyleProp<any> {
   return {
     position: 'relative',
-    height: 52,
-    borderRadius: 5,
-    backgroundColor,
+    height: 80,
+    borderRadius: 40,
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor,
     justifyContent: 'space-between',
-    paddingLeft,
-    paddingRight: 20,
+    paddingHorizontal: 20,
     ...style,
   };
 }
@@ -42,7 +42,7 @@ function getWrapperStyle(
 function getTextStyle(color: string = ColorMap.light) {
   return {
     ...sharedStyles.mediumText,
-    ...FontSemiBold,
+    ...FontMedium,
     fontSize: 18,
     color,
   };
@@ -53,22 +53,27 @@ function getSubTextStyle(color: string = ColorMap.disabled) {
     ...sharedStyles.mainText,
     ...FontMedium,
     color,
-    paddingRight: 31,
     maxWidth: 150,
   };
 }
 
 const iconStyle: StyleProp<any> = {
-  position: 'absolute',
+  //position: 'absolute',
   justifyContent: 'center',
   alignItems: 'center',
   display: 'flex',
-  width: 52,
+  // left: 25,
+  width: 40,
+  height: 40,
 };
 
 const arrowStyle: StyleProp<any> = {
-  position: 'absolute',
-  right: 16,
+  //position: 'absolute',
+  // right: 16,
+  backgroundColor: ColorMap.dark,
+  paddingVertical: 10,
+  paddingHorizontal: 16,
+  borderRadius: 20,
 };
 
 export const ActionItem = (actionProps: ActionItemProps) => {
@@ -78,11 +83,12 @@ export const ActionItem = (actionProps: ActionItemProps) => {
     subTextColor,
     title,
     subTitle,
-    backgroundColor,
+    backgroundColor = ColorMap.dark2,
     paddingLeft,
     style,
     showIcon = true,
     hasRightArrow,
+    disabled,
   } = actionProps;
 
   return (
@@ -90,18 +96,27 @@ export const ActionItem = (actionProps: ActionItemProps) => {
       activeOpacity={BUTTON_ACTIVE_OPACITY}
       {...actionProps}
       style={getWrapperStyle(backgroundColor, style, paddingLeft)}>
-      {showIcon && (
-        <View style={iconStyle}>
-          <Icon size={20} color={color || ColorMap.light} weight={'bold'} />
+      <View style={{ flexDirection: 'row' }}>
+        {showIcon && (
+          <ImageBackground
+            imageStyle={{ borderRadius: 10, opacity: disabled ? 0.5 : 1 }}
+            source={getRandom()}
+            style={iconStyle}>
+            <Icon size={20} color={ColorMap.dark} weight={'bold'} />
+          </ImageBackground>
+        )}
+        <View style={{ justifyContent: 'center', alignItems: 'flex-start', marginLeft: 20 }}>
+          <Text style={getTextStyle(color)}>{title}</Text>
+          {!!subTitle && (
+            <Text style={getSubTextStyle(subTextColor)} numberOfLines={1}>
+              {subTitle}
+            </Text>
+          )}
         </View>
-      )}
-      <Text style={getTextStyle(color)}>{title}</Text>
-      <Text style={getSubTextStyle(subTextColor)} numberOfLines={1}>
-        {subTitle || ''}
-      </Text>
+      </View>
       {hasRightArrow && (
         <View style={arrowStyle}>
-          <CaretRight size={20} color={color || ColorMap.light} weight={'bold'} />
+          <ArrowRight size={20} color={color || ColorMap.light} weight={'bold'} />
         </View>
       )}
     </TouchableOpacity>

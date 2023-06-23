@@ -1,45 +1,49 @@
 import React from 'react';
-import { GestureResponderEvent, StyleProp, TextStyle, View, ViewStyle } from 'react-native';
+import { GestureResponderEvent, Image, StyleProp, TextStyle, View, ViewStyle } from 'react-native';
 import Text from '../components/Text';
 import { SpaceStyle } from 'styles/space';
-import { FontBold, FontSize4, sharedStyles } from 'styles/sharedStyles';
-import { CaretLeft, IconProps } from 'phosphor-react-native';
+import { FontSemiBold, TitleFont } from 'styles/sharedStyles';
+import { ArrowLeft, IconProps } from 'phosphor-react-native';
+import { IconButton } from 'components/IconButton';
 import { ColorMap } from 'styles/color';
-import { Button, Icon } from 'components/design-system-ui';
+import { Button } from 'components/Button';
+import { Images } from 'assets/index';
+import LinearGradient from 'react-native-linear-gradient';
 
 export interface SubHeaderProps {
   showRightBtn?: boolean;
   title?: string;
-  onPressBack?: (event?: GestureResponderEvent) => void;
+  onPressBack: (event: GestureResponderEvent) => void;
   disabled?: boolean;
   rightIcon?: (iconProps: IconProps) => JSX.Element;
   rightIconColor?: string;
-  onPressRightIcon?: ((event?: GestureResponderEvent) => void) | undefined;
+  onPressRightIcon?: ((event: GestureResponderEvent) => void) | undefined;
   disableRightButton?: boolean;
   headerContent?: () => JSX.Element;
   backgroundColor?: string;
   showLeftBtn?: boolean;
   rightButtonTitle?: string;
-  icon?: React.ReactNode;
+  headerContainerStyle?: ViewStyle;
 }
 
-function getSubHeaderWrapperStyle(backgroundColor: string = '#0C0C0C'): StyleProp<any> {
+function getSubHeaderWrapperStyle(backgroundColor: string = ColorMap.dark1): StyleProp<any> {
   return {
     backgroundColor: backgroundColor,
     flexDirection: 'row',
     alignItems: 'center',
-    position: 'relative',
-    height: 40,
     zIndex: 10,
     width: '100%',
   };
 }
 
-const headerTitleContainer: StyleProp<ViewStyle> = {
-  flexDirection: 'row',
-  flex: 1,
-  justifyContent: 'center',
-  paddingHorizontal: 56,
+const HeaderTitleContainer = (additionStyle: ViewStyle): StyleProp<ViewStyle> => {
+  return {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'center',
+    marginTop: '10%',
+    ...additionStyle,
+  };
 };
 
 const headerTitleWrapperStyle: StyleProp<ViewStyle> = {
@@ -47,9 +51,8 @@ const headerTitleWrapperStyle: StyleProp<ViewStyle> = {
 };
 
 const subHeaderTextStyle: StyleProp<TextStyle> = {
-  ...sharedStyles.mediumText,
-  ...FontSize4,
-  ...FontBold,
+  ...TitleFont,
+  ...FontSemiBold,
   textAlign: 'center',
   color: ColorMap.light,
 };
@@ -60,13 +63,13 @@ export const SubHeader = ({
   disabled,
   rightIcon,
   onPressRightIcon,
-  title,
+  title = '',
   backgroundColor,
   disableRightButton,
   showLeftBtn = true,
   rightButtonTitle = '',
   rightIconColor,
-  icon,
+  headerContainerStyle = {},
 }: SubHeaderProps) => {
   const hideSubHeader = !headerContent && !title && !showLeftBtn && !rightIcon;
 
@@ -76,50 +79,46 @@ export const SubHeader = ({
 
   return (
     <View style={[SpaceStyle.oneContainer, getSubHeaderWrapperStyle(backgroundColor)]}>
+      {(!!rightIcon || !!rightButtonTitle) && (
+        <Button
+          icon={rightIcon}
+          onPress={onPressRightIcon}
+          style={{ position: 'absolute', right: 16, top: 0, zIndex: headerContent ? 2 : 0 }}
+          disabled={disableRightButton}
+          color={disableRightButton ? ColorMap.disabledTextColor : rightIconColor || ColorMap.light}
+          title={rightButtonTitle}
+        />
+      )}
+      {!!showLeftBtn && (
+        <IconButton
+          icon={ArrowLeft}
+          color={disabled ? ColorMap.disabled : ColorMap.light}
+          disabled={disabled}
+          onPress={onPressBack}
+          style={{ position: 'absolute', left: 16, top: 0, zIndex: headerContent ? 2 : 0 }}
+        />
+      )}
       {headerContent ? (
         headerContent()
       ) : (
-        <View style={headerTitleContainer}>
+        <View style={HeaderTitleContainer(headerContainerStyle)}>
           <View style={headerTitleWrapperStyle}>
             <Text numberOfLines={1} style={subHeaderTextStyle}>
               {title}
             </Text>
+            <LinearGradient
+              colors={[ColorMap.primary, ColorMap.light, ColorMap.tertiary, ColorMap.light, ColorMap.secondary]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              style={{
+                height: 4,
+                marginTop: -2,
+                marginBottom: 5,
+                alignSelf: 'center',
+                width: title?.length * subHeaderTextStyle.fontSize * 0.55,
+              }}
+            />
           </View>
-        </View>
-      )}
-
-      {!!showLeftBtn && (
-        <View style={{ position: 'absolute', left: 8 }}>
-          <Button
-            disabled={disabled}
-            onPress={onPressBack}
-            size={'xs'}
-            type={'ghost'}
-            icon={
-              icon || (
-                <Icon phosphorIcon={CaretLeft} size={'md'} iconColor={disabled ? ColorMap.disabled : ColorMap.light} />
-              )
-            }
-          />
-        </View>
-      )}
-
-      {(!!rightIcon || !!rightButtonTitle) && (
-        <View style={{ position: 'absolute', right: 8 }}>
-          <Button
-            icon={
-              <Icon
-                phosphorIcon={rightIcon}
-                size={'md'}
-                iconColor={disableRightButton ? ColorMap.disabledTextColor : rightIconColor || ColorMap.light}
-              />
-            }
-            size={'xs'}
-            type={'ghost'}
-            onPress={onPressRightIcon}
-            disabled={disableRightButton}>
-            {!!rightButtonTitle && rightButtonTitle}
-          </Button>
         </View>
       )}
     </View>

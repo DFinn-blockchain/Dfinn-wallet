@@ -1,7 +1,11 @@
-import { StyleProp, View, ViewProps } from 'react-native';
+import { ImageBackground, StyleProp, View, ViewProps, ViewStyle } from 'react-native';
 import React from 'react';
 import { ColorMap } from 'styles/color';
 import { SeedWord } from 'components/SeedWord';
+import Text from 'components/Text';
+import { Images } from 'assets/index';
+import i18n from 'utils/i18n/i18n';
+import { FontSemiBold, sharedStyles } from 'styles/sharedStyles';
 
 export type SelectedWordType = {
   wordKey: string;
@@ -36,6 +40,24 @@ const innerViewStyle: StyleProp<any> = {
   justifyContent: 'center',
 };
 
+const seperatorStyle: ViewStyle = {
+  height: 6,
+  width: 6,
+  borderRadius: 10,
+  backgroundColor: ColorMap.light,
+  marginHorizontal: 5,
+};
+
+const label: ViewStyle = {
+  height: 30,
+  //width: 100,
+  paddingHorizontal: 5,
+  justifyContent: 'center',
+  alignItems: 'center',
+  position: 'absolute',
+  alignSelf: 'center',
+  top: -15,
+};
 const seedWordStyle = {
   margin: 2,
 };
@@ -55,24 +77,41 @@ export const SeedPhraseArea = (seedPhraseAreaProps: SeedPhraseAreaProps) => {
     };
   };
 
-  const renderSeedWord = (item: SelectedWordType, index: number) => {
+  const renderSeedWord = ({ item, index }: { item: SelectedWordType; index: number }) => {
     const { wordKey, word } = item;
 
     return (
-      <SeedWord
-        style={seedWordStyle}
-        backgroundColor={ColorMap.dark1}
-        key={wordKey}
-        title={word}
-        isError={!isWordCorrect(word, index, originWords)}
-        onPress={_onTapWord(word, wordKey)}
-      />
+      <View key={index} style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
+        <SeedWord
+          style={seedWordStyle}
+          backgroundColor={ColorMap.dark1}
+          key={wordKey}
+          title={word}
+          removeBoundary={true}
+          isError={!isWordCorrect(word, index, originWords)}
+          onPress={_onTapWord(word, wordKey)}
+        />
+        {currentWords.length > 1 && index !== currentWords.length - 1 && <View style={seperatorStyle} />}
+      </View>
     );
   };
 
   return (
     <View style={getWrapperStyle(style)}>
-      <View style={innerViewStyle}>{currentWords.map(renderSeedWord)}</View>
+      <ImageBackground source={Images.radialBg1} imageStyle={{ borderRadius: 50 }} style={label}>
+        <Text style={{ ...sharedStyles.smallText, ...FontSemiBold, color: ColorMap.dark }}>
+          {i18n.title.yourSeedPhrase}
+        </Text>
+      </ImageBackground>
+      <View style={innerViewStyle}>{currentWords.map((item, index) => renderSeedWord({ item, index }))}</View>
+      {/* <FlatList
+        scrollEnabled={false}
+        data={currentWords}
+        horizontal={true}
+        ItemSeparatorComponent={() => <View style={seperatorStyle} />}
+        renderItem={renderSeedWord}
+        contentContainerStyle={innerViewStyle}
+      /> */}
     </View>
   );
 };

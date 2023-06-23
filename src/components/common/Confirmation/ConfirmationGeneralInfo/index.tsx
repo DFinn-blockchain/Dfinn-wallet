@@ -7,6 +7,7 @@ import React, { useMemo } from 'react';
 import { Text, View } from 'react-native';
 import createStyle from './styles';
 import { ImageLogosMap } from 'assets/logo';
+import { Images } from 'assets/index';
 
 interface Props {
   request: ConfirmationRequestBase;
@@ -25,7 +26,7 @@ const ConfirmationGeneralInfo: React.FC<Props> = (props: Props) => {
   return (
     <View style={styles.container}>
       <DualLogo
-        leftLogo={<Image shape={'squircle'} src={ImageLogosMap.subwallet} squircleSize={56} />}
+        leftLogo={<Image shape={'squircle'} src={Images.subwalletDappLogo} squircleSize={56} />}
         rightLogo={<Image shape="squircle" src={{ uri: leftLogoUrl }} squircleSize={56} />}
       />
       <Text style={styles.text}>{domain}</Text>

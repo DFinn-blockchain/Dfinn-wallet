@@ -119,9 +119,9 @@ const StakingBalanceList = () => {
   return (
     <ScreenContainer backgroundColor={theme.colorBgDefault}>
       <>
-        <Header />
+        {/* <Header /> */}
         <FlatListScreen
-          style={{ marginTop: 16 }}
+          style={{ marginTop: -20 }}
           title={i18n.title.staking}
           items={data}
           showLeftBtn={false}

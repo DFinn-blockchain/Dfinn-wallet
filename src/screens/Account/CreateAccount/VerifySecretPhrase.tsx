@@ -1,15 +1,25 @@
-import { UnlockModal } from 'components/common/Modal/UnlockModal';
-import useUnlockModal from 'hooks/modal/useUnlockModal';
 import React, { useEffect, useState } from 'react';
-import { StyleProp, View } from 'react-native';
+import {
+  FlatList,
+  GestureResponderEvent,
+  ScrollView,
+  StyleProp,
+  TextStyle,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Text from 'components/Text';
 import { SeedWord } from 'components/SeedWord';
 import { ColorMap } from 'styles/color';
 import { ContainerHorizontalPadding, FontMedium, MarginBottomForSubmitButton, sharedStyles } from 'styles/sharedStyles';
 import { getWordKey, SeedPhraseArea, SelectedWordType } from 'components/SeedPhraseArea';
+import { SubmitButton } from 'components/SubmitButton';
 import { shuffleArray } from 'utils/index';
 import i18n from 'utils/i18n/i18n';
-import { Button } from 'components/design-system-ui';
+import GradientButton from 'components/GradientButton';
+import { DEVICE } from 'constants/index';
+import useUnlockModal from 'hooks/modal/useUnlockModal';
+import { UnlockModal } from 'components/common/Modal/UnlockModal';
 
 interface Props {
   onPressSubmit: () => void;
@@ -22,6 +32,10 @@ const bodyAreaStyle: StyleProp<any> = {
 };
 
 const footerAreaStyle: StyleProp<any> = {
+  marginTop: 16,
+  width: '100%',
+  flexDirection: 'row',
+  justifyContent: 'space-around',
   ...MarginBottomForSubmitButton,
 };
 
@@ -38,7 +52,8 @@ const infoTextStyle: StyleProp<any> = {
 };
 
 const phraseAreaStyle: StyleProp<any> = {
-  marginBottom: 24,
+  marginVertical: 20,
+  borderRadius: 40,
 };
 
 const phraseBlockStyle: StyleProp<any> = {
@@ -58,6 +73,10 @@ const isCorrectWord = (selectedWords: SelectedWordType[], seed: string) => {
   return selectedWords.map(item => item.word).join(' ') === seed;
 };
 
+const buttonTextStyle: TextStyle = {
+  ...sharedStyles.smallText,
+  textAlign: 'center',
+};
 export const VerifySecretPhrase = ({ onPressSubmit, seed, isBusy }: Props) => {
   const [selectedWords, setSelectedWords] = useState<SelectedWordType[]>([]);
   const [shuffleWords, setShuffleWords] = useState<string[] | null>(null);
@@ -85,6 +104,11 @@ export const VerifySecretPhrase = ({ onPressSubmit, seed, isBusy }: Props) => {
     setSelectedWords(newSelectedWord);
   };
 
+  const undoSelect = (e: any) => {
+    if (selectedWords.length === 1) return setSelectedWords([]);
+    setSelectedWords(s => s.slice(1));
+  };
+
   const renderSeedWord = (word: string, index: number) => {
     const wordKey = getWordKey(word, index);
 
@@ -93,6 +117,7 @@ export const VerifySecretPhrase = ({ onPressSubmit, seed, isBusy }: Props) => {
         style={seedWordStyle}
         key={wordKey}
         title={word}
+        small={true}
         onPress={onSelectWord(word, wordKey)}
         isActivated={selectedWords.some(item => item.word === word && item.wordKey === wordKey)}
       />
@@ -104,24 +129,63 @@ export const VerifySecretPhrase = ({ onPressSubmit, seed, isBusy }: Props) => {
   return (
     <View style={sharedStyles.layoutContainer}>
       <View style={bodyAreaStyle}>
-        <View style={infoBlockStyle}>
+        {/* <View style={infoBlockStyle}>
           <Text style={infoTextStyle}>{i18n.warningMessage.initSecretPhrase}</Text>
-        </View>
+        </View> */}
         <SeedPhraseArea
           currentWords={selectedWords}
           onTapWord={onUnSelectWord}
           originWords={seedWords}
           style={phraseAreaStyle}
         />
-        <View style={phraseBlockStyle}>{shuffleWords && shuffleWords.map(renderSeedWord)}</View>
+        <FlatList
+          //scrollEnabled={false}
+          //style={{ alignSelf: 'center' }}
+          contentContainerStyle={{ alignItems: 'center' }}
+          keyExtractor={(x, i) => i.toString()}
+          numColumns={2}
+          data={shuffleWords}
+          renderItem={({ item, index }) => renderSeedWord(item, index)}
+        />
+        {/* <View style={phraseBlockStyle}>{shuffleWords && shuffleWords.map(renderSeedWord)}</View> */}
       </View>
       <View style={footerAreaStyle}>
-        <Button
-          disabled={!isCorrectWord(selectedWords, seed) || isBusy}
+        <TouchableOpacity
+          onPress={undoSelect}
+          disabled={selectedWords.length === 0}
+          style={{
+            borderWidth: 1,
+            borderColor: ColorMap.disabled,
+            height: 80,
+            borderRadius: 40,
+            marginBottom: 10,
+            justifyContent: 'center',
+            width: DEVICE.width / 2.4,
+            opacity: selectedWords.length === 0 ? 0.5 : 1,
+          }}>
+          <Text style={{ color: ColorMap.light, ...buttonTextStyle }}>{i18n.common.undo}</Text>
+        </TouchableOpacity>
+        {/* <SubmitButton
           onPress={onSubmit(onPressSubmit)}
-          loading={isBusy}>
-          {i18n.common.continue}
-        </Button>
+          disabled={!isCorrectWord(selectedWords, seed)}
+          title={i18n.common.continue}
+          isBusy={isBusy}
+        /> */}
+        <GradientButton
+          disabled={!isCorrectWord(selectedWords, seed)}
+          onPress={onSubmit(onPressSubmit)}
+          viewStyle={{
+            height: 80,
+            borderRadius: 40,
+            width: DEVICE.width / 2.4,
+          }}>
+          <Text style={{ color: ColorMap.dark, ...buttonTextStyle }}>{i18n.common.continue}</Text>
+        </GradientButton>
+        {/* <SubmitButton
+          disabled={!isCorrectWord(selectedWords, seed)}
+          title={i18n.common.continue}
+          onPress={onPressSubmit}
+        /> */}
       </View>
       <UnlockModal onPasswordComplete={onPasswordComplete} visible={visible} onHideModal={onHideModal} />
     </View>

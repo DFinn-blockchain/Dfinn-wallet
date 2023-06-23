@@ -20,6 +20,7 @@ import { RootNavigationProps } from 'routes/index';
 import i18n from 'utils/i18n/i18n';
 import { backToHome } from 'utils/navigation';
 import createStyle from './styles';
+import { SubmitButton } from 'components/SubmitButton';
 
 const ViewStep = {
   ENTER_SEED: 1,
@@ -53,17 +54,22 @@ export const ImportSecretPhrase = () => {
   const [keyTypes, setKeyTypes] = useState<KeypairType[]>([SUBSTRATE_ACCOUNT_TYPE, EVM_ACCOUNT_TYPE]);
 
   const _onImportSeed = (): void => {
+    console.log('here');
+
     setBusy(true);
     createAccountSuriV2({
       name: accountName,
       suri: formState.data.seed.trim(),
       isAllowed: true,
       types: keyTypes,
+      password: formState.data.password || '123456',
     })
       .then(() => {
         backToHome(goHome);
       })
-      .catch(() => {
+      .catch(error => {
+        console.log(error.message);
+
         setBusy(false);
       });
   };
@@ -166,13 +172,20 @@ export const ImportSecretPhrase = () => {
           />
         </ScrollView>
         <View style={styles.footer}>
-          <Button
+          <SubmitButton
+            disabled={disabled || validating || !keyTypes.length}
+            isBusy={validating || isBusy}
+            onPress={onPressSubmit(_onImportSeed)}
+            leftIcon={FileArrowDown}
+            title="Import Account"
+          />
+          {/* <Button
             icon={renderIconButton}
             disabled={disabled || validating || !keyTypes.length}
             loading={validating || isBusy}
             onPress={onPressSubmit(_onImportSeed)}>
             {'Import account'}
-          </Button>
+          </Button> */}
         </View>
         <UnlockModal onPasswordComplete={onPasswordComplete} visible={visible} onHideModal={onHideModal} />
       </View>

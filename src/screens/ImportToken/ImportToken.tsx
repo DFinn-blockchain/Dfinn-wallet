@@ -33,6 +33,8 @@ import { Button } from 'components/design-system-ui';
 import { ConfirmationResult } from '@subwallet/extension-base/background/KoniTypes';
 import { useToast } from 'react-native-toast-notifications';
 import { TokenTypeSelector } from 'components/Modal/common/TokenTypeSelector';
+import { ColorMap } from 'styles/color';
+import { SubmitButton } from 'components/SubmitButton';
 
 interface TokenTypeOption {
   label: string;
@@ -341,8 +343,24 @@ export const ImportToken = ({ route: { params: routeParams } }: ImportTokenProps
           }}
           selectedItem={formState.data.chain}
         />
-
         <View style={{ flexDirection: 'row', paddingTop: 27, ...MarginBottomForSubmitButton }}>
+          <SubmitButton
+            disabled={isBusy}
+            disabledColor={ColorMap.buttonOverlayButtonColor}
+            title={i18n.common.cancel}
+            backgroundColor={ColorMap.dark2}
+            style={{ flex: 1, marginRight: 8 }}
+            onPress={_goBack}
+          />
+          <SubmitButton
+            disabled={addTokenButtonDisabled}
+            isBusy={isBusy}
+            style={{ flex: 1, marginLeft: 8 }}
+            title={i18n.common.addToken}
+            onPress={() => onSubmit(formState)}
+          />
+        </View>
+        {/* <View style={{ flexDirection: 'row', paddingTop: 27, ...MarginBottomForSubmitButton }}>
           <Button disabled={isBusy} type={'secondary'} style={{ flex: 1, marginRight: 6 }} onPress={_goBack}>
             {i18n.common.cancel}
           </Button>
@@ -353,7 +371,7 @@ export const ImportToken = ({ route: { params: routeParams } }: ImportTokenProps
             onPress={() => onSubmit(formState)}>
             {i18n.common.addToken}
           </Button>
-        </View>
+        </View> */}
       </View>
     </ContainerWithSubHeader>
   );

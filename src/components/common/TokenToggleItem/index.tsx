@@ -7,6 +7,7 @@ import { _ChainAsset } from '@subwallet/chain-list/types';
 import { Button, Icon, Logo as SWLogo } from 'components/design-system-ui';
 import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
 import TokenToggleItemStyles from './style';
+import GradientCheck from 'components/GradientCheck';
 
 interface Props {
   item: _ChainAsset;
@@ -28,7 +29,7 @@ export const TokenToggleItem = ({ item, onPress, isEnabled, onValueChange, isDis
             token={item.symbol.toLowerCase()}
             subNetwork={item.originChain}
             defaultLogoKey={'default'}
-            size={36}
+            size={40}
             isShowSubLogo
           />
           <Text numberOfLines={1} style={_style.itemTextStyle}>
@@ -36,12 +37,13 @@ export const TokenToggleItem = ({ item, onPress, isEnabled, onValueChange, isDis
           </Text>
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-          <Switch
+          {/* <Switch
             disabled={isDisableSwitching}
             ios_backgroundColor={ColorMap.switchInactiveButtonColor}
             value={isEnabled}
             onValueChange={onValueChange}
-          />
+          /> */}
+          <GradientCheck checked={isEnabled} disabled={isDisableSwitching} onPress={onValueChange} />
           <Button
             onPress={onPress}
             icon={<Icon phosphorIcon={PencilSimpleLine} iconColor={theme.colorTextLight3} size={'sm'} />}

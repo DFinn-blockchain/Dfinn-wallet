@@ -46,7 +46,15 @@ export const SelectImportAccountModal = ({
   };
 
   const renderItem = ({ item }: ListRenderItemInfo<AccountActionType>) => {
-    return <SecretTypeItem key={item.title} title={item.title} icon={item.icon} onClickButton={item.onCLickButton} />;
+    return (
+      <SecretTypeItem
+        key={item.title}
+        title={item.title}
+        icon={item.icon}
+        onClickButton={item.onCLickButton}
+        plainIcon={true}
+      />
+    );
   };
 
   return (

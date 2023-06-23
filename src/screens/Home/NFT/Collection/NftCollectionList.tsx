@@ -39,9 +39,9 @@ const NftCollectionList = () => {
   return (
     <ScreenContainer backgroundColor={theme.colorBgDefault}>
       <>
-        <Header />
+        {/* <Header /> */}
         <FlatListScreen
-          style={{ marginTop: 16 }}
+          style={{ marginTop: -20 }}
           autoFocus={false}
           showLeftBtn={false}
           title={i18n.title.nftCollections}

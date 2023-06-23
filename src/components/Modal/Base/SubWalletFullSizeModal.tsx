@@ -12,13 +12,15 @@ interface Props {
   animationIn?: ModalProps['animationIn'];
   animationOut?: ModalProps['animationOut'];
   backdropColor?: string;
+  extraPadding?: boolean;
 }
 
 const subWalletModalContainer: StyleProp<any> = {
   flex: 1,
+  //paddingTop: 100,
   backgroundColor: ColorMap.dark1,
   alignItems: 'center',
-  paddingTop: 8,
+  //paddingTop: 8,
 };
 
 export const SubWalletFullSizeModal = ({
@@ -32,7 +34,10 @@ export const SubWalletFullSizeModal = ({
   return (
     <ModalBase
       isVisible={modalVisible}
-      style={{ margin: 0, zIndex: 10000 }}
+      style={{
+        margin: 0,
+        zIndex: 10000, //marginTop: 100
+      }}
       animationIn={animationIn || 'slideInUp'}
       animationOut={animationOut || 'slideOutDown'}
       useNativeDriver

@@ -3,27 +3,29 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'stores/index';
 import { getNetworkLogo } from 'utils/index';
-import { StyleProp, View } from 'react-native';
+import { NetworkJson } from '@subwallet/extension-base/background/KoniTypes';
+import { ImageBackground, StyleProp, View } from 'react-native';
 import Text from '../../components/Text';
-import { FontMedium, FontSize2 } from 'styles/sharedStyles';
+import { FontMedium, FontSize2, FontSize4, FontSemiBold, sharedStyles } from 'styles/sharedStyles';
 import { ColorMap } from 'styles/color';
 import { CaretDown } from 'phosphor-react-native';
-import { _ChainInfo } from '@subwallet/chain-list/types';
+import { Images } from 'assets/index';
 
 interface Props extends FieldBaseProps {
   networkKey: string;
   disabled?: boolean;
   showIcon?: boolean;
+  coloredBg?: boolean;
   outerStyle?: StyleProp<any>;
   value?: string;
 }
 
-const getNetworkName = (networkKey: string, networkMap: Record<string, _ChainInfo>) => {
+const getNetworkName = (networkKey: string, networkMap: Record<string, NetworkJson>) => {
   if (!networkMap[networkKey]) {
     return networkKey;
   }
 
-  return networkMap[networkKey].name;
+  return networkMap[networkKey].chain;
 };
 
 const getTextStyle = (disabled: boolean): StyleProp<any> => {
@@ -43,13 +45,57 @@ const blockContentStyle: StyleProp<any> = {
   alignItems: 'center',
   paddingBottom: 10,
   justifyContent: 'space-between',
-  paddingHorizontal: 12,
+  paddingHorizontal: 16,
 };
 
-export const NetworkSelectField = ({ networkKey, disabled, showIcon, outerStyle, value, ...fieldBase }: Props) => {
-  const networkMap = useSelector((state: RootState) => state.chainStore.chainInfoMap);
+const extraStyle: StyleProp<any> = {
+  height: 100,
+  flexDirection: 'row',
+  alignItems: 'center',
+  paddingVertical: 10,
+  justifyContent: 'space-between',
+  paddingHorizontal: 10,
+};
 
-  return (
+export const NetworkSelectField = ({
+  networkKey,
+  disabled,
+  showIcon,
+  outerStyle,
+  value,
+  coloredBg,
+  ...fieldBase
+}: Props) => {
+  const networkMap = useSelector((state: RootState) => state.networkMap.details);
+
+  return coloredBg ? (
+    <ImageBackground
+      source={Images.radialBg1}
+      style={{ ...outerStyle, opacity: disabled ? 0.5 : 1 }}
+      imageStyle={outerStyle}>
+      <Text
+        style={{
+          alignSelf: 'flex-end',
+          right: 10,
+          top: 10,
+          position: 'absolute',
+          color: ColorMap.dark2,
+          ...sharedStyles.mainText,
+        }}>
+        {fieldBase.label}
+      </Text>
+      <View style={{ ...blockContentStyle, ...extraStyle }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
+          {getNetworkLogo(value || networkKey, 40, networkKey)}
+          <Text style={[getTextStyle(!!disabled), { ...FontSize4, ...FontSemiBold, color: ColorMap.dark }]}>
+            {value || getNetworkName(networkKey, networkMap)}
+          </Text>
+        </View>
+
+        {!!showIcon && <CaretDown size={20} color={ColorMap.dark} weight={'bold'} />}
+      </View>
+    </ImageBackground>
+  ) : (
     <FieldBase {...fieldBase} outerStyle={outerStyle}>
       <View style={blockContentStyle}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>

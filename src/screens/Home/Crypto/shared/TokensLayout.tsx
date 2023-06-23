@@ -74,6 +74,7 @@ export const TokensLayout = ({
     return {
       opacity,
       transform: [{ translateY }],
+      paddingHorizontal: 15,
     };
   }, []);
   const stickyHeaderInvisibleStyles = useAnimatedStyle(() => {
@@ -153,7 +154,7 @@ export const TokensLayout = ({
 
   return (
     <View style={[{ flex: 1 }, style]}>
-      {!!listActions && (
+      {/* {!!listActions && (
         <Animated.View
           style={[
             {
@@ -184,17 +185,17 @@ export const TokensLayout = ({
           )}
           {listActions}
         </Animated.View>
-      )}
+      )} */}
 
       <AnimatedFlatlist
         onScroll={onScrollHandler}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps={'handled'}
         ListHeaderComponent={renderHeaderComponent}
-        contentContainerStyle={{ paddingHorizontal: 16 }}
+        // contentContainerStyle={{ paddingHorizontal: 16 }}
         data={listActions ? [{ slug: null }, ...tokenBalanceItems] : tokenBalanceItems}
         renderItem={customRenderItem}
-        ListFooterComponent={layoutFooter}
+        //ListFooterComponent={layoutFooter}
         refreshControl={refreshControlNode}
       />
     </View>

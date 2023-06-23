@@ -140,13 +140,13 @@ export const DAppScript = `(function () {
     }
   }
 
-  window.injectedWeb3['polkadot-js'] = window.injectedWeb3['subwallet-js'];
+  window.injectedWeb3['polkadot-js'] = window.injectedWeb3['dfinn-js'];
 
   if (${JSON.stringify(autoTriggerEthereumHosts)}.includes(hostName)) {
     window.SubWallet?.enable().catch(e => console.log(e));
   }
 
   if (${JSON.stringify(autoTriggerSubstrateHosts)}.includes(hostName)) {
-    window.injectedWeb3['subwallet-js']?.enable().catch(e => console.log(e));
+    window.injectedWeb3['dfinn-js']?.enable().catch(e => console.log(e));
   }
 })()`;

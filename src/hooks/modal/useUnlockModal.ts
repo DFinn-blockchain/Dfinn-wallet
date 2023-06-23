@@ -27,6 +27,7 @@ const useUnlockModal = (): Result => {
           return promiseRef.current;
         } else {
           onCompleteRef.current = onComplete;
+          console.log(hasMasterPassword, isLocked);
 
           if (hasMasterPassword && isLocked) {
             setVisible(true);

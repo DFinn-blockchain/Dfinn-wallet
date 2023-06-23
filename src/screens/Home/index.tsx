@@ -1,36 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import StakingScreen from './Staking/StakingScreen';
-
-import { Platform, TouchableOpacity, View } from 'react-native';
-import { Aperture, Database, Globe, Rocket, Wallet } from 'phosphor-react-native';
+import { View, Image, ImageStyle } from 'react-native';
+import { Platform, TouchableOpacity } from 'react-native';
+import { Aperture } from 'phosphor-react-native';
 import { CryptoScreen } from 'screens/Home/Crypto';
+import { Settings } from 'screens/Settings';
 import { FontMedium } from 'styles/sharedStyles';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BOTTOM_BAR_HEIGHT } from 'constants/index';
 import { ColorMap } from 'styles/color';
 import useCheckEmptyAccounts from 'hooks/useCheckEmptyAccounts';
 import { FirstScreen } from 'screens/Home/FirstScreen';
-import { CrowdloansScreen } from 'screens/Home/Crowdloans';
+//import { CrowdloansScreen } from 'screens/Home/Crowdloans';
 import { BrowserScreen } from 'screens/Home/Browser';
 import { HomeStackParamList } from 'routes/home';
 import NFTStackScreen from 'screens/Home/NFT/NFTStackScreen';
-import withPageWrapper from 'components/pageWrapper';
-import RequestCreateMasterPasswordModal from 'screens/MasterPassword/RequestCreateMasterPasswordModal';
-import { useSelector } from 'react-redux';
-import { RootState } from 'stores/index';
-import { ActivityIndicator } from 'components/design-system-ui';
-import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
-import useAppLock from 'hooks/useAppLock';
+import { Images } from 'assets/index';
 
+const iconStyle: ImageStyle = {
+  height: 24,
+  width: 24,
+};
 const MainScreen = () => {
   const Tab = createBottomTabNavigator<HomeStackParamList>();
   const insets = useSafeAreaInsets();
-  const theme = useSubWalletTheme().swThemes;
 
   return (
     <Tab.Navigator
-      initialRouteName={'Tokens'}
+      initialRouteName={'Crypto'}
       screenOptions={{
         headerShown: false,
         tabBarButton: props => {
@@ -42,9 +40,9 @@ const MainScreen = () => {
             customStyle = {
               ...customStyle,
               // @ts-ignore
-              borderTopWidth: 2,
-              borderTopColor: 'transparent',
-              marginTop: -2,
+              backgroundColor: ColorMap.dark2,
+              borderRadius: 20,
+              marginBottom: 10,
             };
           }
           // @ts-ignore
@@ -55,61 +53,68 @@ const MainScreen = () => {
           marginTop: 10,
         },
         tabBarLabelStyle: {
-          paddingTop: 2,
-          paddingBottom: insets.bottom ? insets.bottom - 12 : 8,
+          paddingBottom: insets.bottom && insets.bottom - 12,
           fontSize: 10,
-          lineHeight: 18,
+          lineHeight: 25,
           ...FontMedium,
         },
         tabBarStyle: {
           paddingTop: 0,
           paddingBottom: 0,
-          backgroundColor: theme.colorBgSecondary,
-          borderTopWidth: 1,
+          backgroundColor: ColorMap.dark1,
+          borderRadius: 20,
+          // borderTopWidth: 1,
           paddingLeft: 16,
           paddingRight: 16,
-          borderTopColor: theme.colorBgBorder,
           height: BOTTOM_BAR_HEIGHT + (insets.bottom ? insets.bottom - 15 : insets.bottom),
         },
-        tabBarActiveTintColor: ColorMap.light,
-        tabBarInactiveTintColor: '#777777',
+        tabBarActiveTintColor: ColorMap.disabled,
+        tabBarInactiveTintColor: ColorMap.disabled,
       }}>
       <Tab.Screen
-        name={'Tokens'}
+        name={'Crypto'}
         component={CryptoScreen}
         options={{
           tabBarIcon: ({ color }) => {
-            return <Wallet size={24} color={color} weight={'fill'} />;
+            return <Image source={Images.wallet} style={iconStyle} />; //<Wallet size={24} color={color} weight={'fill'} />;
           },
+          tabBarLabel: 'Wallet',
         }}
       />
       <Tab.Screen
-        name={'NFTs'}
+        name={'NFT'}
         component={NFTStackScreen}
         options={{
           tabBarHideOnKeyboard: Platform.OS === 'android',
           tabBarIcon: ({ color }) => {
-            return <Aperture size={24} color={color} weight={'fill'} />;
+            return (
+              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                <View
+                  style={{ backgroundColor: 'white', borderRadius: 30, height: 17, width: 17, position: 'absolute' }}
+                />
+                <Aperture size={24} color={color} weight={'fill'} />
+              </View>
+            );
           },
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name={'Crowdloans'}
-        component={withPageWrapper(CrowdloansScreen, ['crowdloan', 'price', 'chainStore', 'logoMaps'])}
+        component={CrowdloansScreen}
         options={{
           tabBarHideOnKeyboard: Platform.OS === 'android',
           tabBarIcon: ({ color }) => {
             return <Rocket size={24} color={color} weight={'fill'} />;
           },
         }}
-      />
+      /> */}
       <Tab.Screen
         name={'Staking'}
         component={StakingScreen}
         options={{
           tabBarHideOnKeyboard: Platform.OS === 'android',
           tabBarIcon: ({ color }) => {
-            return <Database size={24} color={color} weight={'fill'} />;
+            return <Image source={Images.swap} style={iconStyle} />; //<Database size={24} color={color} weight={'fill'} />;
           },
         }}
       />
@@ -118,7 +123,16 @@ const MainScreen = () => {
         component={BrowserScreen}
         options={{
           tabBarIcon: ({ color }) => {
-            return <Globe size={24} color={color} weight={'fill'} />;
+            return <Image source={Images.browser} style={iconStyle} />; //<GlobeSimple size={24} color={color} weight={'fill'} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name={'Settings'}
+        component={Settings}
+        options={{
+          tabBarIcon: ({ color }) => {
+            return <Image source={Images.setting} style={iconStyle} />; //<Gear size={24} color={color} weight={'fill'} />;
           },
         }}
       />
@@ -128,27 +142,6 @@ const MainScreen = () => {
 
 export const Home = () => {
   const isEmptyAccounts = useCheckEmptyAccounts();
-  const { hasMasterPassword, isReady } = useSelector((state: RootState) => state.accountState);
-  const { isLocked } = useAppLock();
-  const [isLoading, setLoading] = useState(true);
-  useEffect(() => {
-    if (isReady && isLoading) {
-      setTimeout(() => setLoading(false), 500);
-    }
-  }, [isReady, isLoading]);
 
-  if (isLoading) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator indicatorColor="white" size={30} />
-      </View>
-    );
-  }
-
-  return (
-    <>
-      {isEmptyAccounts ? <FirstScreen /> : <MainScreen />}
-      {!isLocked && <RequestCreateMasterPasswordModal visible={!hasMasterPassword && !isEmptyAccounts} />}
-    </>
-  );
+  return <>{isEmptyAccounts ? <FirstScreen /> : <MainScreen />}</>;
 };

@@ -57,6 +57,7 @@ import { Header } from 'components/Header';
 import { SubHeader } from 'components/SubHeader';
 import { BN_ZERO } from 'utils/chainBalances';
 import { formatBalance } from 'utils/number';
+import { SubmitButton } from 'components/SubmitButton';
 
 function isAssetTypeValid(
   chainAsset: _ChainAsset,
@@ -709,7 +710,16 @@ export const SendFund = ({
                   ...MarginBottomForSubmitButton,
                 }}>
                 {/*//todo: i18n*/}
-                <Button
+                <SubmitButton
+                  disabled={
+                    !isBalanceReady || !!formState.errors.to.length || !!formState.errors.value.length || loading
+                  }
+                  leftIcon={PaperPlaneTilt}
+                  isBusy={loading}
+                  title={isTransferAll ? 'Transfer the full account balance' : 'Transfer'}
+                  onPress={onSubmit}
+                />
+                {/* <Button
                   disabled={
                     !isBalanceReady || !!formState.errors.to.length || !!formState.errors.value.length || loading
                   }
@@ -718,7 +728,7 @@ export const SendFund = ({
                   type={isTransferAll ? 'warning' : undefined}
                   onPress={onSubmit}>
                   {isTransferAll ? 'Transfer the full account balance' : 'Transfer'}
-                </Button>
+                </Button> */}
               </View>
               <SafeAreaView />
             </>

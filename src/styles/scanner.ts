@@ -65,12 +65,13 @@ const CenterTextStyle: StyleProp<TextStyle> = {
 const LeftAndRightOverlayStyle: StyleProp<ViewStyle> = {
   height: rectDimensions,
   width: deviceWidth,
+  borderRadius: -50,
   backgroundColor: overlayColor,
 };
 
 const RectangleStyle: StyleProp<ViewStyle> = {
   height: rectDimensions,
-  width: rectDimensions,
+  width: rectDimensions * 0.78,
   borderWidth: rectBorderWidth,
   borderColor: rectBorderColor,
   alignItems: 'center',
