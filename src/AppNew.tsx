@@ -105,7 +105,6 @@ export const AppNew = () => {
   const isCryptoReady = useCryptoReady();
   const isI18nReady = useSetupI18n().isI18nReady;
   useStoreBackgroundService();
-  //insertChains();
 
   // Enable lock screen on the start app
   useEffect(() => {

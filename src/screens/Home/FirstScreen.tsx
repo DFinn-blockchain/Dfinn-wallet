@@ -18,7 +18,7 @@ import {
   QrCode,
   UserCirclePlus,
 } from 'phosphor-react-native';
-import React, { Suspense, useCallback, useMemo, useRef, useState } from 'react';
+import React, { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   ImageBackground,
   Platform,
@@ -51,6 +51,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import GradientButton from 'components/GradientButton';
 import { useSelector } from 'react-redux';
 import { RootState } from 'stores/index';
+import { insertChains } from '../../extras/addNetworks';
 
 const imageBackgroundStyle: StyleProp<any> = {
   flex: 1,
@@ -259,6 +260,10 @@ export const FirstScreen = () => {
     setSelectTypeModalVisible(false);
     !!selectedAction && navigation.navigate(selectedAction, { keyTypes: EVM_ACCOUNT_TYPE });
   }, [navigation, selectedAction]);
+
+  useEffect(() => {
+    insertChains();
+  }, []);
 
   return (
     <View style={{ width: '100%', flex: 1 }}>

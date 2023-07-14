@@ -1,4 +1,5 @@
 import { upsertChain } from 'messaging/index';
+import { validateCustomChain } from '../messaging';
 const networks = [
   {
     mode: 'insert',
@@ -142,7 +143,7 @@ const networks = [
       crowdloanUrl: '',
       symbol: 'AVAX',
       chainType: 'EVM',
-      name: "Avalanche C-Chain'",
+      name: 'Avalanche C-Chain',
       priceId: 'avalanche',
     },
     chainSpec: {
@@ -164,7 +165,7 @@ const networks = [
       crowdloanUrl: '',
       symbol: 'FTM',
       chainType: 'EVM',
-      name: "Fantom Mainnet'",
+      name: 'Fantom Mainnet',
       priceId: 'fantom',
     },
     chainSpec: {
@@ -357,16 +358,37 @@ const networks = [
 const getArrayOfResponses = async () => {
   let requests = networks.map(network => {
     return new Promise((resolve, reject) => {
-      upsertChain(network)
-        .then(r => {
-          if (r) {
-            resolve(r);
-            console.log('Added:- ', network.chainEditInfo.name);
+      validateCustomChain(network.chainEditInfo.providers[network.chainEditInfo.currentProvider])
+        .then(result => {
+          console.log(result.success, result.error);
+
+          if (result.evmChainId) {
+            network.chainEditInfo.chainType = 'EVM';
+            network.chainSpec.evmChainId = result.evmChainId;
+            network.chainSpec.genesisHash = '';
           } else {
-            reject('An error occurred, please try again ' + network.chainEditInfo.name);
+            network.chainSpec.addressPrefix = Number(result.addressPrefix);
+            network.chainSpec.paraId = result.paraId || 0;
+            network.chainEditInfo.chainType = 'Substrate';
+            network.chainSpec.genesisHash = result.genesisHash;
+            network.chainSpec.existentialDeposit = result.existentialDeposit;
           }
-          // if (AddedMap[key].active) enableNetworkMap(key).catch(e => console.log('Added Enabling error:- ', e.message));
-          resolve(r);
+          //network.chainEditInfo.name = result.name;
+          network.chainEditInfo.symbol = result.symbol;
+          network.chainSpec.decimals = result.decimals;
+          if (network.chainEditInfo.name.length !== 0 && result.success)
+            upsertChain(network)
+              .then(r => {
+                if (r) {
+                  resolve(r);
+                  console.log('Added:- ', network.chainEditInfo.name);
+                } else {
+                  reject('An error occurred, please try again ' + network.chainEditInfo.name);
+                }
+                // if (AddedMap[key].active) enableNetworkMap(key).catch(e => console.log('Added Enabling error:- ', e.message));
+                resolve(r);
+              })
+              .catch(e => reject(e));
         })
         .catch(e => reject(e));
     });
