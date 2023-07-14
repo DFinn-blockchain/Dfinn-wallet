@@ -102,12 +102,13 @@ export const Header = ({ onPressSearchButton }: HeaderProps) => {
           justifyContent: 'space-between',
           marginRight: -10,
         }}>
-        <IconButton
+        {/* <IconButton
           icon={Plus}
           onPress={() => {
             navigation.navigate('AccountsScreen');
           }}
-        />
+        /> */}
+        <View />
         {/* <IconButton icon={QrCode} onPress={onPressQrButton} /> */}
         <IconButton icon={MagnifyingGlass} onPress={_onPressSearchButton} />
       </View>

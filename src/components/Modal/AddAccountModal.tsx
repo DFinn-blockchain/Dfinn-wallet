@@ -142,9 +142,7 @@ const AddAccountModal = ({ modalVisible, onHideModal: onHideMainModal }: Props) 
             plainIcon: true,
             onCLickButton: () => {
               onHideMainModal();
-              setTimeout(() => {
-                setSelectTypeModalVisible(true);
-              }, HIDE_MODAL_DURATION);
+              navigation.navigate('ImportSecretPhrase');
             },
           },
           {
@@ -170,15 +168,17 @@ const AddAccountModal = ({ modalVisible, onHideModal: onHideMainModal }: Props) 
             title: i18n.title.importByQrCode,
             plainIcon: true,
             onCLickButton: async () => {
-              const result = await requestCameraPermission();
+              navigation.navigate('ImportQrCode');
+              onHideMainModal();
+              // const result = await requestCameraPermission();
 
-              if (result === RESULTS.GRANTED) {
-                onHideMainModal();
-                setScanType(SCAN_TYPE.SECRET);
-                setTimeout(() => {
-                  onOpenModal();
-                }, HIDE_MODAL_DURATION);
-              }
+              // if (result === RESULTS.GRANTED) {
+              //   onHideMainModal();
+              //   setScanType(SCAN_TYPE.SECRET);
+              //   setTimeout(() => {
+              //     onOpenModal();
+              //   }, HIDE_MODAL_DURATION);
+              // }
             },
           },
         ],
@@ -192,9 +192,7 @@ const AddAccountModal = ({ modalVisible, onHideModal: onHideMainModal }: Props) 
             title: i18n.title.attachReadonlyAccount,
             plainIcon: true,
             onCLickButton: () => {
-              navigation.navigate('AttachAccount', {
-                screen: 'AttachReadOnly',
-              });
+              navigation.navigate('AttachReadOnly');
               onHideMainModal();
             },
           },
@@ -203,15 +201,17 @@ const AddAccountModal = ({ modalVisible, onHideModal: onHideMainModal }: Props) 
             title: i18n.title.attachQRSignerAccount,
             plainIcon: true,
             onCLickButton: async () => {
-              const result = await requestCameraPermission();
+              navigation.navigate('ConnectParitySigner');
+              onHideMainModal();
+              // const result = await requestCameraPermission();
 
-              if (result === RESULTS.GRANTED) {
-                onHideMainModal();
-                setScanType(SCAN_TYPE.QR_SIGNER);
-                setTimeout(() => {
-                  onOpenModal();
-                }, HIDE_MODAL_DURATION);
-              }
+              // if (result === RESULTS.GRANTED) {
+              //   onHideMainModal();
+              //   setScanType(SCAN_TYPE.QR_SIGNER);
+              //   setTimeout(() => {
+              //     onOpenModal();
+              //   }, HIDE_MODAL_DURATION);
+              // }
             },
           },
           // {
@@ -225,7 +225,7 @@ const AddAccountModal = ({ modalVisible, onHideModal: onHideMainModal }: Props) 
         ],
       },
     ],
-    [navigation, onHideMainModal, onOpenModal, show],
+    [navigation, onHideMainModal],
   );
 
   const onHideSelectTypeModal = useCallback(() => {

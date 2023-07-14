@@ -598,9 +598,9 @@ export const SendFund = ({
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
       <ScreenContainer>
         <>
-          <Header />
+          {/* <Header /> */}
 
-          <View style={{ paddingTop: 16 }}>
+          <View style={{ paddingTop: 0 }}>
             <SubHeader title={title} onPressBack={() => navigation.goBack()} disabled={loading} />
           </View>
 

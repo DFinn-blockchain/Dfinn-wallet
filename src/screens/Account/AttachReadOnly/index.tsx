@@ -23,6 +23,7 @@ import { Warning } from 'components/Warning';
 import { Button, PageIcon, Typography } from 'components/design-system-ui';
 import createStyle from './styles';
 import { getButtonIcon } from 'utils/button';
+import { SubmitButton } from '../../../components/SubmitButton';
 
 const validateAddress = (value: string) => {
   const qrAccount = readOnlyScan(value);
@@ -174,7 +175,7 @@ const AttachReadOnly = () => {
       <View style={styles.wrapper}>
         <ScrollView style={styles.container}>
           <Typography.Text style={styles.title}>
-            Track the activity of any wallet without injecting your private key to SubWallet
+            Track the activity of any wallet without injecting your private key to Dfinn Wallet
           </Typography.Text>
           <View style={styles.pageIconContainer}>
             <PageIcon icon={Eye} color={theme.colorSuccess} />
@@ -196,13 +197,20 @@ const AttachReadOnly = () => {
           <AddressScanner qrModalVisible={isScanning} onPressCancel={onCloseScanner} onChangeAddress={onScan} />
         </ScrollView>
         <View style={styles.footer}>
-          <Button
+          <SubmitButton
+            leftIcon={Eye}
+            isBusy={isBusy}
+            onPress={onPressSubmit(_onSubmitForm)}
+            title={i18n.title.attachReadonlyAccount}
+            disabled={errors.length > 0 || !formState.data.address || isBusy}
+          />
+          {/* <Button
             icon={getButtonIcon(Eye)}
             loading={isBusy}
             onPress={onPressSubmit(_onSubmitForm)}
             disabled={errors.length > 0 || !formState.data.address || isBusy}>
             {i18n.title.attachReadonlyAccount}
-          </Button>
+          </Button> */}
         </View>
       </View>
       <UnlockModal onPasswordComplete={onPasswordComplete} visible={visible} onHideModal={onHideModal} />

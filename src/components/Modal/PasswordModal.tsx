@@ -10,6 +10,7 @@ import i18n from 'utils/i18n/i18n';
 import { Warning } from 'components/Warning';
 import { WebRunnerContext } from 'providers/contexts';
 import { Button } from 'components/design-system-ui';
+import { SubmitButton } from 'components/SubmitButton';
 
 interface Props {
   visible: boolean;
@@ -108,14 +109,20 @@ const PasswordModal = ({ closeModal, visible, onConfirm, isBusy, errorArr, setEr
         {!isNetConnected && (
           <Warning style={{ marginBottom: 8 }} isDanger message={i18n.warningMessage.noInternetMessage} />
         )}
-
-        <Button
+        <SubmitButton
+          style={{ marginTop: 16 }}
+          isBusy={isBusy}
+          onPress={onPress}
+          disabled={!formState.data.password || formState.errors.password.length > 0 || !isNetConnected}
+          title={i18n.common.confirm}
+        />
+        {/* <Button
           style={{ marginTop: 16 }}
           loading={isBusy}
           onPress={onPress}
           disabled={!formState.data.password || formState.errors.password.length > 0 || !isNetConnected}>
           {i18n.common.confirm}
-        </Button>
+        </Button> */}
       </View>
     </SubWalletModal>
   );

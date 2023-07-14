@@ -34,6 +34,8 @@ import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
 import InputCheckBox from 'components/Input/InputCheckBox';
 import { TransactionLayout } from 'screens/Transaction/parts/TransactionLayout';
 import { ClaimRewardProps } from 'routes/transaction/transactionAction';
+import { SubmitButton } from '../../../components/SubmitButton';
+import { ColorMap } from '../../../styles/color';
 
 const filterAccount = (
   chainInfoMap: Record<string, _ChainInfo>,
@@ -219,7 +221,23 @@ const ClaimReward = ({
         />
 
         <View style={{ padding: 16, flexDirection: 'row' }}>
-          <Button
+          <SubmitButton
+            disabled={loading}
+            style={{ flex: 1, marginRight: 4 }}
+            onPress={() => navigation.goBack()}
+            leftIcon={XCircle}
+            backgroundColor={ColorMap.dark2}
+            title="Cancel"
+          />
+          <SubmitButton
+            style={{ flex: 1, marginLeft: 4 }}
+            disabled={isDisabled || loading}
+            isBusy={loading}
+            onPress={onPreCheckReadOnly(onSubmit)}
+            leftIcon={ArrowCircleRight}
+            title="Continue"
+          />
+          {/* <Button
             disabled={loading}
             style={{ flex: 1, marginRight: 4 }}
             type={'secondary'}
@@ -248,7 +266,7 @@ const ClaimReward = ({
             }
             onPress={onPreCheckReadOnly(onSubmit)}>
             Continue
-          </Button>
+          </Button> */}
         </View>
       </>
     </TransactionLayout>

@@ -20,6 +20,7 @@ interface BackgroundIconProps {
   iconColor?: string;
   backgroundColor?: string;
   style?: StyleProp<ViewStyle>;
+  noBackground?: boolean;
 }
 
 const BackgroundIcon: React.FC<BackgroundIconProps> = ({
@@ -32,6 +33,7 @@ const BackgroundIcon: React.FC<BackgroundIconProps> = ({
   weight,
   iconColor,
   backgroundColor,
+  noBackground = false,
 }) => {
   const theme = useSubWalletTheme().swThemes;
   const _style = BackgroundIconStyles(theme);
@@ -73,7 +75,10 @@ const BackgroundIcon: React.FC<BackgroundIconProps> = ({
   }
 
   return (
-    <ImageBackground source={getRandom()} style={{ padding: 10 }} imageStyle={{ borderRadius: 15 }}>
+    <ImageBackground
+      source={noBackground ? {} : getRandom()}
+      style={{ padding: noBackground ? 2 : 10, backgroundColor, borderRadius: 15 }}
+      imageStyle={{ borderRadius: 15 }}>
       <Icon
         type={type}
         phosphorIcon={phosphorIcon}

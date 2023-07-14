@@ -15,6 +15,8 @@ import Squircle from 'components/design-system-ui/squircle';
 import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
 import ButtonStyles from './style';
 import { ActivityIndicator } from 'components/design-system-ui';
+import { SubmitButton } from 'components/SubmitButton';
+import { ColorMap } from 'styles/color';
 
 export interface ButtonProps extends ButtonPropsType, TouchableHighlightProps {
   onPress?: (event?: GestureResponderEvent) => void;
@@ -116,6 +118,26 @@ const Button: React.FC<ButtonProps> = props => {
     return icon || null;
   }, [icon, loading, textStyle.color]);
   const buttonNode = (
+    // type === 'primary' ? (
+    //   <SubmitButton
+    //     style={style}
+    //     title={children}
+    //     onPress={onPress}
+    //     isBusy={loading}
+    //     disabled={disabled}
+    //     leftIcon={iconNode}
+    //   />
+    // ) : type === 'secondary' ? (
+    //   <SubmitButton
+    //     style={style}
+    //     title={children}
+    //     onPress={onPress}
+    //     isBusy={loading}
+    //     disabled={disabled}
+    //     leftIcon={iconNode}
+    //     backgroundColor={ColorMap.dark2}
+    //   />
+    // ) :
     <TouchableHighlight
       accessibilityRole="button"
       accessibilityState={{ disabled: !!disabled }}

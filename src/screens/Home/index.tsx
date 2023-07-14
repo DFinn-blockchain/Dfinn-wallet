@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import StakingScreen from './Staking/StakingScreen';
-import { View, Image, ImageStyle } from 'react-native';
+import { View, Image, ImageStyle, Linking } from 'react-native';
 import { Platform, TouchableOpacity } from 'react-native';
 import { Aperture } from 'phosphor-react-native';
 import { CryptoScreen } from 'screens/Home/Crypto';
@@ -17,6 +17,9 @@ import { BrowserScreen } from 'screens/Home/Browser';
 import { HomeStackParamList } from 'routes/home';
 import NFTStackScreen from 'screens/Home/NFT/NFTStackScreen';
 import { Images } from 'assets/index';
+import { ActivityIndicator } from 'components/design-system-ui';
+import { useSelector } from 'react-redux';
+import { RootState } from 'stores/index';
 
 const iconStyle: ImageStyle = {
   height: 24,
@@ -142,6 +145,31 @@ const MainScreen = () => {
 
 export const Home = () => {
   const isEmptyAccounts = useCheckEmptyAccounts();
+  const { isReady } = useSelector((state: RootState) => state.accountState);
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (isReady) {
+      Linking.getInitialURL()
+        .then(url => {
+          if (url) {
+            Linking.openURL(url);
+          }
+        })
+        .catch(e => console.warn('e', e));
+    }
+    if (isReady && isLoading) {
+      setTimeout(() => setLoading(false), 500);
+    }
+  }, [isReady, isLoading]);
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator indicatorColor="white" size={30} />
+      </View>
+    );
+  }
 
   return <>{isEmptyAccounts ? <FirstScreen /> : <MainScreen />}</>;
 };

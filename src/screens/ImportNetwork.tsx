@@ -25,6 +25,7 @@ import { _generateCustomProviderKey } from '@subwallet/extension-base/services/c
 import { _NetworkUpsertParams } from '@subwallet/extension-base/services/chain-service/types';
 import { useToast } from 'react-native-toast-notifications';
 import { HIDE_MODAL_DURATION } from 'constants/index';
+import { SubmitButton } from '../components/SubmitButton';
 
 interface ValidationInfo {
   status: ValidateStatus;
@@ -166,11 +167,17 @@ export const ImportNetwork = () => {
       },
     };
 
+    console.log('====================================');
+    console.log(JSON.stringify(params));
+    console.log('====================================');
+
     upsertChain(params)
       .then(result => {
         setLoading(false);
         if (result) {
           toast.show('Imported chain successfully');
+          console.log(result);
+
           navigation.goBack();
         } else {
           toast.show('An error occurred, please try again');
@@ -203,6 +210,7 @@ export const ImportNetwork = () => {
         setIsShowConnectionStatus(true);
         setIsValidating(true);
         const parsedProvider = provider.split(' ').join('');
+        console.log(provider, parsedProvider);
 
         validateCustomChain(parsedProvider)
           .then(result => {
@@ -367,7 +375,14 @@ export const ImportNetwork = () => {
       </View>
 
       <View style={{ ...ContainerHorizontalPadding, ...MarginBottomForSubmitButton }}>
-        <Button
+        <SubmitButton
+          isBusy={loading}
+          disabled={isSubmitDisabled()}
+          onPress={onSubmit}
+          leftIcon={FloppyDiskBack}
+          title="Add Network"
+        />
+        {/* <Button
           loading={loading}
           disabled={isSubmitDisabled()}
           onPress={onSubmit}
@@ -380,7 +395,7 @@ export const ImportNetwork = () => {
             />
           }>
           {'Add network'}
-        </Button>
+        </Button> */}
       </View>
     </ContainerWithSubHeader>
   );

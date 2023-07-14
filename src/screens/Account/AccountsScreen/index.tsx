@@ -105,7 +105,7 @@ export const AccountsScreen = () => {
     return (
       <View style={{ paddingHorizontal: 16, ...MarginBottomForSubmitButton, marginTop: 16 }}>
         <SubmitButton
-          backgroundColor={ColorMap.dark2}
+          //backgroundColor={ColorMap.dark2}
           title={i18n.common.addOrConnectAccount}
           onPress={onCreateAccount}
         />

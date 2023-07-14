@@ -65,7 +65,9 @@ export default function useGetSupportedStakingTokens(
       });
     } else {
       Object.values(chainInfoMap).forEach(chainInfo => {
+        console.log(JSON.stringify(chainInfo));
         if (
+          //true
           _isChainSupportSubstrateStaking(chainInfo) &&
           _STAKING_CHAIN_GROUP.nominationPool.includes(chainInfo.slug)
         ) {

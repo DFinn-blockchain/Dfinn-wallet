@@ -37,6 +37,7 @@ import { SWTransactionResponse } from '@subwallet/extension-base/services/transa
 import { evmNftSubmitTransaction, substrateNftSubmitTransaction } from 'messaging/index';
 import { useNavigation } from '@react-navigation/native';
 import { RootNavigationProps, SendNFTProps } from 'routes/index';
+import { SubmitButton } from '../../../components/SubmitButton';
 
 const DEFAULT_ITEM: NftItem = {
   collectionId: 'unknown',
@@ -271,9 +272,15 @@ const SendNFT: React.FC<SendNFTProps> = ({
           </ScrollView>
 
           <View style={{ ...ContainerHorizontalPadding, marginTop: 16, marginBottom: 16 }}>
-            <Button loading={loading} disabled={disableSubmit} onPress={handleSend}>
+            <SubmitButton
+              isBusy={loading}
+              disabled={disableSubmit}
+              onPress={handleSend}
+              title={i18n.transferNft.send}
+            />
+            {/* <Button loading={loading} disabled={disableSubmit} onPress={handleSend}>
               {i18n.transferNft.send}
-            </Button>
+            </Button> */}
           </View>
 
           <AddressScanner

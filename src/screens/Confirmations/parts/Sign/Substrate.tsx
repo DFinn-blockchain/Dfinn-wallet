@@ -18,6 +18,7 @@ import { Button } from 'components/design-system-ui';
 import i18n from 'utils/i18n/i18n';
 import { HIDE_MODAL_DURATION } from 'constants/index';
 import { getButtonIcon } from 'utils/button';
+import { SubmitButton } from '../../../../components/SubmitButton';
 
 interface Props {
   account: AccountJson;
@@ -139,7 +140,15 @@ export const SubstrateSignArea = (props: Props) => {
 
   return (
     <ConfirmationFooter>
-      <Button disabled={loading} block icon={getButtonIcon(XCircle)} type={'secondary'} onPress={onCancel}>
+      <SubmitButton disabled={loading} leftIcon={XCircle} onPress={onCancel} title={i18n.common.cancel} />
+      <SubmitButton
+        disabled={(isMessage && !modeCanSignMessage.includes(signMode)) || loading}
+        leftIcon={approveIcon}
+        isBusy={loading}
+        onPress={onConfirm}
+        title={i18n.common.approve}
+      />
+      {/* <Button disabled={loading} block icon={getButtonIcon(XCircle)} type={'secondary'} onPress={onCancel}>
         {i18n.common.cancel}
       </Button>
       <Button
@@ -149,7 +158,7 @@ export const SubstrateSignArea = (props: Props) => {
         loading={loading}
         onPress={onConfirm}>
         {i18n.common.approve}
-      </Button>
+      </Button> */}
       {signMode === AccountSignMode.QR && (
         <>
           <DisplayPayloadModal visible={isShowQr} onClose={hideScanning} onOpenScan={openScanning}>

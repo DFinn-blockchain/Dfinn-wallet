@@ -19,6 +19,7 @@ import { Button, Icon, Typography } from 'components/design-system-ui';
 import { FileArrowDown, X } from 'phosphor-react-native';
 import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
 import createStyle from './styles';
+import { SubmitButton } from 'components/SubmitButton';
 
 function checkValidateForm(isValidated: Record<string, boolean>) {
   return isValidated.privateKey;
@@ -162,7 +163,14 @@ export const ImportPrivateKey = () => {
           />
         </ScrollView>
         <View style={styles.footer}>
-          <Button
+          <SubmitButton
+            leftIcon={FileArrowDown}
+            disabled={canSubmit}
+            isBusy={validating || isBusy}
+            onPress={onPressSubmit(_onImport)}
+            title={'Import Account'}
+          />
+          {/* <Button
             icon={
               <Icon
                 phosphorIcon={FileArrowDown}
@@ -175,7 +183,7 @@ export const ImportPrivateKey = () => {
             loading={validating || isBusy}
             onPress={onPressSubmit(_onImport)}>
             {'Import account'}
-          </Button>
+          </Button> */}
         </View>
         <UnlockModal onPasswordComplete={onPasswordComplete} visible={visible} onHideModal={onHideModal} />
       </View>

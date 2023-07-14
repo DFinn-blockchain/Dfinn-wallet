@@ -3,6 +3,7 @@
 
 import { Button, Icon, SwFullSizeModal } from 'components/design-system-ui';
 import { SubHeader } from 'components/SubHeader';
+import { SubmitButton } from 'components/SubmitButton';
 import useCheckCamera from 'hooks/common/useCheckCamera';
 import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
 import { QrCode } from 'phosphor-react-native';
@@ -11,6 +12,7 @@ import { SafeAreaView, View } from 'react-native';
 import i18n from 'utils/i18n/i18n';
 
 import createStyle from './styles';
+import { QRCode } from '@subwallet/react-ui';
 
 interface Props {
   children: JSX.Element;
@@ -34,12 +36,13 @@ const DisplayPayloadModal: React.FC<Props> = (props: Props) => {
         <View style={styles.container}>
           <SubHeader title={i18n.common.confirm} onPressBack={onClose} />
           <View style={styles.body}>{children}</View>
-          <Button
+          <SubmitButton style={styles.footer} onPress={checkCamera(onOpenScan)} title={'Scan Qr'} leftIcon={QRCode} />
+          {/* <Button
             style={styles.footer}
             onPress={checkCamera(onOpenScan)}
             icon={<Icon phosphorIcon={QrCode} weight="fill" />}>
             Scan QR
-          </Button>
+          </Button> */}
         </View>
       </SafeAreaView>
     </SwFullSizeModal>

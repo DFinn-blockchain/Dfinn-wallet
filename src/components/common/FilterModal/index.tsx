@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import InputCheckBox from 'components/Input/InputCheckBox';
 import { FadersHorizontal } from 'phosphor-react-native';
 import { MarginBottomForSubmitButton } from 'styles/sharedStyles';
+import { SubmitButton } from 'components/SubmitButton';
 
 export type OptionType = {
   label: string;
@@ -39,9 +40,10 @@ const FilterModal = ({
       <>
         <Divider style={{ paddingTop: 4, paddingBottom: 16 }} color={'#1A1A1A'} />
         <View style={{ width: '100%', paddingHorizontal: 16, ...MarginBottomForSubmitButton }}>
-          <Button icon={ButtonIcon} onPress={onApplyFilter}>
+          <SubmitButton leftIcon={FadersHorizontal} onPress={onApplyFilter} title="Apply Filter" />
+          {/* <Button icon={ButtonIcon} onPress={onApplyFilter}>
             {'Apply filter'}
-          </Button>
+          </Button> */}
         </View>
       </>
     );

@@ -38,6 +38,7 @@ import { submitPoolUnbonding, submitUnbonding } from 'messaging/index';
 import { FontMedium, MarginBottomForSubmitButton } from 'styles/sharedStyles';
 import { TransactionLayout } from 'screens/Transaction/parts/TransactionLayout';
 import { UnbondProps } from 'routes/transaction/transactionAction';
+import { SubmitButton } from '../../../components/SubmitButton';
 
 const _accountFilterFunc = (
   allNominator: NominatorMetadata[],
@@ -294,7 +295,14 @@ export const Unbond = ({
         />
 
         <View style={{ paddingHorizontal: 16, paddingTop: 16, ...MarginBottomForSubmitButton }}>
-          <Button
+          <SubmitButton
+            disabled={!formState.isValidated.value || !formState.data.value || !formState.data.from || loading}
+            isBusy={loading}
+            leftIcon={MinusCircle}
+            onPress={onPreCheckReadOnly(onSubmit)}
+            title="Submit"
+          />
+          {/* <Button
             disabled={!formState.isValidated.value || !formState.data.value || !formState.data.from || loading}
             loading={loading}
             icon={
@@ -311,7 +319,7 @@ export const Unbond = ({
             }
             onPress={onPreCheckReadOnly(onSubmit)}>
             Submit
-          </Button>
+          </Button> */}
         </View>
       </>
     </TransactionLayout>

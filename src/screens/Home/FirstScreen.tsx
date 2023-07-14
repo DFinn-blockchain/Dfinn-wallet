@@ -49,6 +49,8 @@ import { requestCameraPermission } from 'utils/permission/camera';
 import Text from 'components/Text';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import GradientButton from 'components/GradientButton';
+import { useSelector } from 'react-redux';
+import { RootState } from 'stores/index';
 
 const imageBackgroundStyle: StyleProp<any> = {
   flex: 1,
@@ -99,6 +101,7 @@ export const FirstScreen = () => {
   const [selectTypeModalVisible, setSelectTypeModalVisible] = useState<boolean>(false);
   const [selectedAction, setSelectedAction] = useState<keyof RootStackParamList | null>(null);
   const [scanType, setScanType] = useState<SCAN_TYPE.QR_SIGNER | SCAN_TYPE.SECRET>(SCAN_TYPE.SECRET);
+  const { accounts, hasMasterPassword } = useSelector((state: RootState) => state.accountState);
 
   const onSuccess = useCallback(
     (data: QrAccount) => {
@@ -141,18 +144,23 @@ export const FirstScreen = () => {
             icon: Article,
             title: i18n.title.importBySecretPhrase,
             onCLickButton: () => {
-              setSelectedAction('ImportSecretPhrase');
               setSelectModalVisible(false);
-              setTimeout(() => {
-                setSelectTypeModalVisible(true);
-              }, HIDE_MODAL_DURATION);
+              if (hasMasterPassword) {
+                navigation.navigate('ImportSecretPhrase');
+              } else {
+                navigation.navigate('CreatePassword', { pathName: 'ImportSecretPhrase' });
+              }
             },
           },
           {
             icon: LockKey,
             title: i18n.title.importByPrivateKey,
             onCLickButton: () => {
-              navigation.navigate('ImportPrivateKey');
+              if (hasMasterPassword) {
+                navigation.navigate('ImportPrivateKey');
+              } else {
+                navigation.navigate('CreatePassword', { pathName: 'ImportPrivateKey' });
+              }
               setSelectModalVisible(false);
             },
           },
@@ -160,7 +168,11 @@ export const FirstScreen = () => {
             icon: FileArrowUp,
             title: i18n.title.importFromJson,
             onCLickButton: () => {
-              navigation.navigate('RestoreJson');
+              if (hasMasterPassword) {
+                navigation.navigate('RestoreJson');
+              } else {
+                navigation.navigate('CreatePassword', { pathName: 'RestoreJson' });
+              }
               setSelectModalVisible(false);
             },
           },
@@ -168,15 +180,21 @@ export const FirstScreen = () => {
             icon: QrCode,
             title: i18n.title.importByQrCode,
             onCLickButton: async () => {
-              const result = await requestCameraPermission();
+              // const result = await requestCameraPermission();
 
-              if (result === RESULTS.GRANTED) {
-                setScanType(SCAN_TYPE.SECRET);
-                setSelectModalVisible(false);
-                setTimeout(() => {
-                  onOpenModal();
-                }, HIDE_MODAL_DURATION);
+              // if (result === RESULTS.GRANTED) {
+              //   setScanType(SCAN_TYPE.SECRET);
+              //   setSelectModalVisible(false);
+              //   setTimeout(() => {
+              //     onOpenModal();
+              //   }, HIDE_MODAL_DURATION);
+              // }
+              if (hasMasterPassword) {
+                navigation.navigate('ImportQrCode');
+              } else {
+                navigation.navigate('CreatePassword', { pathName: 'ImportQrCode' });
               }
+              setSelectModalVisible(false);
             },
           },
         ],
@@ -188,9 +206,13 @@ export const FirstScreen = () => {
             icon: Eye,
             title: i18n.title.attachReadonlyAccount,
             onCLickButton: () => {
-              navigation.navigate('AttachAccount', {
-                screen: 'AttachReadOnly',
-              });
+              setTimeout(() => {
+                if (hasMasterPassword) {
+                  navigation.navigate('AttachReadOnly');
+                } else {
+                  navigation.navigate('CreatePassword', { pathName: 'AttachReadOnly' });
+                }
+              }, 200);
               setSelectModalVisible(false);
             },
           },
@@ -198,15 +220,21 @@ export const FirstScreen = () => {
             icon: QrCode,
             title: i18n.title.attachQRSignerAccount,
             onCLickButton: async () => {
-              const result = await requestCameraPermission();
+              // const result = await requestCameraPermission();
 
-              if (result === RESULTS.GRANTED) {
-                setScanType(SCAN_TYPE.QR_SIGNER);
-                setSelectModalVisible(false);
-                setTimeout(() => {
-                  onOpenModal();
-                }, HIDE_MODAL_DURATION);
+              // if (result === RESULTS.GRANTED) {
+              //   setScanType(SCAN_TYPE.QR_SIGNER);
+              //   setSelectModalVisible(false);
+              //   setTimeout(() => {
+              //     onOpenModal();
+              //   }, HIDE_MODAL_DURATION);
+              // }
+              if (hasMasterPassword) {
+                navigation.navigate('ConnectParitySigner');
+              } else {
+                navigation.navigate('CreatePassword', { pathName: 'ConnectParitySigner' });
               }
+              setSelectModalVisible(false);
             },
           },
           {
@@ -219,7 +247,7 @@ export const FirstScreen = () => {
         ],
       },
     ],
-    [navigation, onOpenModal, show],
+    [navigation, onOpenModal, show, hasMasterPassword],
   );
 
   const onSelectSubstrateAccount = useCallback(() => {

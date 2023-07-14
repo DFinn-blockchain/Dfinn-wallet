@@ -34,6 +34,7 @@ import { isUrl } from 'utils/index';
 import { useNavigation } from '@react-navigation/native';
 import DeleteModal from 'components/common/Modal/DeleteModal';
 import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
+import { SubmitButton } from '../components/SubmitButton';
 
 const ContainerStyle: StyleProp<ViewStyle> = {
   ...sharedStyles.layoutContainer,
@@ -320,7 +321,14 @@ export const NetworkSettingDetail = ({
         </ScrollView>
 
         <View style={{ ...MarginBottomForSubmitButton }}>
-          <Button
+          <SubmitButton
+            disabled={isDisabledSubmitButton}
+            isBusy={loading}
+            onPress={onSubmit}
+            title={'Save'}
+            leftIcon={FloppyDiskBack}
+          />
+          {/* <Button
             disabled={isDisabledSubmitButton}
             loading={loading}
             icon={
@@ -333,7 +341,7 @@ export const NetworkSettingDetail = ({
             }
             onPress={onSubmit}>
             {'Save'}
-          </Button>
+          </Button> */}
         </View>
 
         <DeleteModal

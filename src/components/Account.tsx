@@ -142,7 +142,7 @@ export const Account = ({
           {name}
         </Text>
         {showSelectedIcon && isSelected && (
-          <CircleWavyCheck size={20} color={ColorMap.primary} weight={'bold'} style={InfoIconStyle} />
+          <CircleWavyCheck size={20} color={ColorMap.verified} weight={'bold'} style={InfoIconStyle} />
         )}
       </View>
     );

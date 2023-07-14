@@ -115,9 +115,9 @@ android {
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
-    namespace "app.subwallet.mobile"
+    namespace "money.dfinn.wallet"
     defaultConfig {
-        applicationId "app.subwallet.mobile"
+        applicationId "money.dfinn.wallet"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
          versionCode getNumericVersionFromNpm()

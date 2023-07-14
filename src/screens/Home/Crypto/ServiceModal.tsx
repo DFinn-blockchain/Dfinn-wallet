@@ -90,7 +90,7 @@ export const ServiceModal = ({ onPressBack, modalVisible, onChangeModalVisible, 
     const { symbol, transakNetwork } = PREDEFINED_TRANSAK_TOKEN[token];
 
     const params = {
-      apiKey: '4b3bfb00-7f7c-44b3-844f-d4504f1065be',
+      apiKey: 'ffe3aa56-7f34-4323-abae-2d8f1179fbdd',
       defaultCryptoCurrency: symbol,
       networks: transakNetwork,
       cryptoCurrencyList: symbol,
@@ -106,8 +106,8 @@ export const ServiceModal = ({ onPressBack, modalVisible, onChangeModalVisible, 
   }>({ selectedService: undefined, isOpenInAppBrowser: false });
   const SERVICE_OPTIONS = [
     { label: 'Transak', value: 'transak', url: url },
-    { label: 'MoonPay', value: 'moonpay', url: '' },
-    { label: 'Onramper', value: 'onramper', url: '' },
+    // { label: 'MoonPay', value: 'moonpay', url: '' },
+    // { label: 'Onramper', value: 'onramper', url: '' },
   ];
   const sleep = (timeout: number) => new Promise<void>(resolve => setTimeout(resolve, timeout));
 

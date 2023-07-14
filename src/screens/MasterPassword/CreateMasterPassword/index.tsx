@@ -15,6 +15,7 @@ import { CreatePasswordProps, RootNavigationProps } from 'routes/index';
 import CreateMasterPasswordStyle from './style';
 import { KeypairType } from '@polkadot/util-crypto/types';
 import useHandlerHardwareBackPress from 'hooks/screen/useHandlerHardwareBackPress';
+import { SubmitButton } from 'components/SubmitButton';
 
 const formConfig: FormControlConfig = {
   password: {
@@ -144,7 +145,8 @@ const CreateMasterPassword = ({
       </View>
 
       <View style={_style.footerAreaStyle}>
-        <Button
+        <SubmitButton disabled={isDisabled} leftIcon={CheckCircle} onPress={onSubmit} title="Finish" />
+        {/* <Button
           disabled={isDisabled}
           icon={
             <Icon
@@ -155,7 +157,7 @@ const CreateMasterPassword = ({
           }
           onPress={onSubmit}>
           {'Finish'}
-        </Button>
+        </Button> */}
       </View>
     </ContainerWithSubHeader>
   );

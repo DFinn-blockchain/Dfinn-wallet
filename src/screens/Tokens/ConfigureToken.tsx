@@ -29,6 +29,8 @@ import { ThemeTypes } from 'styles/themes';
 import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
 import { getTokenLogo } from 'utils/index';
 import Tag from '../../components/design-system-ui/tag';
+import { ColorMap } from '../../styles/color';
+import { SubmitButton } from '../../components/SubmitButton';
 
 export const ConfigureToken = ({
   route: {
@@ -221,7 +223,21 @@ export const ConfigureToken = ({
         </ScrollView>
         {tokenInfo && _isCustomAsset(tokenInfo.slug) && (
           <View style={{ flexDirection: 'row', paddingTop: 27, ...MarginBottomForSubmitButton }}>
-            <Button
+            <SubmitButton
+              disabled={isBusy}
+              style={{ flex: 1, marginRight: 4 }}
+              onPress={() => navigation.goBack()}
+              backgroundColor={ColorMap.dark2}
+              title={i18n.common.cancel}
+            />
+            <SubmitButton
+              style={{ flex: 1, marginLeft: 4 }}
+              disabled={!isNetConnected}
+              isBusy={isBusy}
+              onPress={() => onSubmit(formState)}
+              title={i18n.common.save}
+            />
+            {/* <Button
               type={'secondary'}
               disabled={isBusy}
               style={{ flex: 1, marginRight: 6 }}
@@ -234,7 +250,7 @@ export const ConfigureToken = ({
               style={{ flex: 1, marginLeft: 6 }}
               onPress={() => onSubmit(formState)}>
               {i18n.common.save}
-            </Button>
+            </Button> */}
           </View>
         )}
       </View>

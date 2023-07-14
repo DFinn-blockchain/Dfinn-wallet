@@ -34,6 +34,8 @@ import { submitStakeWithdrawal } from 'messaging/index';
 import { TransactionLayout } from 'screens/Transaction/parts/TransactionLayout';
 import { WithdrawProps } from 'routes/transaction/transactionAction';
 import { MarginBottomForSubmitButton } from 'styles/sharedStyles';
+import { SubmitButton } from '../../../components/SubmitButton';
+import { ColorMap } from 'styles/color';
 
 const filterAccount = (
   chainInfoMap: Record<string, _ChainInfo>,
@@ -175,7 +177,15 @@ export const Withdraw = ({
         />
 
         <View style={{ paddingHorizontal: 16, paddingTop: 16, flexDirection: 'row', ...MarginBottomForSubmitButton }}>
-          <Button
+          <SubmitButton
+            disabled={loading}
+            style={{ flex: 1, marginRight: 4 }}
+            onPress={() => navigation.goBack()}
+            leftIcon={XCircle}
+            backgroundColor={ColorMap.dark2}
+            title="Cancel"
+          />
+          {/* <Button
             disabled={loading}
             style={{ flex: 1, marginRight: 4 }}
             type={'secondary'}
@@ -189,8 +199,16 @@ export const Withdraw = ({
               />
             }>
             Cancel
-          </Button>
-          <Button
+          </Button> */}
+          <SubmitButton
+            style={{ flex: 1, marginLeft: 4 }}
+            disabled={isDisabled || loading}
+            isBusy={loading}
+            onPress={onPreCheckReadOnly(onSubmit)}
+            leftIcon={ArrowCircleRight}
+            title="Continue"
+          />
+          {/* <Button
             style={{ flex: 1, marginLeft: 4 }}
             disabled={isDisabled || loading}
             loading={loading}
@@ -204,7 +222,7 @@ export const Withdraw = ({
             }
             onPress={onPreCheckReadOnly(onSubmit)}>
             Continue
-          </Button>
+          </Button> */}
         </View>
       </>
     </TransactionLayout>

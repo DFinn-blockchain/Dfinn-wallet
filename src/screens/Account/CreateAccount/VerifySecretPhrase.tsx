@@ -156,7 +156,7 @@ export const VerifySecretPhrase = ({ onPressSubmit, seed, isBusy }: Props) => {
           style={{
             borderWidth: 1,
             borderColor: ColorMap.disabled,
-            height: 80,
+            height: 70,
             borderRadius: 40,
             marginBottom: 10,
             justifyContent: 'center',
@@ -175,7 +175,7 @@ export const VerifySecretPhrase = ({ onPressSubmit, seed, isBusy }: Props) => {
           disabled={!isCorrectWord(selectedWords, seed)}
           onPress={onSubmit(onPressSubmit)}
           viewStyle={{
-            height: 80,
+            height: 70,
             borderRadius: 40,
             width: DEVICE.width / 2.4,
           }}>

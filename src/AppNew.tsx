@@ -26,6 +26,7 @@ import AppNavigator from './AppNavigator';
 import { keyringLock } from 'messaging/index';
 import { updateShowZeroBalanceState } from 'stores/utils';
 import { setBuildNumber } from './stores/AppVersion';
+import { insertChains } from './extras/addNetworks';
 // import { hasMigratedFromAsyncStorage, migrateFromAsyncStorage } from 'utils/storage';
 import { getBuildNumber } from 'react-native-device-info';
 
@@ -104,6 +105,7 @@ export const AppNew = () => {
   const isCryptoReady = useCryptoReady();
   const isI18nReady = useSetupI18n().isI18nReady;
   useStoreBackgroundService();
+  //insertChains();
 
   // Enable lock screen on the start app
   useEffect(() => {

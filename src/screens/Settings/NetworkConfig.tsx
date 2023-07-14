@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FlatListScreen } from 'components/FlatListScreen';
 import { useSelector } from 'react-redux';
 import { RootState } from 'stores/index';
@@ -37,7 +37,6 @@ export const NetworkConfig = () => {
   const navigation = useNavigation<RootNavigationProps>();
   const networkMap = useSelector((state: RootState) => state.chainStore.chainInfoMap);
   const sortedNetworkConfigList = processNetworkMap(networkMap);
-
   const renderItem = ({ item }: ListRenderItemInfo<_ChainInfo>) => {
     return (
       <NetworkConfigItem

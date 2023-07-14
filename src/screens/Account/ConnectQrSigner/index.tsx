@@ -27,6 +27,7 @@ import { QrAccount } from 'types/qr/attach';
 import { backToHome } from 'utils/navigation';
 import createStyle from './styles';
 import { Images } from 'assets/index';
+import { SubmitButton } from '../../../components/SubmitButton';
 
 interface Props {
   title: string;
@@ -122,12 +123,18 @@ const ConnectQrSigner: React.FC<Props> = (props: Props) => {
         </View>
       </View>
       <View style={styles.footer}>
-        <Button
+        <SubmitButton
+          leftIcon={QrCode}
+          isBusy={loading}
+          onPress={onPressSubmit(onOpenModal)}
+          title={loading ? 'Creating' : 'Scan the QR code'}
+        />
+        {/* <Button
           icon={<Icon phosphorIcon={QrCode} weight="fill" />}
           onPress={onPressSubmit(onOpenModal)}
           loading={loading}>
           {loading ? 'Creating' : 'Scan the QR code'}
-        </Button>
+        </Button> */}
       </View>
       <QrAddressScanner visible={isScanning} onHideModal={onHideModal} onSuccess={onScan} type={SCAN_TYPE.QR_SIGNER} />
       <UnlockModal onPasswordComplete={onPasswordComplete} visible={unlockVisible} onHideModal={onHidePasswordModal} />

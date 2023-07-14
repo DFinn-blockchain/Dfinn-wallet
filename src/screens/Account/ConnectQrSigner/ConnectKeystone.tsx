@@ -13,7 +13,7 @@ const ConnectKeystone: React.FC<Props> = () => {
       description={'Keystone will provide you QR code to scan'}
       instructionUrl={'Connect your QR wallet'}
       logoUrl={ImageLogosMap.keystone}
-      subTitle={'Select the SubWallet option in the “Software Wallet” menu available in your Keystone'}
+      subTitle={'Select the Dfinn Wallet option in the “Software Wallet” menu available in your Keystone'}
       title={'Connect your Keystone'}
     />
   );

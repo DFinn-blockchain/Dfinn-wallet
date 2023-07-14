@@ -11,6 +11,7 @@ import { completeConfirmation } from 'messaging/index';
 import i18n from 'utils/i18n/i18n';
 
 import createStyle from './styles';
+import { SubmitButton } from '../../../../components/SubmitButton';
 
 interface Props {
   request: ConfirmationDefinitions['addNetworkRequest'][0];
@@ -119,7 +120,15 @@ const AddNetworkConfirmation: React.FC<Props> = (props: Props) => {
         </View>
       </ConfirmationContent>
       <ConfirmationFooter>
-        <Button block={true} type="secondary" onPress={onCancel} icon={<Icon phosphorIcon={XCircle} weight="fill" />}>
+        <SubmitButton disabled={loading} leftIcon={XCircle} onPress={onCancel} title={i18n.common.cancel} />
+        <SubmitButton
+          disabled={mode === 'update'}
+          leftIcon={CheckCircle}
+          isBusy={loading}
+          onPress={onApprove}
+          title={i18n.common.approve}
+        />
+        {/* <Button block={true} type="secondary" onPress={onCancel} icon={<Icon phosphorIcon={XCircle} weight="fill" />}>
           {i18n.common.cancel}
         </Button>
         <Button
@@ -129,7 +138,7 @@ const AddNetworkConfirmation: React.FC<Props> = (props: Props) => {
           onPress={onApprove}
           loading={loading}>
           {i18n.common.approve}
-        </Button>
+        </Button> */}
       </ConfirmationFooter>
     </React.Fragment>
   );

@@ -117,6 +117,9 @@ export const NetworksSetting = ({}: Props) => {
   const [currentChainList, setCurrentChainList] = useState(processChainMap(chainInfoMap));
 
   useEffect(() => {
+    // console.log('====================================');
+    // console.log(JSON.stringify(Object.values(chainInfoMap).filter(i => i.chainType === 'EVM')));
+    // console.log('===================================='); 
     setPendingChainMap(prevPendingChainMap => {
       Object.entries(prevPendingChainMap).forEach(([key, val]) => {
         if (chainInfoMap[key].active === val) {

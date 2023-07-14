@@ -764,7 +764,7 @@ export const en = {
     noProviderAvailable: 'No provider available',
     qrCodeNotSupport:
       'QR code not supported, please make sure you are scanning a transaction from a supported software.',
-    noNetwork: 'SubWallet does not currently recognize a chain with genesis hash, please add the network first',
+    noNetwork: 'Dfinn Wallet does not currently recognize a chain with genesis hash, please add the network first',
     noRawData: 'There is no raw data from the request',
     noSenderFound: 'There is no related account in the app',
     externalAccount: 'There is external account',

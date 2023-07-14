@@ -24,6 +24,8 @@ import { ArrowCircleRight, XCircle } from 'phosphor-react-native';
 import usePreCheckReadOnly from 'hooks/account/usePreCheckReadOnly';
 import { TransactionLayout } from 'screens/Transaction/parts/TransactionLayout';
 import { CancelUnstakeProps } from 'routes/transaction/transactionAction';
+import { SubmitButton } from '../../../components/SubmitButton';
+import { ColorMap } from '../../../styles/color';
 
 const filterAccount = (
   chainInfoMap: Record<string, _ChainInfo>,
@@ -141,7 +143,23 @@ export const CancelUnstake = ({
         />
 
         <View style={{ padding: 16, flexDirection: 'row' }}>
-          <Button
+          <SubmitButton
+            disabled={loading}
+            style={{ flex: 1, marginRight: 4 }}
+            onPress={() => navigation.goBack()}
+            leftIcon={XCircle}
+            backgroundColor={ColorMap.dark2}
+            title="Cancel"
+          />
+          <SubmitButton
+            style={{ flex: 1, marginLeft: 4 }}
+            disabled={!isBalanceReady || loading}
+            isBusy={loading}
+            onPress={onPreCheckReadOnly(onSubmit)}
+            leftIcon={ArrowCircleRight}
+            title="Continue"
+          />
+          {/* <Button
             disabled={loading}
             style={{ flex: 1, marginRight: 4 }}
             type={'secondary'}
@@ -170,7 +188,7 @@ export const CancelUnstake = ({
             }
             onPress={onPreCheckReadOnly(onSubmit)}>
             Continue
-          </Button>
+          </Button> */}
         </View>
       </>
     </TransactionLayout>

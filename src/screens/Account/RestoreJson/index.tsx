@@ -28,6 +28,7 @@ import useHandlerHardwareBackPress from 'hooks/screen/useHandlerHardwareBackPres
 import { Button, Icon, SelectItem, SwModal, Typography } from 'components/design-system-ui';
 import createStyles from './styles';
 import { getButtonIcon } from 'utils/button';
+import { SubmitButton } from 'components/SubmitButton';
 
 const formConfig: FormControlConfig = {
   file: {
@@ -311,13 +312,20 @@ export const RestoreJson = () => {
         </ScrollView>
 
         <View style={styles.footer}>
-          <Button
+          <SubmitButton
+            isBusy={isBusy}
+            leftIcon={FileArrowDown}
+            onPress={onPressSubmit(onPressSubmitButton)}
+            disabled={isDisabled}
+            title={i18n.common.importAccount}
+          />
+          {/* <Button
             loading={isBusy}
             icon={getButtonIcon(FileArrowDown)}
             onPress={onPressSubmit(onPressSubmitButton)}
             disabled={isDisabled}>
             {i18n.common.importAccount}
-          </Button>
+          </Button> */}
         </View>
       </View>
       <SwModal modalVisible={visible} onChangeModalVisible={hideModal} modalTitle={'Account import list'}>

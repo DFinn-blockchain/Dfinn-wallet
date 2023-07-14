@@ -16,6 +16,7 @@ import { exportAccount, exportAccountPrivateKey, keyringExportMnemonic } from 'm
 import useGetAccountByAddress from 'hooks/screen/useGetAccountByAddress';
 import { KeyringPair$Json } from '@subwallet/keyring/types';
 import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
+import { SubmitButton } from 'components/SubmitButton';
 import { CheckCircle, CopySimple, X } from 'phosphor-react-native';
 import createStyle from './styles';
 
@@ -316,19 +317,25 @@ export const AccountExport = ({
           )}
         </ScrollView>
 
-        <View style={styles.footerArea}>
+        <View style={{ width: '100%' }}>
           {currentViewStep === ViewStep.SELECT_TYPES ? (
-            <Button disabled={!(selectedTypes && selectedTypes.length)} block onPress={() => setModalVisible(true)}>
-              {i18n.common.confirm}
-            </Button>
+            <SubmitButton
+              disabled={!(selectedTypes && selectedTypes.length)}
+              onPress={() => setModalVisible(true)}
+              title={i18n.common.confirm}
+            />
           ) : (
-            <Button
-              block
-              disabled={isBusy}
-              onPress={onPressDone}
-              icon={<Icon phosphorIcon={CheckCircle} size={'lg'} weight={'fill'} />}>
-              {i18n.common.finish}
-            </Button>
+            // <Button disabled={!(selectedTypes && selectedTypes.length)} block onPress={() => setModalVisible(true)}>
+            //   {i18n.common.confirm}
+            // </Button>
+            <SubmitButton disabled={isBusy} onPress={onPressDone} leftIcon={CheckCircle} title={i18n.common.finish} />
+            // <Button
+            //   block
+            //   disabled={isBusy}
+            //   onPress={onPressDone}
+            //   icon={<Icon phosphorIcon={CheckCircle} size={'lg'} weight={'fill'} />}>
+            //   {i18n.common.finish}
+            // </Button>
           )}
         </View>
 

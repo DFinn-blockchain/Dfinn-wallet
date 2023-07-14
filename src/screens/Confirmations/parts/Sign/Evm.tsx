@@ -16,6 +16,7 @@ import { isEvmMessage } from 'utils/confirmation/confirmation';
 import i18n from 'utils/i18n/i18n';
 import { HIDE_MODAL_DURATION } from 'constants/index';
 import { getButtonIcon } from 'utils/button';
+import { SubmitButton } from '../../../../components/SubmitButton';
 
 interface Props {
   id: string;
@@ -137,12 +138,20 @@ export const EvmSignArea = (props: Props) => {
 
   return (
     <ConfirmationFooter>
-      <Button block={true} disabled={loading} icon={getButtonIcon(XCircle)} type={'secondary'} onPress={onCancel}>
+      <SubmitButton disabled={loading} leftIcon={XCircle} onPress={onCancel} title={i18n.common.cancel} />
+      <SubmitButton
+        disabled={!canSign}
+        leftIcon={approveIcon}
+        isBusy={loading}
+        onPress={onConfirm}
+        title={i18n.common.approve}
+      />
+      {/* <Button block={true} disabled={loading} icon={getButtonIcon(XCircle)} type={'secondary'} onPress={onCancel}>
         {i18n.common.cancel}
       </Button>
       <Button block={true} disabled={!canSign} icon={getButtonIcon(approveIcon)} loading={loading} onPress={onConfirm}>
         {i18n.common.approve}
-      </Button>
+      </Button> */}
       {signMode === AccountSignMode.QR && (
         <>
           <DisplayPayloadModal visible={isShowQr} onClose={hideScanning} onOpenScan={openScanning}>

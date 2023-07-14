@@ -25,6 +25,7 @@ import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
 import { CheckCircle, CopySimple } from 'phosphor-react-native';
 import { SeedWordDataType } from 'screens/CreateAccount/types';
 import { SeedWord } from 'components/SeedWord';
+import { SubmitButton } from 'components/SubmitButton';
 
 const layoutContainerStyle: StyleProp<any> = {
   ...ContainerHorizontalPadding,
@@ -326,17 +327,23 @@ export const ExportAccount = ({
 
         <View style={footerAreaStyle}>
           {currentViewStep === ViewStep.SELECT_TYPES ? (
-            <Button disabled={!(selectedTypes && selectedTypes.length)} block onPress={() => setModalVisible(true)}>
-              {i18n.common.confirm}
-            </Button>
+            <SubmitButton
+              disabled={!(selectedTypes && selectedTypes.length)}
+              onPress={() => setModalVisible(true)}
+              title={i18n.common.confirm}
+            />
           ) : (
-            <Button
-              block
-              disabled={isBusy}
-              onPress={onPressDone}
-              icon={<Icon phosphorIcon={CheckCircle} size={'lg'} weight={'fill'} />}>
-              {i18n.common.finish}
-            </Button>
+            // <Button disabled={!(selectedTypes && selectedTypes.length)} block onPress={() => setModalVisible(true)}>
+            //   {i18n.common.confirm}
+            // </Button>
+            <SubmitButton disabled={isBusy} onPress={onPressDone} leftIcon={CheckCircle} title={i18n.common.finish} />
+            // <Button
+            //   block
+            //   disabled={isBusy}
+            //   onPress={onPressDone}
+            //   icon={<Icon phosphorIcon={CheckCircle} size={'lg'} weight={'fill'} />}>
+            //   {i18n.common.finish}
+            // </Button>
           )}
         </View>
 

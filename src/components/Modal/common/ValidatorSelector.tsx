@@ -24,6 +24,7 @@ import ToastContainer from 'react-native-toast-notifications';
 import { useSelector } from 'react-redux';
 import { RootState } from 'stores/index';
 import { _getChainSubstrateAddressPrefix } from '@subwallet/extension-base/services/chain-service/utils';
+import { SubmitButton } from '../../SubmitButton';
 
 interface Props {
   onSelectItem?: (value: string) => void;
@@ -155,8 +156,21 @@ export const ValidatorSelector = ({
           renderListEmptyComponent={renderListEmptyComponent}
           isShowFilterBtn={false}
         />
-        <View style={{ flexDirection: 'row', paddingHorizontal: 16, paddingTop: 16, ...MarginBottomForSubmitButton }}>
-          <Button
+        <View
+          style={{
+            flexDirection: 'row',
+            paddingHorizontal: 16,
+            paddingTop: 16,
+            ...MarginBottomForSubmitButton,
+          }}>
+          <SubmitButton
+            disabled={!changeValidators.length}
+            onPress={onApplyChangeValidators}
+            title={`Apply ${changeValidators.length} validators`}
+            leftIcon={CheckCircle}
+            style={{ width: '100%' }}
+          />
+          {/* <Button
             disabled={!changeValidators.length}
             block
             onPress={onApplyChangeValidators}
@@ -166,7 +180,7 @@ export const ValidatorSelector = ({
                 weight={'fill'}
                 iconColor={!changeValidators.length ? theme.colorTextLight5 : theme.colorWhite}
               />
-            }>{`Apply ${changeValidators.length} validators`}</Button>
+            }>{`Apply ${changeValidators.length} validators`}</Button> */}
         </View>
 
         <SafeAreaView />

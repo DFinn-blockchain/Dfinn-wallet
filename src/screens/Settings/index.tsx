@@ -50,7 +50,6 @@ const versionAppStyle: StyleProp<any> = {
   color: ColorMap.light,
   ...FontMedium,
   ...sharedStyles.mainText,
-  paddingBottom: 16,
 };
 
 const settingRowStyle: ViewStyle = {
@@ -267,6 +266,7 @@ export const Settings = () => {
         <Text
           onPress={onPressVersionNumber}
           style={versionAppStyle}>{`Dfinn Wallet v${VersionNumber.appVersion} (${VersionNumber.buildVersion})`}</Text>
+        <Text style={{ color: ColorMap.disabled, textAlign: 'center', paddingBottom: 16 }}>Powered by Subwallet</Text>
       </>
     </SubScreenContainer>
   );

@@ -8,6 +8,8 @@ import TransactionDoneStyle from './TransactionDone/style';
 import { RootNavigationProps, TransactionDoneProps } from 'routes/index';
 import { useNavigation } from '@react-navigation/native';
 import { MarginBottomForSubmitButton } from 'styles/sharedStyles';
+import { SubmitButton } from '../../components/SubmitButton';
+import { ColorMap } from '../../styles/color';
 
 export const TransactionDone = ({
   route: {
@@ -59,11 +61,17 @@ export const TransactionDone = ({
         </View>
 
         <View style={{ width: '100%', ...MarginBottomForSubmitButton }}>
-          <Button onPress={viewInExplorer} style={{ marginBottom: 16 }} type={'secondary'}>
+          <SubmitButton
+            onPress={viewInExplorer}
+            style={{ marginBottom: 16 }}
+            title="View transaction"
+            backgroundColor={ColorMap.dark2}
+          />
+          {/* <Button onPress={viewInExplorer} style={{ marginBottom: 16 }} type={'secondary'}>
             {'View transaction'}
-          </Button>
-
-          <Button onPress={goHome}>{'Back to home'}</Button>
+          </Button> */}
+          <SubmitButton onPress={goHome} title="Back to home" />
+          {/* <Button onPress={goHome}>{'Back to home'}</Button> */}
         </View>
       </View>
     </ContainerWithSubHeader>

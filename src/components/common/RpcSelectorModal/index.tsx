@@ -10,6 +10,7 @@ import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
 import { useNavigation } from '@react-navigation/native';
 import { RootNavigationProps } from 'routes/index';
 import useFetchChainInfo from 'hooks/screen/useFetchChainInfo';
+import { SubmitButton } from 'components/SubmitButton';
 
 interface Props {
   chainSlug: string;
@@ -98,14 +99,22 @@ export const RpcSelectorModal = ({
         isShowFilterBtn={false}
         afterListItem={
           <View style={{ ...ContainerHorizontalPadding, ...MarginBottomForSubmitButton, paddingTop: 16 }}>
-            <Button
+            <SubmitButton
+              leftIcon={PlusCircle}
+              onPress={() => {
+                onPressBack();
+                !!chainInfo && navigation.navigate('AddProvider', { slug: chainInfo.slug });
+              }}
+              title={'Add new provider'}
+            />
+            {/* <Button
               icon={<Icon phosphorIcon={PlusCircle} size={'lg'} weight={'fill'} />}
               onPress={() => {
                 onPressBack();
                 !!chainInfo && navigation.navigate('AddProvider', { slug: chainInfo.slug });
               }}>
               {'Add new provider'}
-            </Button>
+            </Button> */}
           </View>
         }
       />

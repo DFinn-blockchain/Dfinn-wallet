@@ -7,6 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { House } from 'phosphor-react-native';
 import ErrorStyles from './style';
 import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
+import { SubmitButton } from 'components/SubmitButton';
 
 interface ErrorFallbackProps {
   resetError: () => void;
@@ -30,9 +31,10 @@ const ErrorFallbackScreen: React.FC<ErrorFallbackProps> = ({ resetError }) => {
             Sorry, something went wrong. Please try again later.
           </Typography.Text>
         </View>
-        <Button onPress={() => resetError()} icon={<Icon phosphorIcon={House} size="md" weight="fill" />}>
+        <SubmitButton title="Back to home" onPress={() => resetError()} leftIcon={House} />
+        {/* <Button onPress={() => resetError()} icon={<Icon phosphorIcon={House} size="md" weight="fill" />}>
           Back to home
-        </Button>
+        </Button> */}
       </LinearGradient>
     </SafeAreaView>
   );

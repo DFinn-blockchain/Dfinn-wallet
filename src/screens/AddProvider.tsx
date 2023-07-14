@@ -25,6 +25,7 @@ import { ContainerHorizontalPadding, MarginBottomForSubmitButton } from 'styles/
 import i18n from 'utils/i18n/i18n';
 import useGetNativeTokenBasicInfo from 'hooks/useGetNativeTokenBasicInfo';
 import { HIDE_MODAL_DURATION } from 'constants/index';
+import { SubmitButton } from '../components/SubmitButton';
 
 interface ValidationInfo {
   status: ValidateStatus;
@@ -286,12 +287,27 @@ export const AddProvider = ({
         </TouchableWithoutFeedback>
 
         <View style={{ ...ContainerHorizontalPadding, ...MarginBottomForSubmitButton, flexDirection: 'row' }}>
-          <Button type={'secondary'} style={{ flex: 1, marginRight: 6 }} onPress={() => navigation.goBack()}>
+          <SubmitButton
+            disabled={loading}
+            style={{ flex: 1, marginRight: 6 }}
+            onPress={() => navigation.goBack()}
+            leftIcon={XCircle}
+            backgroundColor={ColorMap.dark2}
+            title={i18n.common.cancel}
+          />
+          <SubmitButton
+            style={{ flex: 1, marginLeft: 6 }}
+            disabled={isSubmitDisabled()}
+            isBusy={loading}
+            onPress={onSubmit}
+            title={i18n.common.save}
+          />
+          {/* <Button type={'secondary'} style={{ flex: 1, marginRight: 6 }} onPress={() => navigation.goBack()}>
             {i18n.common.cancel}
           </Button>
           <Button style={{ flex: 1, marginLeft: 6 }} loading={loading} disabled={isSubmitDisabled()} onPress={onSubmit}>
             {i18n.common.save}
-          </Button>
+          </Button> */}
         </View>
       </>
     </ContainerWithSubHeader>

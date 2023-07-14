@@ -26,6 +26,7 @@ import { QrAccount } from 'types/qr/attach';
 import { backToHome } from 'utils/navigation';
 import createStyle from './styles';
 import { Images } from 'assets/index';
+import { SubmitButton } from '../../../components/SubmitButton';
 
 type Props = {};
 
@@ -119,7 +120,7 @@ const ImportQrCode: React.FC<Props> = (props: Props) => {
     <ContainerWithSubHeader title="Import your wallet by QR" onPressBack={onBack}>
       <View style={styles.body}>
         <Text style={styles.subTitle}>
-          Please make sure that you have granted SubWallet the access to your device's camera.
+          Please make sure that you have granted Dfinn Wallet the access to your device's camera.
         </Text>
         <View>
           <DualLogo
@@ -135,13 +136,19 @@ const ImportQrCode: React.FC<Props> = (props: Props) => {
         </View>
       </View>
       <View style={styles.footer}>
-        <Button
+        <SubmitButton
+          leftIcon={QrCode}
+          isBusy={loading}
+          onPress={onPressSubmit(onOpenModal)}
+          title={loading ? 'Creating' : 'Scan the QR code'}
+        />
+        {/* <Button
           icon={<Icon phosphorIcon={QrCode} weight="fill" />}
           onPress={onPressSubmit(onOpenModal)}
           loading={loading}
           disabled={loading}>
           {loading ? 'Creating' : 'Scan the QR code'}
-        </Button>
+        </Button> */}
       </View>
       <QrAddressScanner visible={isScanning} onHideModal={onHideModal} onSuccess={onScan} type={SCAN_TYPE.SECRET} />
       <UnlockModal onPasswordComplete={onPasswordComplete} visible={unlockVisible} onHideModal={onHidePasswordModal} />

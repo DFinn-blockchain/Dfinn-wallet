@@ -40,6 +40,7 @@ import { ColorMap } from 'styles/color';
 import { SubstrateTransferParams, SUPPORTED_TRANSFER_SUBSTRATE_CHAIN, Web3TransferParams } from 'types/nft';
 import { requestCameraPermission } from 'utils/permission/camera';
 import { Button } from 'components/design-system-ui';
+import { SubmitButton } from 'components/SubmitButton';
 
 const ImageContainerStyle: StyleProp<ViewStyle> = {
   display: 'flex',
@@ -230,13 +231,20 @@ const NftTransferConfirm = ({ route: { params: transferParams } }: NftTransferCo
             {!!error && <Warning message={error} isDanger />}
           </ScrollView>
           <View style={{ ...ContainerHorizontalPadding, marginTop: 16 }}>
-            <Button
+            <SubmitButton
+              isBusy={loading}
+              disabled={disableSubmit}
+              style={{ width: '100%', ...MarginBottomForSubmitButton }}
+              onPress={handleSend}
+              title={i18n.transferNft.send}
+            />
+            {/* <Button
               loading={loading}
               disabled={disableSubmit}
               style={{ width: '100%', ...MarginBottomForSubmitButton }}
               onPress={handleSend}>
               {i18n.transferNft.send}
-            </Button>
+            </Button> */}
           </View>
 
           <AddressScanner

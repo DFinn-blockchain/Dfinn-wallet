@@ -48,7 +48,6 @@ const Logo: React.FC<SWLogoProps> = ({
   } else if (network) {
     srcLogo = chainLogoMap[network] || chainLogoMap[defaultLogoKey];
   }
-
   let srcSubLogo;
   if (subToken) {
     srcSubLogo = assetLogoMap[subToken] || assetLogoMap[defaultLogoKey];
@@ -59,7 +58,13 @@ const Logo: React.FC<SWLogoProps> = ({
   return (
     <View>
       <Image
-        src={srcLogo ? { uri: srcLogo } : ImageLogosMap.default}
+        src={
+          srcLogo ===
+            'https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/default.png' ||
+          !srcLogo
+            ? ImageLogosMap.default
+            : { uri: srcLogo }
+        }
         style={{ width: size, height: size, backgroundColor: 'transparent' }}
         squircleSize={size}
         shape={shape}
@@ -67,7 +72,13 @@ const Logo: React.FC<SWLogoProps> = ({
       {isShowSubIcon && !isShowSubLogo && <View style={_style.subLogoContainer}>{subIcon}</View>}
       {isShowSubLogo && (
         <Image
-          src={srcSubLogo ? { uri: srcSubLogo } : ImageLogosMap.default}
+          src={
+            !srcSubLogo ||
+            srcSubLogo ===
+              'https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/default.png'
+              ? ImageLogosMap.default
+              : { uri: srcSubLogo }
+          }
           style={{ width: subLogoSize, height: subLogoSize }}
           squircleSize={subLogoSize}
           shape={subLogoShape}

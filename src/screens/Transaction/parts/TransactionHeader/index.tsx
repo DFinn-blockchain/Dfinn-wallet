@@ -24,9 +24,9 @@ const TransactionHeader = ({
 }: Props) => {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
 
-      <View style={{ marginTop: 16 }}>
+      <View style={{ marginTop: 0 }}>
         <SubHeader
           onPressBack={() => navigation.goBack()}
           title={title}
