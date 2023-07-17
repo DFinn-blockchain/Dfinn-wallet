@@ -1,7 +1,7 @@
 {
   "name": "dfinnwallet",
   "version": "0.0.1",
-  "build": "1",
+  "build": "2",
   "private": true,
   "license": "Apache-2.0",
   "bin": {
