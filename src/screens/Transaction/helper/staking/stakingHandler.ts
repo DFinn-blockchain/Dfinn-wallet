@@ -38,7 +38,7 @@ const fetchChainValidator = (chain: string, unmount: boolean, setValidatorLoadin
       .then(result => {
         store.dispatch({ type: 'bonding/updateChainValidators', payload: { chain, validators: result } });
       })
-      .catch((e: Error) => console.error(e.message))
+      .catch((e: Error) => console.error('Error in getting bonding:- ' + e.message))
       .finally(() => {
         if (!unmount) {
           setValidatorLoading(false);
@@ -50,8 +50,12 @@ const fetchChainValidator = (chain: string, unmount: boolean, setValidatorLoadin
 const fetchChainPool = (chain: string, unmount: boolean, setPoolLoading: (value: boolean) => void) => {
   if (!unmount) {
     setPoolLoading(true);
+    console.log(chain);
+
     getNominationPoolOptions(chain)
       .then(result => {
+        console.log('Bonding result:- ', result);
+
         store.dispatch({ type: 'bonding/updateNominationPools', payload: { chain, pools: result } });
       })
       .catch(console.error)

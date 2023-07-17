@@ -12,6 +12,7 @@ import i18n from 'utils/i18n/i18n';
 import { Linking, View } from 'react-native';
 import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
 import { getExplorerLink } from '@subwallet/extension-base/services/transaction-service/utils';
+import { SubmitButton } from 'components/SubmitButton';
 
 type Props = {
   onChangeModalVisible: () => void;
@@ -48,9 +49,14 @@ export function HistoryDetailModal({ data, onChangeModalVisible, modalVisible }:
     if (link) {
       return (
         <View style={{ padding: theme.size, alignSelf: 'stretch' }}>
-          <Button icon={<Icon phosphorIcon={ArrowSquareUpRight} weight={'fill'} />} onPress={openBlockExplorer(link)}>
+          <SubmitButton
+            leftIcon={ArrowSquareUpRight}
+            title={i18n.common.viewOnExplorer}
+            onPress={openBlockExplorer(link)}
+          />
+          {/* <Button icon={<Icon phosphorIcon={ArrowSquareUpRight} weight={'fill'} />} onPress={openBlockExplorer(link)}>
             {i18n.common.viewOnExplorer}
-          </Button>
+          </Button> */}
         </View>
       );
     }

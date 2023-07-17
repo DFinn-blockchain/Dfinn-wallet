@@ -5,8 +5,8 @@ const networks = [
     mode: 'insert',
     chainEditInfo: {
       slug: 'beresheet_testnet',
-      currentProvider: 'custom-provider-0',
-      providers: { 'custom-provider-0': 'wss://beresheet.jelliedowl.net' },
+      currentProvider: 'DfinnProvider',
+      providers: { DfinnProvider: 'wss://beresheet.jelliedowl.net' },
       blockExplorer: 'https://beresheet.edgscan.live',
       crowdloanUrl: '',
       symbol: 'EDG',
@@ -27,8 +27,8 @@ const networks = [
     mode: 'insert',
     chainEditInfo: {
       slug: '',
-      currentProvider: 'custom-provider-0',
-      providers: { 'custom-provider-0': 'wss://wss-testnet.5ire.network' },
+      currentProvider: 'DfinnProvider',
+      providers: { DfinnProvider: 'wss://wss-testnet.5ire.network' },
       blockExplorer: 'https://explorer.5ire.network/',
       crowdloanUrl: '',
       symbol: '5IRE',
@@ -49,8 +49,8 @@ const networks = [
     mode: 'insert',
     chainEditInfo: {
       slug: '5ire_testnet',
-      currentProvider: 'custom-provider-0',
-      providers: { 'custom-provider-0': 'https://rpc-testnet.5ire.network' },
+      currentProvider: 'DfinnProvider',
+      providers: { DfinnProvider: 'https://rpc-testnet.5ire.network' },
       blockExplorer: 'https://5irescan.live',
       crowdloanUrl: '',
       symbol: '5ire',
@@ -71,8 +71,8 @@ const networks = [
     mode: 'insert',
     chainEditInfo: {
       slug: 'edgeware_evm',
-      currentProvider: 'custom-provider-0',
-      providers: { 'custom-provider-0': 'https://edgeware-evm.jelliedowl.net' },
+      currentProvider: 'DfinnProvider',
+      providers: { DfinnProvider: 'https://edgeware-evm.jelliedowl.net' },
       blockExplorer: 'https://edgscan.live',
       crowdloanUrl: '',
       symbol: 'EDG',
@@ -93,8 +93,8 @@ const networks = [
     mode: 'insert',
     chainEditInfo: {
       slug: 'beresheet_evm',
-      currentProvider: 'custom-provider-0',
-      providers: { 'custom-provider-0': 'https://beresheet-evm.jelliedowl.net' },
+      currentProvider: 'DfinnProvider',
+      providers: { DfinnProvider: 'https://beresheet-evm.jelliedowl.net' },
       blockExplorer: 'https://testnet.edgscan.live',
       crowdloanUrl: '',
       symbol: 'EDG',
@@ -115,8 +115,8 @@ const networks = [
     mode: 'insert',
     chainEditInfo: {
       slug: 'palm_mainnet',
-      currentProvider: 'custom-provider-0',
-      providers: { 'custom-provider-0': 'https://palm-mainnet.public.blastapi.io' },
+      currentProvider: 'DfinnProvider',
+      providers: { DfinnProvider: 'https://palm-mainnet.public.blastapi.io' },
       blockExplorer: 'https://explorer.palm.io/',
       crowdloanUrl: '',
       symbol: 'PALM',
@@ -137,8 +137,8 @@ const networks = [
     mode: 'insert',
     chainEditInfo: {
       slug: 'avalanche_mainnet',
-      currentProvider: 'custom-provider-0',
-      providers: { 'custom-provider-0': 'https://ava-mainnet.public.blastapi.io/ext/bc/C/rpc' },
+      currentProvider: 'DfinnProvider',
+      providers: { DfinnProvider: 'https://ava-mainnet.public.blastapi.io/ext/bc/C/rpc' },
       blockExplorer: 'https://snowtrace.io',
       crowdloanUrl: '',
       symbol: 'AVAX',
@@ -159,8 +159,8 @@ const networks = [
     mode: 'insert',
     chainEditInfo: {
       slug: 'fantom_mainnet',
-      currentProvider: 'custom-provider-0',
-      providers: { 'custom-provider-0': 'https://fantom-mainnet.public.blastapi.io' },
+      currentProvider: 'DfinnProvider',
+      providers: { DfinnProvider: 'https://fantom-mainnet.public.blastapi.io' },
       blockExplorer: 'https://ftmscan.com',
       crowdloanUrl: '',
       symbol: 'FTM',
@@ -181,13 +181,13 @@ const networks = [
     mode: 'insert',
     chainEditInfo: {
       slug: 'aurora_mainnet',
-      currentProvider: 'custom-provider-0',
-      providers: { 'custom-provider-0': 'https://aurora-mainnet.infura.io/v3/ad9312ce634f4d1983ac0e7c035cba2d' },
+      currentProvider: 'DfinnProvider',
+      providers: { DfinnProvider: 'https://aurora-mainnet.infura.io/v3/ad9312ce634f4d1983ac0e7c035cba2d' },
       blockExplorer: 'https://explorer.aurora.dev/',
       crowdloanUrl: '',
       symbol: 'AETH',
       chainType: 'EVM',
-      name: "Aurora Mainnet'",
+      name: 'Aurora Mainnet',
       priceId: 'ethereum',
     },
     chainSpec: {
@@ -203,13 +203,13 @@ const networks = [
     mode: 'insert',
     chainEditInfo: {
       slug: 'celo_mainnet',
-      currentProvider: 'custom-provider-0',
-      providers: { 'custom-provider-0': 'https://celo-mainnet.infura.io/v3/ad9312ce634f4d1983ac0e7c035cba2d' },
+      currentProvider: 'DfinnProvider',
+      providers: { DfinnProvider: 'https://celo-mainnet.infura.io/v3/ad9312ce634f4d1983ac0e7c035cba2d' },
       blockExplorer: 'https://explorer.celo.org',
       crowdloanUrl: '',
       symbol: 'CELO',
       chainType: 'EVM',
-      name: "Celo Mainnet'",
+      name: 'Celo Mainnet',
       priceId: 'celo',
     },
     chainSpec: {
@@ -225,8 +225,8 @@ const networks = [
     mode: 'insert',
     chainEditInfo: {
       slug: 'gnosis_mainnet',
-      currentProvider: 'custom-provider-0',
-      providers: { 'custom-provider-0': 'https://gnosis-mainnet.public.blastapi.io' },
+      currentProvider: 'DfinnProvider',
+      providers: { DfinnProvider: 'https://gnosis-mainnet.public.blastapi.io' },
       blockExplorer: 'https://gnosisscan.io/',
       crowdloanUrl: '',
       symbol: 'XDAI',
@@ -247,8 +247,8 @@ const networks = [
     mode: 'insert',
     chainEditInfo: {
       slug: 'aptos_mainnet',
-      currentProvider: 'custom-provider-0',
-      providers: { 'custom-provider-0': 'https://aptos-mainnet.public.blastapi.io' },
+      currentProvider: 'DfinnProvider',
+      providers: { DfinnProvider: 'https://aptos-mainnet.public.blastapi.io' },
       blockExplorer: 'https://explorer.aptoslabs.com/',
       crowdloanUrl: '',
       symbol: 'APT',
@@ -269,8 +269,8 @@ const networks = [
     mode: 'insert',
     chainEditInfo: {
       slug: 'metis_mainnet',
-      currentProvider: 'custom-provider-0',
-      providers: { 'custom-provider-0': 'https://metis-mainnet.public.blastapi.io' },
+      currentProvider: 'DfinnProvider',
+      providers: { DfinnProvider: 'https://metis-mainnet.public.blastapi.io' },
       blockExplorer: 'https://metis.tokenview.io/',
       crowdloanUrl: '',
       symbol: 'METIS',
@@ -291,8 +291,8 @@ const networks = [
     mode: 'insert',
     chainEditInfo: {
       slug: 'arbitrum_nova_mainnet',
-      currentProvider: 'custom-provider-0',
-      providers: { 'custom-provider-0': 'https://arbitrum-nova.public.blastapi.io' },
+      currentProvider: 'DfinnProvider',
+      providers: { DfinnProvider: 'https://arbitrum-nova.public.blastapi.io' },
       blockExplorer: 'https://nova-explorer.arbitrum.io/',
       crowdloanUrl: '',
       symbol: 'ETH',
@@ -313,8 +313,8 @@ const networks = [
     mode: 'insert',
     chainEditInfo: {
       slug: 'dapps_1.x',
-      currentProvider: 'custom-provider-0',
-      providers: { 'custom-provider-0': 'https://dapps.shardeum.org' },
+      currentProvider: 'DfinnProvider',
+      providers: { DfinnProvider: 'https://dapps.shardeum.org' },
       blockExplorer: 'https://explorer-dapps.shardeum.org',
       crowdloanUrl: '',
       symbol: 'SHM',
@@ -335,8 +335,8 @@ const networks = [
     mode: 'insert',
     chainEditInfo: {
       slug: 'sphinx_1.x',
-      currentProvider: 'custom-provider-0',
-      providers: { 'custom-provider-0': 'https://sphinx.shardeum.org/' },
+      currentProvider: 'DfinnProvider',
+      providers: { DfinnProvider: 'https://sphinx.shardeum.org/' },
       blockExplorer: 'https://explorer-sphinx.shardeum.org/',
       crowdloanUrl: '',
       symbol: 'SHM',
@@ -361,7 +361,7 @@ const getArrayOfResponses = async () => {
       validateCustomChain(network.chainEditInfo.providers[network.chainEditInfo.currentProvider])
         .then(result => {
           console.log(result.success, result.error);
-
+          // network.chainEditInfo.slug = '';
           if (result.evmChainId) {
             network.chainEditInfo.chainType = 'EVM';
             network.chainSpec.evmChainId = result.evmChainId;

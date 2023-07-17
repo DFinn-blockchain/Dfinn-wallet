@@ -1,0 +1,100 @@
+diff --git a/node_modules/@subwallet/chain-list/data/ChainInfo.json b/node_modules/@subwallet/chain-list/data/ChainInfo.json
+index 9b7c786..a2e7dba 100644
+--- a/node_modules/@subwallet/chain-list/data/ChainInfo.json
++++ b/node_modules/@subwallet/chain-list/data/ChainInfo.json
+@@ -1201,7 +1201,7 @@
+       "decimals": 18,
+       "hasNativeNft": false,
+       "supportSmartContract": null,
+-      "supportStaking": false
++      "supportStaking": true
+     },
+     "evmInfo": null,
+     "icon": "edgeware.png"
+diff --git a/node_modules/@subwallet/chain-list/data/ChainLogoMap.json b/node_modules/@subwallet/chain-list/data/ChainLogoMap.json
+index c6618c2..ebd4d9e 100644
+--- a/node_modules/@subwallet/chain-list/data/ChainLogoMap.json
++++ b/node_modules/@subwallet/chain-list/data/ChainLogoMap.json
+@@ -1,5 +1,5 @@
+ {
+-  "default": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/default.png",
++  "default": "https://github.com/bhsrampage/Dfinn-Wallet/blob/dev/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png?raw=true" ,
+   "polkadot": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/polkadot.png",
+   "kusama": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/kusama.png",
+   "ethereum": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/ethereum.png",
+@@ -20,21 +20,21 @@
+   "shidenEvm": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/shiden.png",
+   "shibuya": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/astar-network.png",
+   "shibuyaEvm": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/astar-network.png",
+-  "aventus": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/default.png",
++  "aventus": "https://github.com/bhsrampage/Dfinn-Wallet/blob/dev/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png?raw=true",
+   "westend": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/westend.png",
+   "rococo": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/rococo.png",
+   "bitcountry": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/bit.country-continuum.png",
+   "equilibrium_parachain": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/equilibrium.png",
+   "moonbase": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/moonbase.png",
+   "moonriver": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/moonriver.png",
+-  "turingStaging": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/default.png",
++  "turingStaging": "https://github.com/bhsrampage/Dfinn-Wallet/blob/dev/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png?raw=true",
+   "turing": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/turing-network.png",
+   "bifrost": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/bifrost-kusama.png",
+   "bifrost_dot": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/bifrost-kusama.png",
+   "bifrost_testnet": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/bifrost-kusama.png",
+   "calamari": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/calamarinetwork.png",
+   "amplitude": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/amplitude.png",
+-  "amplitude_test": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/default.png",
++  "amplitude_test": "https://github.com/bhsrampage/Dfinn-Wallet/blob/dev/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png?raw=true",
+   "bobabase": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/boba-network.png",
+   "ethereum_goerli": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/ethereum.png",
+   "binance_test": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/bnb.png",
+@@ -50,7 +50,7 @@
+   "sora_ksm": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/sora.png",
+   "odyssey": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/odyssey.png",
+   "polkadex": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/polkadex.png",
+-  "polkadexTest": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/default.png",
++  "polkadexTest": "https://github.com/bhsrampage/Dfinn-Wallet/blob/dev/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png?raw=true",
+   "rmrk": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/rmrk.png",
+   "dolphin": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/dolphin.png",
+   "opal": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/opal.png",
+@@ -76,7 +76,7 @@
+   "zeitgeist": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/zeitgeist.png",
+   "sakura": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/sakura.png",
+   "shadow": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/crust-shadow.png",
+-  "uniqueNft": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/default.png",
++  "uniqueNft": "https://github.com/bhsrampage/Dfinn-Wallet/blob/dev/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png?raw=true",
+   "robonomics": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/robonomics.png",
+   "integritee": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/integritee-kusama.png",
+   "integriteePolkadot": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/integritee-kusama.png",
+@@ -108,10 +108,10 @@
+   "snow": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/snow-network.png",
+   "arctic_testnet": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/arctic.png",
+   "ternoa_alphanet": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/ternoa.png",
+-  "calamari_test": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/default.png",
++  "calamari_test": "https://github.com/bhsrampage/Dfinn-Wallet/blob/dev/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png?raw=true",
+   "boba": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/boba-network.png",
+   "bobabeam": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/boba-network.png",
+-  "kilt_peregrine": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/default.png",
++  "kilt_peregrine": "https://github.com/bhsrampage/Dfinn-Wallet/blob/dev/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png?raw=true",
+   "xx_network": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/xxnetwork.png",
+   "watr_network": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/watr-protocol.png",
+   "watr_network_evm": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/watr-protocol.png",
+@@ -141,7 +141,7 @@
+   "dockPosMainnet": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/dockmainnet.png",
+   "kusari": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/kusari.png",
+   "logion": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/logion.png",
+-  "neatcoin": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/default.png",
++  "neatcoin": "https://github.com/bhsrampage/Dfinn-Wallet/blob/dev/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png?raw=true",
+   "nftmart": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/nftmart.png",
+   "polymesh": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/polymesh.png",
+   "riochain": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/riochain.png",
+@@ -152,7 +152,7 @@
+   "alephSmartNet": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/aleph-zero.png",
+   "kulupu": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/kulupu-network.png",
+   "joystream": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/joystream.png",
+-  "aventus_testnet": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/default.png",
+-  "vara_network": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/default.png",
++  "aventus_testnet": "https://github.com/bhsrampage/Dfinn-Wallet/blob/dev/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png?raw=true",
++  "vara_network": "https://github.com/bhsrampage/Dfinn-Wallet/blob/dev/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png?raw=true",
+   "snow_evm": "https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/snow-network.png"
+ }
+\ No newline at end of file

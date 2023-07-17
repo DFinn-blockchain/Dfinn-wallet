@@ -1,0 +1,34 @@
+diff --git a/node_modules/@subwallet/extension-base/services/chain-service/constants.js b/node_modules/@subwallet/extension-base/services/chain-service/constants.js
+index 68757c1..d8da165 100644
+--- a/node_modules/@subwallet/extension-base/services/chain-service/constants.js
++++ b/node_modules/@subwallet/extension-base/services/chain-service/constants.js
+@@ -47,13 +47,13 @@ export const _NFT_CHAIN_GROUP = {
+ // Staking--------------------------------------------------------------------------------------------------------------
+ 
+ export const _STAKING_CHAIN_GROUP = {
+-  relay: ['polkadot', 'kusama', 'aleph', 'polkadex', 'ternoa', 'ternoa_alphanet', 'alephTest', 'polkadexTest', 'westend'],
+-  para: ['moonbeam', 'moonriver', 'moonbase', 'turing', 'turingStaging', 'bifrost', 'bifrost_testnet', 'calamari_test', 'calamari'],
++  relay: ['polkadot', 'kusama', 'aleph', 'polkadex', 'ternoa', 'ternoa_alphanet', 'alephTest', 'polkadexTest', 'westend' , 'edgeware'],
++  para: ['moonbeam', 'moonriver', 'moonbase', 'turing', 'turingStaging', 'bifrost', 'bifrost_testnet', 'calamari_test', 'calamari' , 'custom-Substrate-thundertestnet-997'],
+   astar: ['astar', 'shiden', 'shibuya'],
+   amplitude: ['amplitude', 'amplitude_test', 'kilt', 'kilt_peregrine'],
+   // amplitude and kilt only share some common logic
+   kilt: ['kilt', 'kilt_peregrine'],
+-  nominationPool: ['polkadot', 'kusama', 'westend', 'alephTest', 'aleph'],
++  nominationPool: ['polkadot', 'kusama', 'westend', 'alephTest', 'aleph' , 'edgeware','custom-Substrate-thundertestnet-997'],
+   bifrost: ['bifrost', 'bifrost_testnet'],
+   aleph: ['aleph, alephTest'] // A0 has distinct tokenomics
+ };
+diff --git a/node_modules/@subwallet/extension-base/services/chain-service/utils.js b/node_modules/@subwallet/extension-base/services/chain-service/utils.js
+index 53f4bce..4facf14 100644
+--- a/node_modules/@subwallet/extension-base/services/chain-service/utils.js
++++ b/node_modules/@subwallet/extension-base/services/chain-service/utils.js
+@@ -282,7 +282,7 @@ export function _getAssetOriginChain(assetInfo) {
+   return assetInfo.originChain;
+ }
+ export function _getChainName(chainInfo) {
+-  return chainInfo.name;
++  return chainInfo ? chainInfo.name : "";
+ }
+ export function _getAssetDecimals(assetInfo) {
+   return assetInfo.decimals || 0;

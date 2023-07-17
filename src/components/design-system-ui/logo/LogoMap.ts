@@ -1034,4 +1034,31 @@ export const TokenLogoMap: Record<string, string> = {
   joy: ProjectLogos.joystream,
 };
 
+export const CustomLogoMap: Record<string, string> = {
+  'custom-EVM-5irechainthunder-997': 'https://projects.edgeverse.space/logos/217.5ire-evm.png',
+  'custom-EVM-arbitrumnova-42170': 'https://projects.edgeverse.space/logos/215.arbitrum-nova.png',
+  'custom-EVM-auroramainnet-1313161554': 'https://projects.edgeverse.space/logos/209.aurora.png',
+  'custom-EVM-avalanchec-chain-43114': 'https://projects.edgeverse.space/logos/207.avalanche.png',
+  'custom-EVM-beresheetevm-2022': 'https://projects.edgeverse.space/logos/201.beresheet.png',
+  'custom-EVM-celomainnet-42220': 'https://projects.edgeverse.space/logos/210.celo.png',
+  'custom-EVM-edgewareevm-2021': 'https://projects.edgeverse.space/logos/216.edgeware-evm.png',
+  'custom-EVM-fantommainnet-250': 'https://projects.edgeverse.space/logos/208.fantom.png',
+  'custom-EVM-gnosismainnet-100': 'https://projects.edgeverse.space/logos/211.gnosis.png',
+  'custom-EVM-metismainnet-1088': 'https://projects.edgeverse.space/logos/214.metis.png',
+  'custom-EVM-shardeumsphinxdapp1.x-8081': 'https://projects.edgeverse.space/logos/218.sphinx-1.x.png',
+  'custom-EVM-shardeumsphinxvalidator1.x-8082': 'https://projects.edgeverse.space/logos/218.sphinx-1.x.png',
+  'custom-EVM-palmevm-11297108109': 'https://projects.edgeverse.space/logos/206.palm.png',
+  'custom-Substrate-beresheettestnet-2022': 'https://projects.edgeverse.space/logos/201.beresheet.png',
+  'custom-Substrate-thundertestnet-997': 'https://projects.edgeverse.space/logos/217.5ire-evm.png',
+  eth: 'https://projects.edgeverse.space/logos/215.arbitrum-nova.png',
+  aeth: 'https://projects.edgeverse.space/logos/209.aurora.png',
+  avax: 'https://projects.edgeverse.space/logos/207.avalanche.png',
+  celo: 'https://projects.edgeverse.space/logos/210.celo.png',
+  ftm: 'https://projects.edgeverse.space/logos/208.fantom.png',
+  xdai: 'https://projects.edgeverse.space/logos/211.gnosis.png',
+  metis: 'https://projects.edgeverse.space/logos/214.metis.png',
+  shm: 'https://projects.edgeverse.space/logos/218.sphinx-1.x.png',
+  tedg: 'https://projects.edgeverse.space/logos/201.beresheet.png',
+  '5ire': 'https://projects.edgeverse.space/logos/217.5ire-evm.png',
+};
 export default ChainLogoMap;

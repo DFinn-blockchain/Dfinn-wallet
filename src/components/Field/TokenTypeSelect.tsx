@@ -23,13 +23,16 @@ export const TokenTypeSelectField = ({ disabled, showIcon, outerStyle, value, la
       <View style={styles.blockContent}>
         {!!value && (
           <>
+            <View style={{ width: 10 }} />
             <BackgroundIcon
               style={{ marginLeft: 12, marginRight: 8, justifyContent: 'center', alignItems: 'center' }}
               shape={'circle'}
               phosphorIcon={Coin}
               backgroundColor={theme['orange-6']}
+              noBackground={true}
               weight={'fill'}
             />
+            <View style={{ width: 10 }} />
             <Typography.Text ellipsis style={styles.text}>
               {value}
             </Typography.Text>

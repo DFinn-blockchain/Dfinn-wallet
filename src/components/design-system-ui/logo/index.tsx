@@ -7,6 +7,7 @@ import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
 import { RootState } from 'stores/index';
 import { useSelector } from 'react-redux';
 import { ImageLogosMap } from 'assets/logo';
+import { CustomLogoMap } from './LogoMap';
 
 type IconShapeType = 'default' | 'circle' | 'squircle';
 
@@ -44,15 +45,19 @@ const Logo: React.FC<SWLogoProps> = ({
 
   let srcLogo;
   if (token) {
-    srcLogo = assetLogoMap[token] || assetLogoMap[defaultLogoKey];
+    srcLogo = assetLogoMap[token] || CustomLogoMap[token] || assetLogoMap[defaultLogoKey];
   } else if (network) {
-    srcLogo = chainLogoMap[network] || chainLogoMap[defaultLogoKey];
+    srcLogo =
+      (network.includes('custom') ? CustomLogoMap[network] : chainLogoMap[network]) || chainLogoMap[defaultLogoKey];
   }
+
   let srcSubLogo;
   if (subToken) {
-    srcSubLogo = assetLogoMap[subToken] || assetLogoMap[defaultLogoKey];
+    srcSubLogo = assetLogoMap[subToken] || CustomLogoMap[subToken] || assetLogoMap[defaultLogoKey];
   } else if (subNetwork) {
-    srcSubLogo = chainLogoMap[subNetwork] || chainLogoMap[defaultLogoKey];
+    srcSubLogo =
+      (subNetwork.includes('custom') ? CustomLogoMap[subNetwork] : chainLogoMap[subNetwork]) ||
+      chainLogoMap[defaultLogoKey];
   }
 
   return (

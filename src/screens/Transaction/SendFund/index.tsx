@@ -159,10 +159,12 @@ function getTokenAvailableDestinations(
   const originChain = chainInfoMap[_getOriginChainOfAsset(tokenSlug)];
 
   // Firstly, push the originChain of token
-  result.push({
-    name: originChain.name,
-    slug: originChain.slug,
-  });
+  console.log(tokenSlug, _getOriginChainOfAsset(tokenSlug), originChain);
+  if (originChain)
+    result.push({
+      name: originChain.name,
+      slug: originChain.slug,
+    });
 
   Object.values(xcmRefMap).forEach(xcmRef => {
     if (xcmRef.srcAsset === tokenSlug) {

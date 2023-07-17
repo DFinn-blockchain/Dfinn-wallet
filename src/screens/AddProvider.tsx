@@ -26,6 +26,8 @@ import i18n from 'utils/i18n/i18n';
 import useGetNativeTokenBasicInfo from 'hooks/useGetNativeTokenBasicInfo';
 import { HIDE_MODAL_DURATION } from 'constants/index';
 import { SubmitButton } from '../components/SubmitButton';
+import { XCircle } from 'phosphor-react-native';
+import { ColorMap } from 'styles/color';
 
 interface ValidationInfo {
   status: ValidateStatus;

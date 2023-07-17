@@ -126,83 +126,88 @@ export const ReceiveModal = ({ address, selectedNetwork, modalVisible, onCancel 
   };
 
   return (
-    <SubWalletModal modalVisible={modalVisible} onChangeModalVisible={onCancel}>
-      <View style={receiveModalContentWrapper}>
-        <SubHeader
-          title={i18n.title.receiveAsset}
-          showLeftBtn={false}
-          headerContainerStyle={{ marginBottom: '15%' }}
-          onPressBack={onCancel}
-        />
-        {/* <Text style={receiveModalTitle}>{i18n.title.receiveAsset}</Text> */}
-        <ImageBackground
-          source={Images.radialBg1}
-          imageStyle={{ borderRadius: 50 }}
-          style={{ padding: 20, alignItems: 'center', justifyContent: 'center' }}>
-          <QRCode qrRef={(ref?) => (svg = ref)} value={formattedAddress} errorLevel={'Q'} />
-        </ImageBackground>
+    <>
+      <SubWalletModal
+        isFullHeight={true}
+        modalVisible={modalVisible}
+        onChangeModalVisible={onCancel}
+        onModalHide={onCancel}>
+        <View style={receiveModalContentWrapper}>
+          <SubHeader
+            title={i18n.title.receiveAsset}
+            showLeftBtn={false}
+            headerContainerStyle={{ marginBottom: '15%' }}
+            onPressBack={onCancel}
+          />
+          {/* <Text style={receiveModalTitle}>{i18n.title.receiveAsset}</Text> */}
+          <ImageBackground
+            source={Images.radialBg1}
+            imageStyle={{ borderRadius: 50 }}
+            style={{ padding: 20, alignItems: 'center', justifyContent: 'center' }}>
+            <QRCode qrRef={(ref?) => (svg = ref)} value={formattedAddress} errorLevel={'Q'} />
+          </ImageBackground>
 
-        <Text style={receiveModalGuide}>{i18n.common.receiveModalText}</Text>
+          <Text style={receiveModalGuide}>{i18n.common.receiveModalText}</Text>
 
-        <View style={receiveModalAddressWrapper}>
-          <TouchableOpacity
-            //disabled={disableReselectButton}
-            activeOpacity={BUTTON_ACTIVE_OPACITY}
-            onPress={() => {
-              onCancel();
-              //openChangeNetworkModal();
-            }}>
-            {getNetworkLogo(chainInfo?.slug || '', 40)}
-          </TouchableOpacity>
+          <View style={receiveModalAddressWrapper}>
+            <TouchableOpacity
+              //disabled={disableReselectButton}
+              activeOpacity={BUTTON_ACTIVE_OPACITY}
+              onPress={() => {
+                onCancel();
+                //openChangeNetworkModal();
+              }}>
+              {getNetworkLogo(chainInfo?.slug || '', 40)}
+            </TouchableOpacity>
 
-          <Text style={receiveModalAddressText}>{toShort(formattedAddress, 10, 10)}</Text>
-          <TouchableOpacity onPress={() => copyToClipboard(formattedAddress)}>
-            <ImageBackground
-              source={Images.radialBg1}
-              style={{ paddingHorizontal: 5, paddingVertical: 5 }}
-              imageStyle={{ borderRadius: 15 }}>
-              <Copy size={30} color={ColorMap.dark} />
-            </ImageBackground>
-          </TouchableOpacity>
-          {/* <IconButton
+            <Text style={receiveModalAddressText}>{toShort(formattedAddress, 10, 10)}</Text>
+            <TouchableOpacity onPress={copyToClipboard(formattedAddress)}>
+              <ImageBackground
+                source={Images.radialBg1}
+                style={{ paddingHorizontal: 5, paddingVertical: 5 }}
+                imageStyle={{ borderRadius: 15 }}>
+                <Copy size={30} color={ColorMap.dark} />
+              </ImageBackground>
+            </TouchableOpacity>
+            {/* <IconButton
        style={receiveModalCopyBtn}
        icon={CopySimple}
        color={ColorMap.disabled}
        onPress={() => copyToClipboard(formattedAddress)}
      /> */}
-        </View>
+          </View>
 
-        <View style={{ flexDirection: 'row', marginTop: '10%' }}>
-          <View>
-            <IconButton
-              disabled={!scanExplorerAddressUrl}
-              backgroundImg={true}
-              icon={Planet}
-              style={{
-                height: 60,
-                width: 60,
-              }}
-              size={30}
-              onPress={() => {
-                scanExplorerAddressUrl && Linking.openURL(scanExplorerAddressUrl);
-              }}
-            />
-            <Text style={{ textAlign: 'center', marginTop: 10 }}>{i18n.common.explorer}</Text>
-          </View>
-          <View style={{ marginLeft: 20 }}>
-            <IconButton
-              backgroundImg={true}
-              icon={Export}
-              style={{
-                height: 60,
-                width: 60,
-              }}
-              size={30}
-              onPress={onShareImg}
-            />
-            <Text style={{ textAlign: 'center', marginTop: 10 }}>{i18n.common.share}</Text>
-          </View>
-          {/* <SubmitButton
+          <View style={{ flexDirection: 'row', marginTop: '10%' }}>
+            <View>
+              <IconButton
+                disabled={!scanExplorerAddressUrl}
+                backgroundImg={true}
+                icon={Planet}
+                style={{
+                  height: 60,
+                  width: 60,
+                }}
+                size={30}
+                onPress={() => {
+                  scanExplorerAddressUrl && Linking.openURL(scanExplorerAddressUrl);
+                }}
+              />
+              <Text style={{ textAlign: 'center', marginTop: 10 }}>{i18n.common.explorer}</Text>
+            </View>
+            <View style={{ marginLeft: 20 }}>
+              <IconButton
+                backgroundImg={true}
+                icon={Export}
+                style={{
+                  height: 60,
+                  width: 60,
+                }}
+                size={30}
+                onPress={onShareImg}
+              />
+              <Text style={{ textAlign: 'center', marginTop: 10 }}>{i18n.common.share}</Text>
+            </View>
+            {/* <SubmitButton
        disabled={!isSupportScanExplorer}
        disabledColor={ColorMap.buttonOverlayButtonColor}
        title={i18n.common.explorer}
@@ -212,7 +217,8 @@ export const ReceiveModal = ({ address, selectedNetwork, modalVisible, onCancel 
          isSupportScanExplorer && Linking.openURL(scanExplorerAddressUrl);
        }}
      /> */}
-          {/* <SubmitButton style={{ flex: 1, marginLeft: 8 }} title={i18n.common.share} onPress={onShareImg} /> */}
+            {/* <SubmitButton style={{ flex: 1, marginLeft: 8 }} title={i18n.common.share} onPress={onShareImg} /> */}
+          </View>
         </View>
         {
           <Toast
@@ -223,7 +229,7 @@ export const ReceiveModal = ({ address, selectedNetwork, modalVisible, onCancel 
             offsetBottom={OFFSET_BOTTOM}
           />
         }
-      </View>
-    </SubWalletModal>
+      </SubWalletModal>
+    </>
   );
 };
