@@ -1,7 +1,65 @@
-diff --git a/node_modules/@subwallet/chain-list/data/ChainInfo.json b/node_modules/@subwallet/chain-list/data/ChainInfo.json
+diff --git a/node_modules/@subwallet/chain-list/bundle-subwallet-chain-list.js b/node_modules/@subwallet/chain-list/bundle-subwallet-chain-list.js
+index a1323d3..58a48d4 100644
+--- a/node_modules/@subwallet/chain-list/bundle-subwallet-chain-list.js
++++ b/node_modules/@subwallet/chain-list/bundle-subwallet-chain-list.js
+@@ -7504,7 +7504,7 @@
+   	providers: {
+   		JelliedOwl: "wss://edgeware.jelliedowl.net",
+   		"Commonwealth Labs": "wss://mainnet2.edgewa.re",
+-  		Dwellir: "wss://edgeware-rpc.dwellir.com"
++  		DFinn: "wss://mainnet.edgscan.live"
+   	},
+   	isTestnet: false,
+   	substrateInfo: {
+@@ -7519,7 +7519,7 @@
+   		decimals: 18,
+   		hasNativeNft: false,
+   		supportSmartContract: null,
+-  		supportStaking: false
++  		supportStaking: true
+   	},
+   	evmInfo: null,
+   	icon: "edgeware.png"
+@@ -11196,6 +11196,7 @@
+     COMMON_CHAIN_SLUGS["ASTAR"] = "astar";
+     COMMON_CHAIN_SLUGS["WESTEND"] = "westend";
+     COMMON_CHAIN_SLUGS["BINANCE"] = "binance";
++	COMMON_CHAIN_SLUGS["EDGEWARE"] = "edgeware";
+     COMMON_CHAIN_SLUGS["ASTAR_EVM"] = "astarEvm";
+   })(exports.COMMON_CHAIN_SLUGS || (exports.COMMON_CHAIN_SLUGS = {}));
+   const _DEFAULT_CHAINS = [exports.COMMON_CHAIN_SLUGS.POLKADOT, exports.COMMON_CHAIN_SLUGS.KUSAMA, exports.COMMON_CHAIN_SLUGS.ETHEREUM];
+diff --git a/node_modules/@subwallet/chain-list/cjs/data/ChainInfo.json b/node_modules/@subwallet/chain-list/cjs/data/ChainInfo.json
 index 9b7c786..a2e7dba 100644
+--- a/node_modules/@subwallet/chain-list/cjs/data/ChainInfo.json
++++ b/node_modules/@subwallet/chain-list/cjs/data/ChainInfo.json
+@@ -1201,7 +1201,7 @@
+       "decimals": 18,
+       "hasNativeNft": false,
+       "supportSmartContract": null,
+-      "supportStaking": false
++      "supportStaking": true
+     },
+     "evmInfo": null,
+     "icon": "edgeware.png"
+diff --git a/node_modules/@subwallet/chain-list/data/ChainInfo.json b/node_modules/@subwallet/chain-list/data/ChainInfo.json
+index 9b7c786..2e445dd 100644
 --- a/node_modules/@subwallet/chain-list/data/ChainInfo.json
 +++ b/node_modules/@subwallet/chain-list/data/ChainInfo.json
+@@ -1186,12 +1186,12 @@
+     "providers": {
+       "JelliedOwl": "wss://edgeware.jelliedowl.net",
+       "Commonwealth Labs": "wss://mainnet2.edgewa.re",
+-      "Dwellir": "wss://edgeware-rpc.dwellir.com"
++      "DFinn": "wss://mainnet.edgscan.live"
+     },
+     "isTestnet": false,
+     "substrateInfo": {
+       "paraId": null,
+-      "relaySlug": null,
++      "relaySlug": ,
+       "genesisHash": "0x742a2ca70c2fda6cee4f8df98d64c4c670a052d9568058982dad9d5a7a135c5b",
+       "addressPrefix": 7,
+       "chainType": "RELAYCHAIN",
 @@ -1201,7 +1201,7 @@
        "decimals": 18,
        "hasNativeNft": false,

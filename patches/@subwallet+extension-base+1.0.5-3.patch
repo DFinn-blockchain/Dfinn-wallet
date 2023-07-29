@@ -1,24 +1,61 @@
+diff --git a/node_modules/@subwallet/extension-base/cjs/services/chain-service/constants.js b/node_modules/@subwallet/extension-base/cjs/services/chain-service/constants.js
+index 6413f57..3415067 100644
+--- a/node_modules/@subwallet/extension-base/cjs/services/chain-service/constants.js
++++ b/node_modules/@subwallet/extension-base/cjs/services/chain-service/constants.js
+@@ -58,15 +58,16 @@ const _NFT_CHAIN_GROUP = {
+ // Staking--------------------------------------------------------------------------------------------------------------
+ exports._NFT_CHAIN_GROUP = _NFT_CHAIN_GROUP;
+ const _STAKING_CHAIN_GROUP = {
+-  relay: ['polkadot', 'kusama', 'aleph', 'polkadex', 'ternoa', 'ternoa_alphanet', 'alephTest', 'polkadexTest', 'westend'],
++  relay: ['polkadot', 'kusama', 'aleph', 'polkadex', 'ternoa', 'ternoa_alphanet', 'alephTest', 'polkadexTest', 'westend', 'edgeware'],
+   para: ['moonbeam', 'moonriver', 'moonbase', 'turing', 'turingStaging', 'bifrost', 'bifrost_testnet', 'calamari_test', 'calamari'],
+-  astar: ['astar', 'shiden', 'shibuya'],
+-  amplitude: ['amplitude', 'amplitude_test', 'kilt', 'kilt_peregrine'],
++  astar: ['astar', 'shiden', 'shibuya','edgeware'],
++  amplitude: ['amplitude', 'amplitude_test', 'kilt', 'kilt_peregrine','edgeware'],
+   // amplitude and kilt only share some common logic
+-  kilt: ['kilt', 'kilt_peregrine'],
+-  nominationPool: ['polkadot', 'kusama', 'westend', 'alephTest', 'aleph'],
+-  bifrost: ['bifrost', 'bifrost_testnet'],
+-  aleph: ['aleph, alephTest'] // A0 has distinct tokenomics
++  kilt: ['kilt', 'kilt_peregrine','edgeware'],
++  nominationPool: ['polkadot', 'kusama', 'westend', 'alephTest', 'aleph', 'edgeware'],
++  bifrost: ['bifrost', 'bifrost_testnet','edgeware'],
++  edgeware: ['edgeware'],
++  aleph: ['aleph', 'alephTest','edgeware'] // A0 has distinct tokenomics
+ };
+ exports._STAKING_CHAIN_GROUP = _STAKING_CHAIN_GROUP;
+ const _STAKING_ERA_LENGTH_MAP = {
 diff --git a/node_modules/@subwallet/extension-base/services/chain-service/constants.js b/node_modules/@subwallet/extension-base/services/chain-service/constants.js
-index 68757c1..d8da165 100644
+index 68757c1..6081cbf 100644
 --- a/node_modules/@subwallet/extension-base/services/chain-service/constants.js
 +++ b/node_modules/@subwallet/extension-base/services/chain-service/constants.js
-@@ -47,13 +47,13 @@ export const _NFT_CHAIN_GROUP = {
+@@ -47,7 +47,7 @@ export const _NFT_CHAIN_GROUP = {
  // Staking--------------------------------------------------------------------------------------------------------------
  
  export const _STAKING_CHAIN_GROUP = {
 -  relay: ['polkadot', 'kusama', 'aleph', 'polkadex', 'ternoa', 'ternoa_alphanet', 'alephTest', 'polkadexTest', 'westend'],
--  para: ['moonbeam', 'moonriver', 'moonbase', 'turing', 'turingStaging', 'bifrost', 'bifrost_testnet', 'calamari_test', 'calamari'],
-+  relay: ['polkadot', 'kusama', 'aleph', 'polkadex', 'ternoa', 'ternoa_alphanet', 'alephTest', 'polkadexTest', 'westend' , 'edgeware'],
-+  para: ['moonbeam', 'moonriver', 'moonbase', 'turing', 'turingStaging', 'bifrost', 'bifrost_testnet', 'calamari_test', 'calamari' , 'custom-Substrate-thundertestnet-997'],
++  relay: ['polkadot', 'kusama', 'aleph', 'polkadex', 'ternoa', 'ternoa_alphanet', 'alephTest', 'polkadexTest', 'westend', 'edgeware' ],
+   para: ['moonbeam', 'moonriver', 'moonbase', 'turing', 'turingStaging', 'bifrost', 'bifrost_testnet', 'calamari_test', 'calamari'],
    astar: ['astar', 'shiden', 'shibuya'],
    amplitude: ['amplitude', 'amplitude_test', 'kilt', 'kilt_peregrine'],
-   // amplitude and kilt only share some common logic
+@@ -55,7 +55,7 @@ export const _STAKING_CHAIN_GROUP = {
    kilt: ['kilt', 'kilt_peregrine'],
--  nominationPool: ['polkadot', 'kusama', 'westend', 'alephTest', 'aleph'],
-+  nominationPool: ['polkadot', 'kusama', 'westend', 'alephTest', 'aleph' , 'edgeware','custom-Substrate-thundertestnet-997'],
+   nominationPool: ['polkadot', 'kusama', 'westend', 'alephTest', 'aleph'],
    bifrost: ['bifrost', 'bifrost_testnet'],
-   aleph: ['aleph, alephTest'] // A0 has distinct tokenomics
+-  aleph: ['aleph, alephTest'] // A0 has distinct tokenomics
++  aleph: ['aleph', 'alephTest'] // A0 has distinct tokenomics
  };
+ 
+ export const _STAKING_ERA_LENGTH_MAP = {
+@@ -83,6 +83,7 @@ export const _STAKING_ERA_LENGTH_MAP = {
+   amplitude: 2,
+   amplitude_test: 2,
+   kilt: 2,
++  edgeware: 24,
+   kilt_peregrine: 2
+ };
+ export const _PARACHAIN_INFLATION_DISTRIBUTION = {
 diff --git a/node_modules/@subwallet/extension-base/services/chain-service/utils.js b/node_modules/@subwallet/extension-base/services/chain-service/utils.js
 index 53f4bce..4facf14 100644
 --- a/node_modules/@subwallet/extension-base/services/chain-service/utils.js
