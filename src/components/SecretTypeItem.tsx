@@ -57,7 +57,7 @@ export const SecretTypeItem = (secretTypeItem: SecretTypeItemType) => {
       )}
 
       <Text style={secretTypeItemText}>{title}</Text>
-      <IconButton icon={ArrowRight} />
+      <IconButton icon={ArrowRight} onPress={onClickButton}/>
     </TouchableOpacity>
   );
 };

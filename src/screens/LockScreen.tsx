@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import { ImageBackground, SafeAreaView, View } from 'react-native';
+import { Image, ImageBackground, SafeAreaView, View } from 'react-native';
 import Text from 'components/Text';
 import { FontMedium, FontSemiBold, sharedStyles } from 'styles/sharedStyles';
 import { PinCodeField } from 'components/PinCodeField';
@@ -73,49 +73,49 @@ export const LockScreen = () => {
   }, [ref, unlock, value]);
 
   return (
-    <ImageBackground source={Images.backgroundImg} resizeMode={'cover'} style={{ flex: 1 }}>
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ ...sharedStyles.layoutContainer, flex: 1, width: '100%', alignItems: 'center', paddingTop: 68 }}>
-          <Suspense>
-            <SVGImages.Logo width={80} height={120} />
-          </Suspense>
+    // <ImageBackground source={Images.backgroundImg} resizeMode={'cover'} style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ ...sharedStyles.layoutContainer, flex: 1, width: '100%', alignItems: 'center', paddingTop: 68 }}>
+        {/* <Suspense>
+          <SVGImages.Logo width={80} height={120} />
+        </Suspense> */}
+        <Image source={Images.subwalletDappLogo} style={{ width: 80, height: 80 }} />
+        <Text
+          style={{
+            fontSize: 24,
+            lineHeight: 32,
+            ...FontSemiBold,
+            color: ColorMap.light,
+            paddingTop: 32,
+            paddingBottom: 8,
+          }}>
+          {i18n.common.welcomeBack}
+        </Text>
+        {authMethod === 'pinCode' && (
+          <>
+            <Text
+              style={{
+                fontSize: 14,
+                lineHeight: 22,
+                ...FontMedium,
+                color: theme.colorTextLight4,
+                paddingBottom: 12,
+              }}>
+              {i18n.common.enterPinToUnlock}
+            </Text>
+            <PinCodeField
+              value={value}
+              setError={setError}
+              setValue={setValue}
+              isPinCodeValid={!error}
+              pinCodeRef={ref}
+            />
+          </>
+        )}
 
-          <Text
-            style={{
-              fontSize: 24,
-              lineHeight: 32,
-              ...FontSemiBold,
-              color: ColorMap.light,
-              paddingTop: 32,
-              paddingBottom: 8,
-            }}>
-            {i18n.common.welcomeBack}
-          </Text>
-          {authMethod === 'pinCode' && (
-            <>
-              <Text
-                style={{
-                  fontSize: 14,
-                  lineHeight: 22,
-                  ...FontMedium,
-                  color: theme.colorTextLight4,
-                  paddingBottom: 12,
-                }}>
-                {i18n.common.enterPinToUnlock}
-              </Text>
-              <PinCodeField
-                value={value}
-                setError={setError}
-                setValue={setValue}
-                isPinCodeValid={!error}
-                pinCodeRef={ref}
-              />
-            </>
-          )}
-
-          {!!error && <WarningText isDanger message={error} style={{ marginTop: 24 }} />}
-        </View>
-      </SafeAreaView>
-    </ImageBackground>
+        {!!error && <WarningText isDanger message={error} style={{ marginTop: 24 }} />}
+      </View>
+    </SafeAreaView>
+    // </ImageBackground>
   );
 };

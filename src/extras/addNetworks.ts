@@ -353,6 +353,50 @@ const networks = [
       existentialDeposit: '0',
     },
   },
+  {
+    mode: 'insert',
+    chainEditInfo: {
+      slug: 'linea',
+      currentProvider: 'DfinnProvider',
+      providers: { DfinnProvider: 'https://linea-mainnet.infura.io/v3/9acab0738fcc4f959fca4f91ab73c495' },
+      blockExplorer: 'https://lineascan.build/',
+      crowdloanUrl: '',
+      symbol: 'ETH',
+      chainType: 'EVM',
+      name: 'Linea Mainnet',
+      priceId: 'ethereum',
+    },
+    chainSpec: {
+      genesisHash: '0xb6762a65689107b2326364aefc18f94cda413209fab35c00d4af51eaa20ffbc6',
+      decimals: 18,
+      addressPrefix: 0,
+      paraId: 0,
+      evmChainId: 59144,
+      existentialDeposit: '0',
+    },
+  },
+  {
+    mode: 'insert',
+    chainEditInfo: {
+      slug: 'base',
+      currentProvider: 'DfinnProvider',
+      providers: { DfinnProvider: 'https://base.rpc.thirdweb.com' },
+      blockExplorer: 'https://basescan.org/',
+      crowdloanUrl: '',
+      symbol: 'ETH',
+      chainType: 'EVM',
+      name: 'Base Mainnet',
+      priceId: 'ethereum',
+    },
+    chainSpec: {
+      genesisHash: '0x07eee59d552f482e0f350933b8e96f824aa0bfa28267de53dcb0ddbe868a4bf9',
+      decimals: 18,
+      addressPrefix: 0,
+      paraId: 0,
+      evmChainId: 8453,
+      existentialDeposit: '0',
+    },
+  },
 ];
 
 const getArrayOfResponses = async () => {
@@ -360,7 +404,7 @@ const getArrayOfResponses = async () => {
     return new Promise((resolve, reject) => {
       validateCustomChain(network.chainEditInfo.providers[network.chainEditInfo.currentProvider])
         .then(result => {
-          console.log(result.success, result.error);
+          console.log(result.success, result.error, network.chainEditInfo.name);
           // network.chainEditInfo.slug = '';
           if (result.evmChainId) {
             network.chainEditInfo.chainType = 'EVM';
@@ -381,7 +425,7 @@ const getArrayOfResponses = async () => {
               .then(r => {
                 if (r) {
                   resolve(r);
-                  console.log('Added:- ', network.chainEditInfo.name);
+                  //console.log('Added:- ', network.chainEditInfo.name);
                 } else {
                   reject('An error occurred, please try again ' + network.chainEditInfo.name);
                 }

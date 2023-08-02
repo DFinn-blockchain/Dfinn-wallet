@@ -61,11 +61,11 @@ export const PinCodeField = ({ value, setError, setValue, isPinCodeValid, pinCod
 
     const getBorderColor = () => {
       if (!isPinCodeValid) {
-        return theme.colorError;
+        return ColorMap.errorColor;
       }
 
       if (isFocused) {
-        return theme.colorPrimary;
+        return ColorMap.primary;
       }
 
       return theme.colorBgSecondary;

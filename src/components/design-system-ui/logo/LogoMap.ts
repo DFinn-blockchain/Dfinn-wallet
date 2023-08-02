@@ -1050,6 +1050,8 @@ export const CustomLogoMap: Record<string, string> = {
   'custom-EVM-palmevm-11297108109': 'https://projects.edgeverse.space/logos/206.palm.png',
   'custom-Substrate-beresheettestnet-2022': 'https://projects.edgeverse.space/logos/201.beresheet.png',
   'custom-Substrate-thundertestnet-997': 'https://projects.edgeverse.space/logos/217.5ire-evm.png',
+  'custom-EVM-basemainnet-8453': 'https://projects.edgeverse.space/logos/base-logo-in-blue.png',
+  'custom-EVM-lineamainnet-59144': 'https://projects.edgeverse.space/logos/LINEA.png',
   eth: 'https://projects.edgeverse.space/logos/215.arbitrum-nova.png',
   aeth: 'https://projects.edgeverse.space/logos/209.aurora.png',
   avax: 'https://projects.edgeverse.space/logos/207.avalanche.png',

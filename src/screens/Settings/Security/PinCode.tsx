@@ -5,6 +5,8 @@ import { useBlurOnFulfill } from 'react-native-confirmation-code-field';
 import { CELL_COUNT } from 'constants/index';
 import i18n from 'utils/i18n/i18n';
 import { Button } from 'components/design-system-ui';
+import { SubmitButton } from 'components/SubmitButton';
+import { ColorMap } from 'styles/color';
 
 const bottomAreaStyle: StyleProp<any> = {
   flexDirection: 'row',
@@ -32,7 +34,19 @@ export const PinCode = ({ pinCode, onChangePinCode, onPressBack, onPressContinue
         <PinCodeField value={pinCode} setValue={onChangePinCode} isPinCodeValid={isPinCodeValid} pinCodeRef={ref} />
       </View>
       <View style={bottomAreaStyle}>
-        <Button type={'secondary'} style={cancelButtonStyle} onPress={onPressBack}>
+        <SubmitButton
+          onPress={onPressBack}
+          title={i18n.common.cancel}
+          style={{ flex: 1, marginRight: 6 }}
+          backgroundColor={ColorMap.dark2}
+        />
+        <SubmitButton
+          disabled={!pinCode || pinCode.length !== 6 || !isPinCodeValid}
+          onPress={onPressContinue}
+          title={i18n.common.continue}
+          style={{ flex: 1, marginLeft: 6 }}
+        />
+        {/* <Button type={'secondary'} style={cancelButtonStyle} onPress={onPressBack}>
           {i18n.common.cancel}
         </Button>
         <Button
@@ -40,7 +54,7 @@ export const PinCode = ({ pinCode, onChangePinCode, onPressBack, onPressContinue
           style={continueButtonStyle}
           onPress={onPressContinue}>
           {i18n.common.continue}
-        </Button>
+        </Button> */}
       </View>
     </>
   );

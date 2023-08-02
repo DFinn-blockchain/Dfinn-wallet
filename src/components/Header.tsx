@@ -94,24 +94,24 @@ export const Header = ({ onPressSearchButton }: HeaderProps) => {
         </TouchableOpacity>
       </View> */}
 
-      <View
+      {/* <View
         style={{
           flexDirection: 'row',
           //position: 'absolute',
           width: '24%',
           justifyContent: 'space-between',
           marginRight: -10,
-        }}>
-        {/* <IconButton
-          icon={Plus}
-          onPress={() => {
-            navigation.navigate('AccountsScreen');
-          }}
-        /> */}
-        <View />
-        {/* <IconButton icon={QrCode} onPress={onPressQrButton} /> */}
-        <IconButton icon={MagnifyingGlass} onPress={_onPressSearchButton} />
-      </View>
+        }}> */}
+      <IconButton
+        icon={Plus}
+        onPress={() => {
+          navigation.navigate('AccountsScreen');
+        }}
+      />
+      {/* <View /> */}
+      {/* <IconButton icon={QrCode} onPress={onPressQrButton} /> */}
+      {/* {onPressSearchButton && <IconButton icon={MagnifyingGlass} onPress={_onPressSearchButton} />} */}
+      {/* </View> */}
     </View>
   );
 };

@@ -19,6 +19,7 @@ import i18n from 'utils/i18n/i18n';
 import { HIDE_MODAL_DURATION } from 'constants/index';
 import { getButtonIcon } from 'utils/button';
 import { SubmitButton } from '../../../../components/SubmitButton';
+import { ColorMap } from 'styles/color';
 
 interface Props {
   account: AccountJson;
@@ -140,8 +141,16 @@ export const SubstrateSignArea = (props: Props) => {
 
   return (
     <ConfirmationFooter>
-      <SubmitButton disabled={loading} leftIcon={XCircle} onPress={onCancel} title={i18n.common.cancel} />
       <SubmitButton
+        style={{ flex: 1, marginRight: 6 }}
+        disabled={loading}
+        leftIcon={XCircle}
+        onPress={onCancel}
+        title={i18n.common.cancel}
+        backgroundColor={ColorMap.dark2}
+      />
+      <SubmitButton
+        style={{ flex: 1, marginLeft: 6 }}
         disabled={(isMessage && !modeCanSignMessage.includes(signMode)) || loading}
         leftIcon={approveIcon}
         isBusy={loading}
