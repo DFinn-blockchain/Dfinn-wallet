@@ -119,7 +119,7 @@ export const NetworksSetting = ({}: Props) => {
   useEffect(() => {
     // console.log('====================================');
     // console.log(JSON.stringify(Object.values(chainInfoMap).filter(i => i.chainType === 'EVM')));
-    // console.log('===================================='); 
+    // console.log('====================================');
     setPendingChainMap(prevPendingChainMap => {
       Object.entries(prevPendingChainMap).forEach(([key, val]) => {
         if (chainInfoMap[key].active === val) {
@@ -142,17 +142,17 @@ export const NetworksSetting = ({}: Props) => {
 
   const onToggleItem = (item: ChainInfoWithState) => {
     setPendingChainMap({ ...pendingChainMap, [item.slug]: !item.active });
-    const reject = () => {
-      console.warn('Toggle network request failed!');
+    const reject = e => {
+      console.warn('Toggle network request failed!', e);
       // @ts-ignore
-      delete pendingNetworkMap[item.key];
+      delete pendingChainMap[item.slug];
       setPendingChainMap({ ...pendingChainMap });
     };
 
     updateChainActiveState(item.slug, !item.active)
       .then(result => {
         if (!result) {
-          reject();
+          reject(result);
         }
       })
       .catch(reject);

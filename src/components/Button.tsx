@@ -12,7 +12,7 @@ interface ButtonProps extends TouchableOpacityProps {
   textStyle?: StyleProp<any>;
 }
 
-function getButtonWrapperStyle(): StyleProp<any> {
+function getButtonWrapperStyle(isIcon): StyleProp<any> {
   return {
     height: 40,
     minWidth: 40,
@@ -22,6 +22,7 @@ function getButtonWrapperStyle(): StyleProp<any> {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: isIcon ? 0 : 7,
   };
 }
 
@@ -38,7 +39,7 @@ export const Button = (buttonProps: ButtonProps) => {
   const { title, style, textStyle, color = ColorMap.secondary, icon: Icon } = buttonProps;
 
   return (
-    <TouchableOpacity {...buttonProps} style={[style, getButtonWrapperStyle()]}>
+    <TouchableOpacity {...buttonProps} style={[style, getButtonWrapperStyle(!!Icon)]}>
       {!!Icon && <Icon size={20} color={color || ColorMap.light} weight={'bold'} />}
       <Text style={[getButtonTextStyle(color), textStyle]}>{title}</Text>
     </TouchableOpacity>

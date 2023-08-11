@@ -1,7 +1,8 @@
-import { StakingType } from '@subwallet/extension-base/background/KoniTypes';
+import { StakingType, UnstakingStatus } from '@subwallet/extension-base/background/KoniTypes';
 import { getBondingOptions, getNominationPoolOptions } from 'messaging/index';
 import { store } from 'stores/index';
 import { ALL_KEY } from 'constants/index';
+import moment from 'moment';
 
 export function getUnstakingPeriod(unstakingPeriod?: number) {
   if (unstakingPeriod) {
@@ -17,7 +18,7 @@ export function getUnstakingPeriod(unstakingPeriod?: number) {
   return '';
 }
 
-export function getWaitingTime(waitingTime?: number) {
+export function getWaitingTime(waitingTime?: number, status: UnstakingStatus) {
   const days = waitingTime ? Number(waitingTime / 24).toFixed(2) : 0;
 
   if (days < 1) {
@@ -50,11 +51,11 @@ const fetchChainValidator = (chain: string, unmount: boolean, setValidatorLoadin
 const fetchChainPool = (chain: string, unmount: boolean, setPoolLoading: (value: boolean) => void) => {
   if (!unmount) {
     setPoolLoading(true);
-    console.log(chain);
+    //console.log(chain);
 
     getNominationPoolOptions(chain)
       .then(result => {
-        console.log('Bonding result:- ', result);
+        //console.log('Bonding result:- ', result);
 
         store.dispatch({ type: 'bonding/updateNominationPools', payload: { chain, pools: result } });
       })

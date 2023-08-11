@@ -90,7 +90,7 @@ predefinedDApps.dapps.forEach(s => {
 
 export const DAppScript = `(function () {
   if (window.SubWallet) {
-    window.SubWallet.isMetaMask = true;
+    window.SubWallet.isMetaMask = false; 
   }
 
   if (window.ethereum) {

@@ -1,7 +1,7 @@
 {
   "name": "dfinnwallet",
-  "version": "0.0.1",
-  "build": "3",
+  "version": "0.0.2",
+  "build": "4",
   "private": true,
   "license": "Apache-2.0",
   "bin": {
@@ -51,7 +51,7 @@
     "@react-navigation/native": "^6.1.2",
     "@react-navigation/native-stack": "^6.9.8",
     "@reduxjs/toolkit": "^1.9.2",
-    "@subwallet/extension-chains": "^0.8.1",
+    "@subwallet/extension-chains": "^1.1.1",
     "@subwallet/extension-dapp": "^0.8.1",
     "@subwallet/extension-koni-base": "^0.8.1-wr",
     "@subwallet/keyring": "^0.0.4",
@@ -120,6 +120,7 @@
     "react-redux": "^8.0.5",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
+    "rn-android-keyboard-adjust": "^2.1.2",
     "rn-fetch-blob": "0.13.0-beta.2"
   },
   "devDependencies": {

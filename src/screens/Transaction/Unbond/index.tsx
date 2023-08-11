@@ -26,7 +26,7 @@ import { FreeBalance } from 'screens/Transaction/parts/FreeBalance';
 import { NominationSelector } from 'components/Modal/common/NominationSelector';
 import { AccountSelector } from 'components/Modal/common/AccountSelector';
 import { InputAmount } from 'components/Input/InputAmount';
-import { BN_TEN } from 'utils/number';
+import { formatBalance } from 'utils/number';
 import { BN_ZERO } from 'utils/chainBalances';
 import { _ChainInfo } from '@subwallet/chain-list/types';
 import { AccountJson } from '@subwallet/extension-base/background/types';
@@ -199,8 +199,10 @@ export const Unbond = ({
       const _minValue = new BigN(min);
       const _maxValue = new BigN(max);
       const _middleValue = _maxValue.minus(_minValue);
-      const _maxString = _maxValue.div(BN_TEN.pow(_decimals)).toString();
-      const _middleString = _middleValue.div(BN_TEN.pow(_decimals)).toString();
+      //const _maxString = _maxValue.div(BN_TEN.pow(_decimals)).toString();
+      const _maxString = formatBalance(_maxValue, _decimals);
+      const _middleString = formatBalance(_middleValue, _decimals);
+      //const _middleString = _middleValue.div(BN_TEN.pow(_decimals)).toString();
       const val = new BigN(value);
 
       if (val.gt(_maxValue)) {
@@ -213,7 +215,7 @@ export const Unbond = ({
         return;
       }
 
-      if (_middleValue.lt(BN_ZERO) && !val.eq(_maxString)) {
+      if (_middleValue.lt(BN_ZERO) && !val.eq(_maxValue)) {
         onUpdateErrors('value')([`${name || 'Value'} must be equal ${_maxString}`]);
         return;
       }

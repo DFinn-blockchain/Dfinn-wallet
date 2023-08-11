@@ -1,34 +1,29 @@
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { FlatListScreen } from 'components/FlatListScreen';
 import { StakingDataType } from 'hooks/types';
 import { Plus, Trophy } from 'phosphor-react-native';
-import React, { useCallback, useMemo, useState } from 'react';
-import { ListRenderItemInfo, RefreshControl } from 'react-native';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Keyboard, ListRenderItemInfo, RefreshControl } from 'react-native';
 import StakingBalanceItem from 'screens/Home/Staking/Balance/StakingBalanceItem';
 import EmptyStaking from 'screens/Home/Staking/Shared/EmptyStaking';
 import i18n from 'utils/i18n/i18n';
 import { ColorMap } from 'styles/color';
-import { restartCronAndSubscriptionServices } from 'messaging/index';
+import { reloadCron } from 'messaging/index';
 import { useRefresh } from 'hooks/useRefresh';
 import useGetStakingList from 'hooks/screen/Home/Staking/useGetStakingList';
 import { StakingDetailModal } from 'screens/Home/Staking/StakingDetail/StakingDetailModal';
 import StakingActionModal from 'screens/Home/Staking/StakingDetail/StakingActionModal';
-import { Header } from 'components/Header';
-import { ScreenContainer } from 'components/ScreenContainer';
 import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
 import { StakingType } from '@subwallet/extension-base/background/KoniTypes';
 import { RootNavigationProps } from 'routes/index';
 import { EmptyList } from 'components/EmptyList';
+import { setAdjustPan } from 'rn-android-keyboard-adjust';
+import { ScreenContainer } from 'components/ScreenContainer';
 
 enum FilterValue {
   NOMINATED = 'nominated',
   POOLED = 'pooled',
 }
-
-const FILTER_OPTIONS = [
-  { label: 'Nominated', value: FilterValue.NOMINATED },
-  { label: 'Pooled', value: FilterValue.POOLED },
-];
 
 const renderEmpty = (val?: string) => {
   if (val) {
@@ -39,29 +34,26 @@ const renderEmpty = (val?: string) => {
 };
 
 const filterFunction = (items: StakingDataType[], filters: string[]) => {
-  const filteredChainList: StakingDataType[] = [];
-
   if (!filters.length) {
     return items;
   }
 
-  items.forEach(item => {
+  return items.filter(item => {
     for (const filter of filters) {
       switch (filter) {
         case FilterValue.NOMINATED:
           if (item.staking.type === StakingType.NOMINATED) {
-            filteredChainList.push(item);
+            return true;
           }
           break;
         case FilterValue.POOLED:
           if (item.staking.type === StakingType.POOLED) {
-            filteredChainList.push(item);
+            return true;
           }
       }
     }
+    return false;
   });
-
-  return filteredChainList;
 };
 
 const searchFunction = (items: StakingDataType[], searchString: string) => {
@@ -78,13 +70,24 @@ const StakingBalanceList = () => {
   const [selectedItem, setSelectedItem] = useState<StakingDataType | undefined>(undefined);
   const [detailModalVisible, setDetailModalVisible] = useState<boolean>(false);
   const [moreActionModalVisible, setMoreActionModalVisible] = useState<boolean>(false);
-
   const handleOnPress = useCallback((stakingData: StakingDataType): (() => void) => {
     return () => {
+      Keyboard.dismiss();
       setSelectedItem(stakingData);
       setDetailModalVisible(true);
     };
   }, []);
+  const FILTER_OPTIONS = [
+    { label: 'Nominated', value: FilterValue.NOMINATED },
+    { label: 'Pooled', value: FilterValue.POOLED },
+  ];
+
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (isFocused) {
+      setAdjustPan();
+    }
+  }, [isFocused]);
 
   const renderItem = useCallback(
     ({ item: stakingData }: ListRenderItemInfo<StakingDataType>) => {
@@ -119,10 +122,10 @@ const StakingBalanceList = () => {
   return (
     <ScreenContainer backgroundColor={theme.colorBgDefault}>
       <>
-        {/* <Header /> */}
         <FlatListScreen
           style={{ marginTop: -20 }}
           title={i18n.title.staking}
+          titleTextAlign={'left'}
           items={data}
           showLeftBtn={false}
           autoFocus={false}
@@ -130,22 +133,18 @@ const StakingBalanceList = () => {
           searchFunction={searchFunction}
           filterOptions={FILTER_OPTIONS}
           filterFunction={filterFunction}
-          flatListStyle={{ paddingHorizontal: theme.padding, gap: theme.sizeXS }}
+          flatListStyle={{ paddingHorizontal: theme.padding, gap: theme.sizeXS, paddingBottom: 8 }}
           renderItem={renderItem}
           rightIconOption={rightIconOption}
           isShowFilterBtn
+          isShowMainHeader
           refreshControl={
             <RefreshControl
               style={{ backgroundColor: ColorMap.dark1 }}
               tintColor={ColorMap.light}
               refreshing={isRefresh}
               onRefresh={() => {
-                refresh(
-                  restartCronAndSubscriptionServices({
-                    cronServices: ['staking'],
-                    subscriptionServices: ['staking'],
-                  }),
-                );
+                refresh(reloadCron({ data: 'staking' }));
               }}
             />
           }
@@ -153,7 +152,7 @@ const StakingBalanceList = () => {
           needGapWithStatusBar={false}
         />
 
-        {!!(selectedItem && selectedItem.nominatorMetadata && selectedItem.chainStakingMetadata) && (
+        {selectedItem && (
           <StakingDetailModal
             modalVisible={detailModalVisible}
             onCloseDetailModal={() => setDetailModalVisible(false)}

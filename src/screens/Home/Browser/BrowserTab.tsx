@@ -541,6 +541,7 @@ const Component = ({ tabId, tabsNumber, onOpenBrowserTabs }: Props, ref: Forward
                 allowFileAccessFromFileURLs={true}
                 domStorageEnabled={true}
                 onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
+                setSupportMultipleWindows={false}
               />
             ) : (
               <EmptyList icon={GlobeSimple} title={i18n.common.emptyBrowserMessage} />

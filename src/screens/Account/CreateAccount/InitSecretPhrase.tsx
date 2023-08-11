@@ -119,11 +119,11 @@ export const InitSecretPhrase = ({ seed, onPressSubmit }: Props) => {
             />
           </View> */}
         {/* </ScrollView> */}
-        {/* <Warning
+        <Warning
           style={{ marginTop: 16 }}
           title={i18n.warningTitle.doNotShareSecretPhrase}
           message={i18n.warningMessage.secretPhraseWarning}
-        /> */}
+        />
       </View>
 
       <View style={footerAreaStyle}>

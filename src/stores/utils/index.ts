@@ -5,6 +5,7 @@ import { _AssetRef, _ChainAsset, _ChainInfo, _MultiChainAsset } from '@subwallet
 import { AuthUrls } from '@subwallet/extension-base/background/handlers/State';
 import {
   AccountsWithCurrentAddress,
+  AddressBookInfo,
   AllLogoMap,
   AssetSetting,
   BalanceJson,
@@ -90,6 +91,17 @@ export const subscribeKeyringState = lazySubscribeMessage(
   null,
   updateKeyringState,
   updateKeyringState,
+);
+
+export const updateAddressBook = (data: AddressBookInfo) => {
+  store.dispatch({ type: 'accountState/updateAddressBook', payload: data });
+};
+
+export const subscribeAddressBook = lazySubscribeMessage(
+  'pri(accounts.subscribeAddresses)',
+  null,
+  updateAddressBook,
+  updateAddressBook,
 );
 
 function convertConfirmationToMap(data: ConfirmationRequestBase[]) {
@@ -220,11 +232,7 @@ export const subscribeAuthUrls = lazySubscribeMessage('pri(authorize.subscribe)'
 // export const subscribeMediaAllowance = lazySubscribeMessage('pri(accounts.subscribeWithCurrentAddress)', {}, updateCurrentAccountState, updateCurrentAccountState);
 
 export const updateChainInfoMap = (data: Record<string, _ChainInfo>) => {
-  let temp = data;
-
-  // temp.edgeware.substrateInfo.supportStaking = true;
-  // temp['custom-Substrate-thundertestnet-997'].substrateInfo.supportStaking = true;
-  store.dispatch({ type: 'chainStore/updateChainInfoMap', payload: temp });
+  store.dispatch({ type: 'chainStore/updateChainInfoMap', payload: data });
 };
 
 export const subscribeChainInfoMap = lazySubscribeMessage(
@@ -236,6 +244,7 @@ export const subscribeChainInfoMap = lazySubscribeMessage(
 
 export const updateChainStateMap = (data: Record<string, _ChainState>) => {
   // TODO useTokenGroup
+
   store.dispatch({ type: 'chainStore/updateChainStateMap', payload: data });
 };
 
@@ -349,7 +358,7 @@ export const subscribeStaking = lazySubscribeMessage(
 );
 
 export const updateStakingReward = (data: StakingRewardJson) => {
-  store.dispatch({ type: 'staking/updateStakingReward', payload: [...data.fastInterval, ...data.slowInterval] });
+  store.dispatch({ type: 'staking/updateStakingReward', payload: Object.values(data.data) });
 };
 
 export const subscribeStakingReward = lazySubscribeMessage(

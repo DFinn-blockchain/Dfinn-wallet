@@ -39,6 +39,7 @@ import { RootNavigationProps } from 'routes/index';
 import ToastContainer from 'react-native-toast-notifications';
 import Toast from 'react-native-toast-notifications';
 import { ColorMap } from 'styles/color';
+import { SubmitButton } from 'components/SubmitButton';
 
 interface Props {
   nominatorMetadata: NominatorMetadata;
@@ -231,7 +232,7 @@ export const StakingDetailModal = ({
                         color: theme.colorTextTertiary,
                         ...FontMedium,
                       }}>
-                      {getWaitingTime(unstakingData.waitingTime)}
+                      {getWaitingTime(unstakingData.waitingTime, unstakingData.status)}
                     </Typography.Text>
                   )}
                 </View>
@@ -270,15 +271,26 @@ export const StakingDetailModal = ({
           onPress={onClickMoreAction}
           icon={<Icon phosphorIcon={DotsThree} size={'lg'} iconColor={theme.colorWhite} />}
         />
-        <Button
+        <SubmitButton
+          backgroundColor={ColorMap.dark2}
+          style={{ flex: 1, marginHorizontal: 6 }}
+          title={'Unstake'}
+          onPress={onClickFooterButton(onClickUnstakeBtn)}
+        />
+        {/* <Button
           style={{ flex: 1, marginHorizontal: 6 }}
           type={'secondary'}
           onPress={onClickFooterButton(onClickUnstakeBtn)}>
           {'Unstake'}
-        </Button>
-        <Button style={{ flex: 1, marginLeft: 6 }} type={'primary'} onPress={onClickFooterButton(onClickStakeMoreBtn)}>
+        </Button> */}
+        <SubmitButton
+          style={{ flex: 1, marginLeft: 6 }}
+          title={'Stake more'}
+          onPress={onClickFooterButton(onClickStakeMoreBtn)}
+        />
+        {/* <Button style={{ flex: 1, marginLeft: 6 }} type={'primary'} onPress={onClickFooterButton(onClickStakeMoreBtn)}>
           {'Stake more'}
-        </Button>
+        </Button> */}
       </View>
     );
   };
@@ -478,7 +490,11 @@ export const StakingDetailModal = ({
                               <MetaInfo.Number
                                 decimals={decimals}
                                 key={`${item.validatorAddress || item.chain}-${item.status}-${item.claimable}-${index}`}
-                                label={getWaitingTime(item.waitingTime) ? getWaitingTime(item.waitingTime) : 'Withdraw'}
+                                label={
+                                  getWaitingTime(item.waitingTime, item.status)
+                                    ? getWaitingTime(item.waitingTime, item.status)
+                                    : 'Withdraw'
+                                }
                                 suffix={staking.nativeToken}
                                 value={item.claimable || ''}
                                 valueColorSchema={'gray'}
