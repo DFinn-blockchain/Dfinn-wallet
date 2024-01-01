@@ -21,6 +21,7 @@ interface InputProps {
   disabled?: boolean;
   readonly?: boolean;
   placeholder?: string;
+  onBlur: () => void;
 }
 
 const isValidCurrentAddress = (address: string, isEthereum: boolean) => {
@@ -44,6 +45,7 @@ const Component = (inputAddressProps: InputProps, ref: ForwardedRef<any>) => {
     showAvatar = true,
     onSubmitField,
     placeholder,
+    onBlur,
   } = inputAddressProps;
   const theme = useSubWalletTheme().swThemes;
   const [isInputBlur, setInputBlur] = useState<boolean>(true);
@@ -70,6 +72,7 @@ const Component = (inputAddressProps: InputProps, ref: ForwardedRef<any>) => {
   };
   const onInputBlur = () => {
     setInputBlur(true);
+    onBlur();
   };
 
   useImperativeHandle(ref, () => ({

@@ -5,6 +5,7 @@ import { persistor, store, StoreName } from '../stores';
 import {
   getLogoMaps,
   subscribeAccountsData,
+  subscribeAddressBook,
   subscribeAssetRegistry,
   subscribeAssetSettings,
   subscribeAuthorizeRequests,
@@ -198,7 +199,12 @@ export const DataContextProvider = ({ children }: DataContextProviderProps) => {
           relatedStores: ['accountState'],
           isStartImmediately: true,
         });
-
+        _DataContext.addHandler({
+          ...subscribeAddressBook,
+          name: 'subscribeAddressBook',
+          relatedStores: ['accountState'],
+          isStartImmediately: true,
+        });
         _DataContext.addHandler({
           ...subscribeChainStateMap,
           name: 'subscribeChainStateMap',

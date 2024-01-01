@@ -27,6 +27,7 @@ import { DAppAccessScreen } from 'screens/Settings/Security/DAppAccess';
 import { DAppAccessDetailScreen } from 'screens/Settings/Security/DAppAccess/DAppAccessDetailScreen';
 import { Languages } from 'screens/Settings/Languages';
 import { Security } from 'screens/Settings/Security';
+import { ManageAddressBook } from 'screens/Settings/AddressBook';
 import { PinCodeScreen } from 'screens/Settings/Security/PinCodeScreen';
 import { AccountExport } from 'screens/Account/AccountExport';
 import { CustomTokenSetting } from 'screens/Tokens';
@@ -215,6 +216,7 @@ const AppNavigator = ({ isAppReady }: Props) => {
                 <Stack.Screen name="DAppAccessDetail" component={DAppAccessDetailScreen} />
                 <Stack.Screen name="Languages" component={Languages} />
                 <Stack.Screen name="Security" component={Security} />
+                <Stack.Screen name="ManageAddressBook" component={ManageAddressBook} />
                 <Stack.Screen name="PinCode" component={PinCodeScreen} />
                 <Stack.Screen
                   name="ChangePassword"

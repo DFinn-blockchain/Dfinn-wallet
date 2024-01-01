@@ -1407,3 +1407,11 @@ export async function getMetadata(genesisHash?: string | null, isPartial = false
 
   return null;
 }
+
+export async function resolveDomainToAddress(request: any) {
+  return sendMessage('pri(accounts.resolveDomainToAddress)', request);
+}
+
+export async function resolveAddressToDomain(request: any) {
+  return sendMessage('pri(accounts.resolveAddressToDomain)', request);
+}

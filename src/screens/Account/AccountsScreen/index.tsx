@@ -15,7 +15,7 @@ import { RootNavigationProps } from 'routes/index';
 import i18n from 'utils/i18n/i18n';
 import { MarginBottomForSubmitButton } from 'styles/sharedStyles';
 import { saveCurrentAccountAddress } from '../../../messaging/index';
-import { isAccountAll } from '@subwallet/extension-koni-base/utils';
+import { isAccountAll } from '@subwallet/extension-base/utils';
 import { Divider } from 'components/Divider';
 import AddAccountModal from 'components/Modal/AddAccountModal';
 import { findAccountByAddress } from 'utils/index';
@@ -34,7 +34,7 @@ export const AccountsScreen = () => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const renderListEmptyComponent = () => {
-    return <Warning title={i18n.warningTitle.warning} message={i18n.warningMessage.noAccountText} isDanger={false} />;
+    return <Warning title={i18n.warningTitle.warning} message={'No account'} isDanger={false} />;
   };
 
   const selectAccount = useCallback(
@@ -47,7 +47,7 @@ export const AccountsScreen = () => {
             address: accAddress,
           } as CurrentAccountInfo;
 
-          saveCurrentAccountAddress(accountInfo, () => {}).catch(e => {
+          saveCurrentAccountAddress(accountInfo).catch(e => {
             console.error('There is a problem when set Current Account', e);
           });
         }
@@ -106,7 +106,7 @@ export const AccountsScreen = () => {
       <View style={{ paddingHorizontal: 16, ...MarginBottomForSubmitButton, marginTop: 16 }}>
         <SubmitButton
           //backgroundColor={ColorMap.dark2}
-          title={i18n.common.addOrConnectAccount}
+          title={'Add or connect account'}
           onPress={onCreateAccount}
         />
       </View>
@@ -118,11 +118,7 @@ export const AccountsScreen = () => {
   }, []);
 
   return (
-    <SubScreenContainer
-      navigation={navigation}
-      title={i18n.title.accounts}
-      rightIcon={Plus}
-      onPressRightIcon={onCreateAccount}>
+    <SubScreenContainer navigation={navigation} title={'Accounts'} rightIcon={Plus} onPressRightIcon={onCreateAccount}>
       <View style={accountsWrapper}>
         <FlatList
           style={{ flex: 1 }}

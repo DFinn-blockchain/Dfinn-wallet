@@ -29,6 +29,7 @@ import { setBuildNumber } from './stores/AppVersion';
 import { insertChains } from './extras/addNetworks';
 // import { hasMigratedFromAsyncStorage, migrateFromAsyncStorage } from 'utils/storage';
 import { getBuildNumber } from 'react-native-device-info';
+import { PortalProvider } from '@gorhom/portal';
 
 const viewContainerStyle: StyleProp<any> = {
   position: 'relative',
@@ -160,9 +161,11 @@ export const AppNew = () => {
               <ExternalRequestContextProvider>
                 <QrSignerContextProvider>
                   <ScannerContextProvider>
-                    <>
-                      <AppNavigator isAppReady={isAppReady} />
-                    </>
+                    <PortalProvider>
+                      <>
+                        <AppNavigator isAppReady={isAppReady} />
+                      </>
+                    </PortalProvider>
                   </ScannerContextProvider>
                 </QrSignerContextProvider>
               </ExternalRequestContextProvider>

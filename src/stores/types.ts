@@ -1,5 +1,6 @@
 import {
   ActiveCronAndSubscriptionMap,
+  AddressBookState,
   AssetSetting,
   BalanceItem,
   ChainStakingMetadata,
@@ -32,6 +33,10 @@ import { SettingsStruct } from '@polkadot/ui-settings/types';
 import { SWTransactionResult } from '@subwallet/extension-base/services/transaction-service/types';
 import { _AssetRef, _ChainAsset, _ChainInfo, _MultiChainAsset } from '@subwallet/chain-list/types';
 import { _ChainState } from '@subwallet/extension-base/services/chain-service/types';
+import { SessionTypes } from '@walletconnect/types';
+import { WalletConnectSessionRequest } from '@subwallet/extension-base/services/wallet-connect-service/types';
+import { MissionInfo } from 'types/missionPool';
+import { DAPPCategory, DAppInfo } from 'types/browser';
 
 export type StoreStatus = 'INIT' | 'CACHED' | 'SYNCED' | 'WAITING';
 
@@ -78,11 +83,23 @@ export type ConfirmationSlice = {
 
 export type MobileSettingsSlice = {
   language: string;
-  pinCode: string;
   pinCodeEnabled: boolean;
-  faceIdEnabled: boolean;
-  autoLockTime: number | undefined;
+  faceIdEnabled: boolean; // deprecated
+  isUseBiometric: boolean;
+  timeAutoLock: LockTimeout;
+  isPreventLock: boolean;
 };
+
+export enum LockTimeout {
+  NEVER = -1,
+  ALWAYS = 0,
+  _1MINUTE = 1,
+  _5MINUTE = 5,
+  _10MINUTE = 10,
+  _15MINUTE = 15,
+  _30MINUTE = 30,
+  _60MINUTE = 60,
+}
 
 export type SiteInfo = {
   name: string;
@@ -133,9 +150,15 @@ export interface AppSettings
     BaseReduxStore {
   authUrls: Record<string, AuthUrlInfo>;
   mediaAllowed: boolean;
+  isDeepLinkConnect: boolean;
+  isShowBuyToken: boolean;
+  browserDApps: {
+    dApps: DAppInfo[] | undefined;
+    dAppCategories: DAPPCategory[] | undefined;
+  };
 }
 
-export interface AccountState extends AccountsContext, KeyringState, BaseReduxStore {
+export interface AccountState extends AccountsContext, KeyringState, AddressBookState, BaseReduxStore {
   currentAccount: AccountJson | null;
 
   isAllAccount: boolean;
@@ -149,6 +172,7 @@ export interface RequestState extends ConfirmationsQueue, BaseReduxStore {
   hasInternalConfirmations: boolean;
   numberOfConfirmations: number;
   transactionRequest: Record<string, SWTransactionResult>;
+  connectWCRequest: Record<string, WalletConnectSessionRequest>;
 }
 
 export interface UpdateConfirmationsQueueRequest extends BaseReduxStore {
@@ -208,3 +232,16 @@ export interface ChainNominationPoolParams {
 export type TransactionHistoryReducerType = {
   historyList: TransactionHistoryItem[];
 };
+
+export interface WalletConnectStore extends BaseReduxStore {
+  sessions: Record<string, SessionTypes.Struct>;
+}
+
+export interface MissionPoolStore extends BaseReduxStore {
+  missions: MissionInfo[];
+}
+
+export interface BuyServiceStore extends BaseReduxStore {
+  tokens: Record<string, BuyTokenInfo>;
+  services: Record<string, BuyServiceInfo>;
+}

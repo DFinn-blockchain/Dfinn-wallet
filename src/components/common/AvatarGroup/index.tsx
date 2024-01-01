@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { RootState } from 'stores/index';
 import { useSelector } from 'react-redux';
-import { isAccountAll } from '@subwallet/extension-koni-base/utils';
+import { isAccountAll } from '@subwallet/extension-base/utils';
 import { StyleProp, Text, View, ViewStyle } from 'react-native';
 import { Avatar } from 'components/design-system-ui';
 import { useSubWalletTheme } from 'hooks/useSubWalletTheme';

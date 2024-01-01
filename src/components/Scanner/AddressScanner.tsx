@@ -1,113 +1,62 @@
-import React from 'react';
-import { SafeAreaView, StatusBar, StyleProp, View, ViewStyle } from 'react-native';
-import Text from 'components/Text';
-import { ScannerStyles } from 'styles/scanner';
-import { STATUS_BAR_LIGHT_CONTENT } from 'styles/sharedStyles';
-import QRCodeScanner from 'react-native-qrcode-scanner';
-import { X } from 'phosphor-react-native';
-import { ColorMap } from 'styles/color';
-import { BarcodeFinder } from 'screens/Shared/BarcodeFinder';
+import React, { useRef } from 'react';
 import { BarCodeReadEvent } from 'react-native-camera';
-import i18n from 'utils/i18n/i18n';
-import { getNetworkLogo } from 'utils/index';
-import ModalBase from 'components/Modal/Base/ModalBase';
-import { overlayColor, rectDimensions } from 'constants/scanner';
-import { IconButton } from 'components/IconButton';
+import { launchImageLibrary } from 'react-native-image-picker';
+import RNQRGenerator from 'rn-qr-generator';
+import { SwFullSizeModal } from 'components/design-system-ui';
+import { SWModalRefProps } from 'components/design-system-ui/modal/ModalBaseV2';
+import QrAddressScanner from './QrAddressScanner';
 
-interface Props {
+export interface AddressScannerProps {
   onPressCancel: () => void;
   onChangeAddress: (data: string) => void;
   qrModalVisible: boolean;
-  networkKey?: string;
-  token?: string;
-  scanMessage?: string;
+  setQrModalVisible: (value: boolean) => void;
+  error?: string;
+  isShowError?: boolean;
 }
-
-const CancelButtonStyle: StyleProp<ViewStyle> = {
-  position: 'absolute',
-  right: 16,
-  zIndex: 10,
-  width: 40,
-  height: 40,
-  justifyContent: 'center',
-  alignItems: 'center',
-};
-
-const BottomContentStyle: StyleProp<ViewStyle> = {
-  flex: 1,
-  alignItems: 'center',
-  justifyContent: 'center',
-  marginHorizontal: 22,
-};
 
 export const AddressScanner = ({
   onPressCancel,
   onChangeAddress,
   qrModalVisible,
-  networkKey,
-  token,
-  scanMessage = i18n.common.toSendFund,
-}: Props) => {
+  setQrModalVisible,
+  error,
+  isShowError = false,
+}: AddressScannerProps) => {
+  const addressScannerRef = useRef<SWModalRefProps>(null);
   const onSuccess = (e: BarCodeReadEvent) => {
     try {
       onChangeAddress(e.data);
-      onPressCancel();
+      !isShowError && onPressCancel();
     } catch (err) {
       console.log(err);
     }
   };
 
+  const onPressLibraryBtn = async () => {
+    const result = await launchImageLibrary({ mediaType: 'photo' });
+    RNQRGenerator.detect({
+      uri: result.assets && result.assets[0]?.uri,
+    })
+      .then(response => {
+        onChangeAddress(response.values[0]);
+        !isShowError && onPressCancel();
+      })
+      .catch(err => console.log(err));
+  };
+
   return (
-    <ModalBase isVisible={qrModalVisible} style={{ flex: 1, width: '100%', margin: 0 }}>
-      <SafeAreaView style={ScannerStyles.SafeAreaStyle} />
-      <StatusBar barStyle={STATUS_BAR_LIGHT_CONTENT} backgroundColor={overlayColor} translucent={true} />
-      <QRCodeScanner
-        reactivate={true}
-        reactivateTimeout={5000}
-        showMarker={true}
-        onRead={e => {
-          onSuccess(e);
-        }}
-        containerStyle={ScannerStyles.ContainerStyle}
-        cameraStyle={ScannerStyles.CameraStyle}
-        topViewStyle={ScannerStyles.ContainerStyle}
-        customMarker={
-          <View style={ScannerStyles.RectangleContainerStyle}>
-            <View style={ScannerStyles.TopOverlayStyle}>
-              <View style={ScannerStyles.HeaderStyle}>
-                <Text style={ScannerStyles.HeaderTitleTextStyle}>{i18n.title.scanQrCode}</Text>
-                <IconButton icon={X} style={CancelButtonStyle} onPress={onPressCancel} />
-              </View>
-            </View>
-            <View style={ScannerStyles.CenterOverlayStyle}>
-              <View style={ScannerStyles.LeftAndRightOverlayStyle} />
-
-              <View style={ScannerStyles.RectangleStyle}>
-                <BarcodeFinder
-                  width={rectDimensions}
-                  height={rectDimensions}
-                  borderColor={ColorMap.light}
-                  borderWidth={2}
-                />
-              </View>
-
-              <View style={ScannerStyles.LeftAndRightOverlayStyle} />
-            </View>
-            <View style={ScannerStyles.BottomOverlayStyle}>
-              <View style={BottomContentStyle}>
-                {networkKey && <View style={ScannerStyles.LogoContainerStyle}>{getNetworkLogo(networkKey, 34)}</View>}
-
-                {token && (
-                  <Text
-                    style={
-                      ScannerStyles.CenterTextStyle
-                    }>{`${i18n.common.scan} ${token} ${i18n.common.address} ${scanMessage}`}</Text>
-                )}
-              </View>
-            </View>
-          </View>
-        }
+    <SwFullSizeModal
+      isUseModalV2
+      modalVisible={qrModalVisible}
+      setVisible={setQrModalVisible}
+      modalBaseV2Ref={addressScannerRef}>
+      <QrAddressScanner
+        onPressCancel={onPressCancel}
+        onPressLibraryBtn={onPressLibraryBtn}
+        onSuccess={onSuccess}
+        error={error}
       />
-    </ModalBase>
+    </SwFullSizeModal>
   );
 };

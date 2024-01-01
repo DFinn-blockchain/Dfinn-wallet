@@ -19,7 +19,7 @@ import { RootState } from 'stores/index';
 import useHandleSubmitTransaction from 'hooks/transaction/useHandleSubmitTransaction';
 import { useTransaction } from 'hooks/screen/Transaction/useTransaction';
 import { AddressScanner } from 'components/Scanner/AddressScanner';
-import { InputAddress } from 'components/Input/InputAddress';
+import { InputAddress } from 'components/Input/InputAddressV2';
 import { requestCameraPermission } from 'utils/permission/camera';
 import { RESULTS } from 'react-native-permissions';
 import {
@@ -369,7 +369,7 @@ export const SendFund = ({
   );
 
   const onChangeRecipientAddress = useCallback(
-    (recipientAddress: string | null, currentTextValue: string) => {
+    (currentTextValue: string) => {
       onChangeValue('to')(currentTextValue);
       validateRecipientAddress(currentTextValue);
     },
@@ -665,23 +665,18 @@ export const SendFund = ({
 
                 <InputAddress
                   ref={formState.refs.to}
-                  onPressQrButton={onPressQrButton}
+                  // onPressQrButton={onPressQrButton}
                   containerStyle={{ marginBottom: theme.sizeSM }}
                   label={formState.labels.to}
                   value={formState.data.to}
-                  onChange={onChangeRecipientAddress}
+                  onChangeText={onChangeRecipientAddress}
                   isValidValue={formState.isValidated.recipientAddress}
                   placeholder={'Please type or paste an address'}
                   disabled={loading}
-                  onSubmitField={onSubmit}
-                />
-
-                {/*//todo: i18n*/}
-                <AddressScanner
-                  qrModalVisible={isShowQrModalVisible}
-                  onPressCancel={closeQrScan}
-                  onChangeAddress={onUpdateReceiverInputAddress}
-                  scanMessage={'to send fund'}
+                  onSubmitEditing={onSubmit}
+                  showAddressBook
+                  saveAddress
+                  // scanMessage={'to send fund'}
                 />
 
                 {!!(formState.errors.to && formState.errors.to.length) &&

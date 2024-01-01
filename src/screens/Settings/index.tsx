@@ -5,18 +5,14 @@ import { Linking, ScrollView, StyleProp, ViewStyle } from 'react-native';
 import Text from 'components/Text';
 import { ActionItem } from 'components/ActionItem';
 import {
-  BellRinging,
+  BookBookmark,
   Coin,
-  DiscordLogo,
   FileText,
   GitFork,
   Globe,
-  GlobeHemisphereWest,
   IconProps,
   LockKeyOpen,
   ShieldCheck,
-  TelegramLogo,
-  TwitterLogo,
   User,
 } from 'phosphor-react-native';
 import { FontMedium, sharedStyles } from 'styles/sharedStyles';
@@ -25,15 +21,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'stores/index';
 import { RootNavigationProps } from 'routes/index';
 import i18n from 'utils/i18n/i18n';
-import {
-  DISCORD_URL,
-  PRIVACY_AND_POLICY_URL,
-  TELEGRAM_URL,
-  TERMS_OF_SERVICE_URL,
-  TWITTER_URL,
-  WEBSITE_URL,
-  WIKI_URL,
-} from 'constants/index';
+import { PRIVACY_AND_POLICY_URL, TERMS_OF_SERVICE_URL, WEBSITE_URL } from 'constants/index';
 import { useToast } from 'react-native-toast-notifications';
 import VersionNumber from 'react-native-version-number';
 import useAppLock from 'hooks/useAppLock';
@@ -75,7 +63,7 @@ export const Settings = () => {
   const { lock } = useAppLock();
   const onPressComingSoonFeature = useCallback(() => {
     toast.hideAll();
-    toast.show(i18n.common.comingSoon);
+    toast.show('Coming Soon');
   }, [toast]);
   const [hiddenCount, setHiddenCount] = useState(0);
 
@@ -84,9 +72,15 @@ export const Settings = () => {
       [
         {
           icon: ShieldCheck,
-          title: i18n.title.security,
+          title: 'Security',
           hasRightArrow: true,
           onPress: () => navigation.navigate('Security'),
+        },
+        {
+          icon: BookBookmark,
+          title: 'Manage Address Book',
+          onPress: () => navigation.navigate('ManageAddressBook'),
+          hasRightArrow: true,
         },
         // {
         //   icon: GlobeHemisphereWest,
@@ -104,7 +98,7 @@ export const Settings = () => {
       [
         {
           icon: GitFork,
-          title: i18n.settings.network,
+          title: 'Networks',
           hasRightArrow: true,
           onPress: () => navigation.navigate('NetworksSetting'),
         },
@@ -182,14 +176,14 @@ export const Settings = () => {
   };
 
   return (
-    <SubScreenContainer title={i18n.title.settings} navigation={navigation} showLeftBtn={false}>
+    <SubScreenContainer title={'Settings'} navigation={navigation} showLeftBtn={false}>
       <>
         <ScrollView
           style={{ paddingHorizontal: 16, flex: 1, marginBottom: 16 }}
           contentContainerStyle={{ paddingTop: 16 }}>
           <ActionItem
             icon={User}
-            title={i18n.title.accounts}
+            title={'Accounts'}
             subTitle={currentAccount ? currentAccount.name : ''}
             hasRightArrow
             paddingLeft={16}
@@ -211,7 +205,7 @@ export const Settings = () => {
             />
           ))}
 
-          <Text style={settingTitleStyle}>{i18n.settings.networkAndAssets}</Text>
+          <Text style={settingTitleStyle}>{'Network and Assets'}</Text>
 
           {settingList[1].map(setting => (
             <ActionItem
@@ -237,7 +231,7 @@ export const Settings = () => {
             />
           ))} */}
 
-          <Text style={settingTitleStyle}>{i18n.settings.about}</Text>
+          <Text style={settingTitleStyle}>{'About'}</Text>
 
           {settingList[2].map(setting => (
             <ActionItem

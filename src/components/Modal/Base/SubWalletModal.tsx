@@ -49,7 +49,7 @@ export const SubWalletModal = ({
       isVisible={modalVisible}
       onModalHide={onModalHide} // Auto trigger when close modal
       swipeDirection={onChangeModalVisible ? 'down' : undefined}
-      style={{ margin: 0, marginTop: Platform.OS === 'ios' ? getStatusBarHeight() : 0 }}
+      style={{ margin: 0, marginTop: Platform.OS === 'ios' ? getStatusBarHeight() + 10 : 0 }}
       backdropColor={ColorMap.dark1}
       backdropOpacity={0.8}
       onSwipeComplete={onChangeModalVisible}
