@@ -24,6 +24,20 @@ const networks = [
     },
   },
   {
+    chainEditInfo: {
+      blockExplorer: 'https://edgscan.ink',
+      crowdloanUrl: '',
+      currentProvider: 'Commonwealth Labs',
+      providers: {
+        'Commonwealth Labs': 'wss://mainnet2.edgewa.re',
+        Dwellir: 'wss://edgeware-rpc.dwellir.com',
+        JelliedOwl: 'wss://edgeware.jelliedowl.net',
+      },
+      slug: 'edgeware',
+    },
+    mode: 'update',
+  },
+  {
     mode: 'insert',
     chainEditInfo: {
       slug: '',
@@ -402,6 +416,11 @@ const networks = [
 const getArrayOfResponses = async () => {
   let requests = networks.map(network => {
     return new Promise((resolve, reject) => {
+      if (network.mode === 'update') {
+        upsertChain(network)
+          .then(r => resolve(r))
+          .catch(e => reject(e));
+      }
       validateCustomChain(network.chainEditInfo.providers[network.chainEditInfo.currentProvider])
         .then(result => {
           console.log(result.success, result.error, network.chainEditInfo.name);

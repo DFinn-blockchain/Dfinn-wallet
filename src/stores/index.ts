@@ -9,6 +9,7 @@ import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, R
 
 import AccountStateReducer from './base/AccountState';
 import RequestStateReducer from './base/RequestState';
+import WalletConnectReducer from './feature/WalletConnect';
 import SettingsReducer from './base/Settings';
 import BalanceReducer from './feature/Balance';
 import BondingReducer from './feature/Bonding';
@@ -28,7 +29,7 @@ const persistConfig = {
   version: 2,
   storage: AsyncStorage,
   whitelist: ['mobileSettings', 'browser', 'settings', 'appVersion', 'price', 'chainStore', 'assetRegistry', 'balance'],
-  migrate: (state) => {
+  migrate: state => {
     const beforeInfo = state._persist || {};
     if ((beforeInfo.version || 0) < 2) {
       console.debug(`Purger persist data after migration from ${beforeInfo.version} to 2`);
@@ -74,6 +75,7 @@ const rootReducer = combineReducers({
   price: PriceReducer,
   balance: BalanceReducer,
   bonding: BondingReducer,
+  walletConnect: WalletConnectReducer,
 
   // // Common
   chainStore: ChainStoreReducer,

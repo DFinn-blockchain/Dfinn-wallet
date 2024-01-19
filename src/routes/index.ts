@@ -11,6 +11,8 @@ export type RootStackParamList = {
   LockScreen: undefined;
   LoadingScreen: undefined;
   Home: NavigatorScreenParams<HomeStackParamList> | undefined;
+  ConnectList: { isDelete?: boolean };
+  ConnectDetail: { topic: string; isLastItem: boolean };
   CreatePassword: {
     pathName:
       | 'CreateAccount'
@@ -109,3 +111,5 @@ export type AddProviderProps = NativeStackScreenProps<RootStackParamList, 'AddPr
 export type TransactionActionProps = NativeStackScreenProps<RootStackParamList, 'TransactionAction'>;
 export type HistoryProps = NativeStackScreenProps<RootStackParamList, 'History'>;
 export type SendNFTProps = NativeStackScreenProps<RootStackParamList, 'SendNFT'>;
+export type ConnectListProps = NativeStackScreenProps<RootStackParamList, 'ConnectList'>;
+export type ConnectDetailProps = NativeStackScreenProps<RootStackParamList, 'ConnectDetail'>;

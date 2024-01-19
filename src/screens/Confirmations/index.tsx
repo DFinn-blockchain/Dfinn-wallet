@@ -32,6 +32,7 @@ import {
   SignConfirmation,
 } from './variants';
 import { STATUS_BAR_HEIGHT } from 'styles/sharedStyles';
+import ConnectWalletConnectConfirmation from './variants/ConnectWalletConnectConfirmation';
 
 const confirmationPopupWrapper: StyleProp<any> = {
   maxHeight: '100%',
@@ -59,6 +60,7 @@ const titleMap: Record<ConfirmationType, string> = {
   metadataRequest: 'Update Metadata',
   signingRequest: 'Signature request',
   switchNetworkRequest: 'Add Network Request',
+  connectWCRequest: 'Connect using WalletConnect',
 } as Record<ConfirmationType, string>;
 
 export const Confirmations = () => {
@@ -188,6 +190,8 @@ export const Confirmations = () => {
         return <MetadataConfirmation request={confirmation.item as MetadataRequest} />;
       case 'signingRequest':
         return <SignConfirmation request={confirmation.item as SigningRequest} />;
+      case 'connectWCRequest':
+        return <ConnectWalletConnectConfirmation request={confirmation.item} />;
     }
 
     return null;

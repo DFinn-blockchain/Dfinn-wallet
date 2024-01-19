@@ -1,6 +1,6 @@
 import { NavigationState } from '@react-navigation/routers';
 import { ALL_ACCOUNT_KEY } from '@subwallet/extension-base/constants';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState, ComponentType } from 'react';
 import { LinkingOptions, NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import AttachReadOnly from 'screens/Account/AttachReadOnly';
 import ConnectKeystone from 'screens/Account/ConnectQrSigner/ConnectKeystone';
@@ -24,6 +24,9 @@ import { RestoreJson } from 'screens/Account/RestoreJson';
 import { ImportSecretPhrase } from 'screens/Account/ImportSecretPhrase';
 import { ImportPrivateKey } from 'screens/Account/ImportPrivateKey';
 import { DAppAccessScreen } from 'screens/Settings/Security/DAppAccess';
+import { ConnectionList } from 'screens/Settings/WalletConnect/ConnectionList';
+import { ConnectWalletConnect } from 'screens/Settings/WalletConnect/ConnectWalletConnect';
+import { ConnectionDetail } from 'screens/Settings/WalletConnect/ConnectionDetail';
 import { DAppAccessDetailScreen } from 'screens/Settings/Security/DAppAccess/DAppAccessDetailScreen';
 import { Languages } from 'screens/Settings/Languages';
 import { Security } from 'screens/Settings/Security';
@@ -91,6 +94,10 @@ const config: LinkingOptions<RootStackParamList>['config'] = {
 
 const HistoryScreen = (props: JSX.IntrinsicAttributes) => {
   return withPageWrapper(History, ['transactionHistory'])(props);
+};
+
+const ConnectionListScreen = (props: JSX.IntrinsicAttributes) => {
+  return withPageWrapper(ConnectionList as ComponentType, ['walletConnect'])(props);
 };
 
 const AppNavigator = ({ isAppReady }: Props) => {
@@ -217,6 +224,9 @@ const AppNavigator = ({ isAppReady }: Props) => {
                 <Stack.Screen name="Languages" component={Languages} />
                 <Stack.Screen name="Security" component={Security} />
                 <Stack.Screen name="ManageAddressBook" component={ManageAddressBook} />
+                <Stack.Screen name="ConnectList" component={ConnectionListScreen} />
+                <Stack.Screen name="ConnectDetail" component={ConnectionDetail} />
+                <Stack.Screen name="ConnectWalletConnect" component={ConnectWalletConnect} />
                 <Stack.Screen name="PinCode" component={PinCodeScreen} />
                 <Stack.Screen
                   name="ChangePassword"

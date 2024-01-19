@@ -41,13 +41,16 @@ const WordPhrase: React.FC<Props> = (props: Props) => {
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   const seedItems = useMemo(() => convertToWords(seedPhrase), [seedPhrase]);
-
+  const seedFlattened = seedItems.flat();
   const onCopy = useCopyClipboard(seedPhrase);
 
   return (
     <React.Fragment>
       <View style={styles.contentContainer}>
-        {seedItems.map((arr, index) => {
+        {seedFlattened.map((item, index) => (
+          <SeedWord style={styles.seedWord} key={item.key} prefixText={item.prefixText} title={item.title} disabled />
+        ))}
+        {/* {seedItems.map((arr, index) => {
           return (
             <View key={index} style={styles.wordRow}>
               {arr.map(item => {
@@ -63,7 +66,7 @@ const WordPhrase: React.FC<Props> = (props: Props) => {
               })}
             </View>
           );
-        })}
+        })} */}
       </View>
       <View style={styles.copyWrapper}>
         <Button

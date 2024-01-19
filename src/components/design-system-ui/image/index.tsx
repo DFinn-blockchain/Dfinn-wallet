@@ -9,7 +9,7 @@ type ImageShape = 'default' | 'square' | 'circle' | 'squircle';
 export interface SWImageProps extends FastImageProps {
   containerStyle?: StyleProp<ViewStyle>;
   shape?: ImageShape;
-  src: Source | ImageRequireSource;
+  src: Source | ImageRequireSource | string;
   squircleSize?: number;
 }
 
@@ -46,7 +46,7 @@ const Image: React.FC<SWImageProps> = ({
           customStyle={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
           backgroundColor={'transparent'}>
           <FastImage
-            source={src}
+            source={typeof src === 'string' ? { uri: src } : src}
             style={[customImageStyle, { position: 'absolute' }]}
             onLoadStart={onLoadStart}
             onLoadEnd={onLoadEnd}
@@ -63,7 +63,13 @@ const Image: React.FC<SWImageProps> = ({
   }
   return (
     <View style={[{ position: 'relative' }, customStyle]}>
-      <FastImage source={src} style={customImageStyle} onLoadStart={onLoadStart} onLoadEnd={onLoadEnd} {...restProps} />
+      <FastImage
+        source={typeof src === 'string' ? { uri: src } : src}
+        style={customImageStyle}
+        onLoadStart={onLoadStart}
+        onLoadEnd={onLoadEnd}
+        {...restProps}
+      />
       {isLoading && (
         <View style={[_style.loadingImage, _style[`${shape}Image`]]}>
           <ActivityIndicator size={squircleSize ? squircleSize / 2 : 20} indicatorColor="#737373" />

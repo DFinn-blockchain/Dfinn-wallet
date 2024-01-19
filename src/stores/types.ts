@@ -2,7 +2,6 @@ import {
   ActiveCronAndSubscriptionMap,
   AddressBookState,
   AssetSetting,
-  BalanceItem,
   ChainStakingMetadata,
   ConfirmationDefinitions,
   ConfirmationsQueue,
@@ -12,7 +11,6 @@ import {
   LanguageType,
   NftCollection,
   NftItem,
-  NominationPoolInfo,
   NominatorMetadata,
   PriceJson,
   StakingItem,
@@ -20,6 +18,8 @@ import {
   TransactionHistoryItem,
   UiSettings,
   ValidatorInfo,
+  BalanceItem,
+  NominationPoolInfo,
 } from '@subwallet/extension-base/background/KoniTypes';
 import {
   AccountJson,
@@ -34,7 +34,6 @@ import { SWTransactionResult } from '@subwallet/extension-base/services/transact
 import { _AssetRef, _ChainAsset, _ChainInfo, _MultiChainAsset } from '@subwallet/chain-list/types';
 import { _ChainState } from '@subwallet/extension-base/services/chain-service/types';
 import { SessionTypes } from '@walletconnect/types';
-import { WalletConnectSessionRequest } from '@subwallet/extension-base/services/wallet-connect-service/types';
 import { MissionInfo } from 'types/missionPool';
 import { DAPPCategory, DAppInfo } from 'types/browser';
 
@@ -172,7 +171,7 @@ export interface RequestState extends ConfirmationsQueue, BaseReduxStore {
   hasInternalConfirmations: boolean;
   numberOfConfirmations: number;
   transactionRequest: Record<string, SWTransactionResult>;
-  connectWCRequest: Record<string, WalletConnectSessionRequest>;
+  connectWCRequest: Record<string, any>;
 }
 
 export interface UpdateConfirmationsQueueRequest extends BaseReduxStore {
@@ -242,6 +241,6 @@ export interface MissionPoolStore extends BaseReduxStore {
 }
 
 export interface BuyServiceStore extends BaseReduxStore {
-  tokens: Record<string, BuyTokenInfo>;
-  services: Record<string, BuyServiceInfo>;
+  tokens: Record<string, any>;
+  services: Record<string, any>;
 }

@@ -14,15 +14,17 @@ const createStyles = (theme: ThemeTypes) => {
   return StyleSheet.create<ComponentStyle>({
     contentContainer: {
       display: 'flex',
-      flexDirection: 'column',
+      flexDirection: 'row',
       alignItems: 'center',
       gap: theme.sizeXS,
+      flexWrap: 'wrap',
     },
     wordRow: {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
+      // flexWrap: 'wrap',
       gap: theme.sizeXS,
     },
     seedWord: {

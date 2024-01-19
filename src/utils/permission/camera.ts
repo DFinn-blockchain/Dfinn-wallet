@@ -7,7 +7,7 @@ const getCameraPermission = () => {
   return Platform.OS === 'ios' ? PERMISSIONS.IOS.CAMERA : PERMISSIONS.ANDROID.CAMERA;
 };
 
-export const requestCameraPermission = async () => {
+export const requestCameraPermission = async (callback = () => {}) => {
   AutoLockState.isPreventAutoLock = true;
   const result = await request(getCameraPermission());
   AutoLockState.isPreventAutoLock = false;
@@ -36,4 +36,5 @@ export const requestCameraPermission = async () => {
       ]);
       return;
   }
+  callback();
 };

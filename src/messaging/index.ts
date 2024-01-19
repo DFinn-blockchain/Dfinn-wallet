@@ -69,6 +69,9 @@ import {
   RequestDeriveValidateV2,
   RequestFreeBalance,
   RequestGetDeriveAccounts,
+  RequestConnectWalletConnect,
+  RequestApproveConnectWalletSession,
+  RequestRejectConnectWalletSession,
   RequestGetTransaction,
   RequestInitCronAndSubscription,
   RequestJsonRestoreV2,
@@ -434,9 +437,12 @@ export function lazySubscribeMessage<TMessageType extends MessageTypesWithSubscr
       }
     },
   };
+  if (message == 'pri(walletConnect.requests.connect.subscribe)') console.log('here');
 
   rs.promise
     .then(data => {
+      if (message == 'pri(walletConnect.requests.connect.subscribe)') console.log('here', data);
+
       !cancel && callback(data);
     })
     .catch(console.error);
@@ -1406,6 +1412,24 @@ export async function getMetadata(genesisHash?: string | null, isPartial = false
   }
 
   return null;
+}
+
+// Wallet Connect
+
+export async function addConnection(request: RequestConnectWalletConnect): Promise<boolean> {
+  return sendMessage('pri(walletConnect.connect)', request);
+}
+
+export async function approveWalletConnectSession(request: RequestApproveConnectWalletSession): Promise<boolean> {
+  return sendMessage('pri(walletConnect.session.approve)', request);
+}
+
+export async function rejectWalletConnectSession(request: RequestRejectConnectWalletSession): Promise<boolean> {
+  return sendMessage('pri(walletConnect.session.reject)', request);
+}
+
+export async function disconnectWalletConnectConnection(topic: string): Promise<boolean> {
+  return sendMessage('pri(walletConnect.session.disconnect)', { topic });
 }
 
 export async function resolveDomainToAddress(request: any) {

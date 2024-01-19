@@ -17,6 +17,7 @@ const initialState: RequestState = {
   metadataRequest: {},
   signingRequest: {},
   transactionRequest: {},
+  connectWCRequest: {},
 
   // Type of confirmation requets
   addNetworkRequest: {},
@@ -41,6 +42,7 @@ export const CONFIRMATIONS_FIELDS: Array<keyof RequestState> = [
   'switchNetworkRequest',
   'evmSignatureRequest',
   'evmSendTransactionRequest',
+  'connectWCRequest',
 ];
 
 export interface ConfirmationQueueItem {
@@ -105,6 +107,11 @@ const requestStateSlice = createSlice({
     },
     updateTransactionRequests(state, { payload }: PayloadAction<Record<string, SWTransactionResult>>) {
       state.transactionRequest = payload;
+    },
+    updateConnectWCRequests(state, { payload }: PayloadAction<Record<string, any>>) {
+      state.connectWCRequest = payload;
+      readyMap.updateConfirmationRequests = true;
+      computeStateSummary(state);
     },
   },
 });

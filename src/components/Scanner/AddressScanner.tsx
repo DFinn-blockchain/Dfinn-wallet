@@ -5,6 +5,7 @@ import RNQRGenerator from 'rn-qr-generator';
 import { SwFullSizeModal } from 'components/design-system-ui';
 import { SWModalRefProps } from 'components/design-system-ui/modal/ModalBaseV2';
 import QrAddressScanner from './QrAddressScanner';
+import { SCAN_TYPE } from 'constants/qr';
 
 export interface AddressScannerProps {
   onPressCancel: () => void;
@@ -46,17 +47,21 @@ export const AddressScanner = ({
   };
 
   return (
-    <SwFullSizeModal
-      isUseModalV2
-      modalVisible={qrModalVisible}
-      setVisible={setQrModalVisible}
-      modalBaseV2Ref={addressScannerRef}>
-      <QrAddressScanner
-        onPressCancel={onPressCancel}
-        onPressLibraryBtn={onPressLibraryBtn}
-        onSuccess={onSuccess}
-        error={error}
-      />
-    </SwFullSizeModal>
+    // <SwFullSizeModal
+    //   //isUseModalV2
+    //   modalVisible={qrModalVisible}
+    //   setVisible={setQrModalVisible}
+    //   modalBaseV2Ref={addressScannerRef}>
+    <QrAddressScanner
+      visible={qrModalVisible}
+      onHideModal={onPressCancel}
+      onPressLibraryBtn={onPressLibraryBtn}
+      onSuccess={onSuccess}
+      error={error}
+      isUseSuccess={true}
+      title={'Scan WalletConnect QR'}
+      type={SCAN_TYPE.SECRET}
+    />
+    // </SwFullSizeModal>
   );
 };

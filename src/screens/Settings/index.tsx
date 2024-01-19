@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { SubScreenContainer } from 'components/SubScreenContainer';
 import { useNavigation } from '@react-navigation/native';
-import { Linking, ScrollView, StyleProp, ViewStyle } from 'react-native';
+import { Linking, ScrollView, StyleProp, ViewStyle, DeviceEventEmitter } from 'react-native';
 import Text from 'components/Text';
 import { ActionItem } from 'components/ActionItem';
 import {
@@ -14,6 +14,7 @@ import {
   LockKeyOpen,
   ShieldCheck,
   User,
+  Wallet,
 } from 'phosphor-react-native';
 import { FontMedium, sharedStyles } from 'styles/sharedStyles';
 import { ColorMap } from 'styles/color';
@@ -81,6 +82,16 @@ export const Settings = () => {
           title: 'Manage Address Book',
           onPress: () => navigation.navigate('ManageAddressBook'),
           hasRightArrow: true,
+        },
+        {
+          icon: Wallet,
+          title: 'Walletconnect',
+          hasRightArrow: true,
+          onPress: () => {
+            DeviceEventEmitter.emit('isDeleteWc', false);
+            navigation.navigate('ConnectList', { isDelete: false });
+          },
+          backgroundColor: '#004BFF',
         },
         // {
         //   icon: GlobeHemisphereWest,

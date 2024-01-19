@@ -25,6 +25,7 @@ export default function useStoreNetworkMap(): StoreStatus {
         if (cancel) {
           return;
         }
+        console.log(payload);
 
         addLazy('subscribeNetworkMap', () => {
           console.log('--- subscribeNetworkMap updated');

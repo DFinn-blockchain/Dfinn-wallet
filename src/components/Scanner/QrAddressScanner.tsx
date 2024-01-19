@@ -15,18 +15,28 @@ import { BarCodeReadEvent } from 'react-native-camera';
 import { getFunctionScan } from 'utils/scanner/attach';
 import ModalBase from 'components/Modal/Base/ModalBase';
 import { IconButton } from 'components/IconButton';
-import { X } from 'phosphor-react-native';
+import { Books, Image, X } from 'phosphor-react-native';
 
 interface Props {
   visible: boolean;
   onHideModal: () => void;
-  onSuccess: (data: QrAccount) => void;
+  onSuccess: (data: any) => void;
+  onPressLibraryBtn?: () => void;
+  title?: string;
+  isUseSuccess?: boolean;
+  error?: string;
   type: SCAN_TYPE.QR_SIGNER | SCAN_TYPE.SECRET;
 }
 
 const CancelButtonStyle: StyleProp<ViewStyle> = {
   position: 'absolute',
   right: 16,
+  zIndex: 10,
+};
+
+const LibraryButtonStyle: StyleProp<ViewStyle> = {
+  position: 'absolute',
+  left: 16,
   zIndex: 10,
 };
 
@@ -43,8 +53,17 @@ const BottomContentStyle: StyleProp<ViewStyle> = {
   flex: 1,
 };
 
-const QrAddressScanner = ({ visible, onHideModal, onSuccess, type }: Props) => {
-  const [error, setError] = useState<string>('');
+const QrAddressScanner = ({
+  visible,
+  onHideModal,
+  onSuccess,
+  type,
+  onPressLibraryBtn,
+  title,
+  error,
+  isUseSuccess = false,
+}: Props) => {
+  const [error1, setError] = useState<string>('');
 
   const handleRead = useCallback(
     (event: BarCodeReadEvent) => {
@@ -81,7 +100,7 @@ const QrAddressScanner = ({ visible, onHideModal, onSuccess, type }: Props) => {
         reactivate={true}
         reactivateTimeout={5000}
         showMarker={true}
-        onRead={handleRead}
+        onRead={isUseSuccess ? onSuccess : handleRead}
         containerStyle={ScannerStyles.ContainerStyle}
         cameraStyle={ScannerStyles.CameraStyle}
         topViewStyle={ScannerStyles.ContainerStyle}
@@ -89,7 +108,10 @@ const QrAddressScanner = ({ visible, onHideModal, onSuccess, type }: Props) => {
           <View style={ScannerStyles.RectangleContainerStyle}>
             <View style={ScannerStyles.TopOverlayStyle}>
               <View style={ScannerStyles.HeaderStyle}>
-                <Text style={ScannerStyles.HeaderTitleTextStyle}>{i18n.title.scanAddress}</Text>
+                {!!onPressLibraryBtn && (
+                  <IconButton icon={Image} style={LibraryButtonStyle} onPress={onPressLibraryBtn} />
+                )}
+                <Text style={ScannerStyles.HeaderTitleTextStyle}>{title || i18n.title.scanAddress}</Text>
                 <IconButton icon={X} style={CancelButtonStyle} onPress={onHideModal} />
               </View>
             </View>
@@ -108,7 +130,9 @@ const QrAddressScanner = ({ visible, onHideModal, onSuccess, type }: Props) => {
               <View style={ScannerStyles.LeftAndRightOverlayStyle} />
             </View>
             <View style={ScannerStyles.BottomOverlayStyle}>
-              <View style={BottomSubContentStyle}>{!!error && <Warning message={error} isDanger />}</View>
+              <View style={BottomSubContentStyle}>
+                {(!!error || !!error1) && <Warning message={error || error1} isDanger />}
+              </View>
               <View style={BottomContentStyle}>
                 <Text style={ScannerStyles.CenterTextStyle}>
                   {type === SCAN_TYPE.QR_SIGNER && i18n.common.scanFromHardwareWallet}
