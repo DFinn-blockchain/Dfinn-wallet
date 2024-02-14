@@ -1,12 +1,13 @@
 import { NavigationState } from '@react-navigation/routers';
 import { ALL_ACCOUNT_KEY } from '@subwallet/extension-base/constants';
-import React, { useCallback, useEffect, useMemo, useState, ComponentType } from 'react';
+import React, { useCallback, useEffect, useMemo, useState, ComponentType, useRef } from 'react';
 import { LinkingOptions, NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import AttachReadOnly from 'screens/Account/AttachReadOnly';
 import ConnectKeystone from 'screens/Account/ConnectQrSigner/ConnectKeystone';
 import ConnectParitySigner from 'screens/Account/ConnectQrSigner/ConnectParitySigner';
 import ImportQrCode from 'screens/Account/ImportQrCode';
-import { Home } from 'screens/Home';
+import { AppNavigatorDeepLinkStatus, Home } from 'screens/Home';
+import { setPrevDeeplinkUrl } from './App';
 import Login from 'screens/MasterPassword/Login';
 import { NetworksSetting } from 'screens/NetworksSetting';
 import { Settings } from 'screens/Settings';
@@ -32,6 +33,7 @@ import { Languages } from 'screens/Settings/Languages';
 import { Security } from 'screens/Settings/Security';
 import { ManageAddressBook } from 'screens/Settings/AddressBook';
 import { PinCodeScreen } from 'screens/Settings/Security/PinCodeScreen';
+import { transformUniversalToNative } from 'utils/deeplink';
 import { AccountExport } from 'screens/Account/AccountExport';
 import { CustomTokenSetting } from 'screens/Tokens';
 import { NetworkConfig } from 'screens/Settings/NetworkConfig';
@@ -56,14 +58,19 @@ import ChangeMasterPassword from 'screens/MasterPassword/ChangeMasterPassword';
 import { ImportNetwork } from 'screens/ImportNetwork';
 import History from 'screens/Home/History';
 import withPageWrapper from 'components/pageWrapper';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'stores/index';
 import { AddProvider } from 'screens/AddProvider';
 import TransactionScreen from 'screens/Transaction/TransactionScreen';
 import SendNFT from 'screens/Transaction/NFT';
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
-import { Platform } from 'react-native';
+import { Linking, Platform } from 'react-native';
 import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
+import urlParse from 'url-parse';
+import queryString from 'querystring';
+import { connectWalletConnect } from 'utils/walletConnect';
+import { useToast } from 'react-native-toast-notifications';
+import { updateIsDeepLinkConnect } from 'stores/base/Settings';
 
 interface Props {
   isAppReady: boolean;
@@ -107,9 +114,14 @@ const AppNavigator = ({ isAppReady }: Props) => {
   const navigationRef = useNavigationContainerRef<RootStackParamList>();
   const Stack = createNativeStackNavigator<RootStackParamList>();
   const [currentRoute, setCurrentRoute] = useState<RootRouteProps | undefined>(undefined);
-
+  const toast = useToast();
   const { hasConfirmations } = useSelector((state: RootState) => state.requestState);
-  const { accounts, hasMasterPassword } = useSelector((state: RootState) => state.accountState);
+  const { accounts, hasMasterPassword, isReady } = useSelector((state: RootState) => state.accountState);
+  const isPreventDeepLinkRef = useRef(!hasMasterPassword || hasConfirmations);
+  const appNavigatorDeepLinkStatus = useRef<AppNavigatorDeepLinkStatus>(AppNavigatorDeepLinkStatus.AVAILABLE);
+  const dispatch = useDispatch();
+  const finishLoginProgressRef = useRef<Function | null>(null);
+  const waitForLoginProcessRef = useRef<Promise<boolean> | null>(null);
 
   const needMigrate = useMemo(
     () =>
@@ -119,7 +131,7 @@ const AppNavigator = ({ isAppReady }: Props) => {
   );
 
   const linking: LinkingOptions<RootStackParamList> = {
-    prefixes: ['subwallet://'],
+    prefixes: ['dfinnwallet://'],
     config,
   };
 
@@ -130,6 +142,65 @@ const AppNavigator = ({ isAppReady }: Props) => {
   const onUpdateRoute = useCallback((state: NavigationState | undefined) => {
     setCurrentRoute(state?.routes[state?.index]);
   }, []);
+  useEffect(() => {
+    if (isReady) {
+      Linking.addEventListener('url', ({ url }) => {
+        let currentUrl = url;
+        if (url.startsWith('wc:')) {
+          if (url.includes('?requestId')) {
+            const query = encodeURIComponent(url.split('wc')[2]);
+            currentUrl = `dfinnwallet://wc${query}`;
+          } else {
+            const query = encodeURIComponent(url);
+            currentUrl = `dfinnwallet://wc?uri=${query}`;
+          }
+        }
+
+        const _url = transformUniversalToNative(currentUrl);
+        if (isPreventDeepLinkRef.current) {
+          return;
+        }
+        if (appNavigatorDeepLinkStatus.current === AppNavigatorDeepLinkStatus.BLOCK) {
+          appNavigatorDeepLinkStatus.current = AppNavigatorDeepLinkStatus.RESET;
+        }
+        const urlParsed = new urlParse(_url);
+        setPrevDeeplinkUrl('');
+
+        if (urlParsed.hostname === 'wc') {
+          dispatch(updateIsDeepLinkConnect(true));
+          if (urlParsed.query.startsWith('?requestId')) {
+            return;
+          }
+          const decodedWcUrl = queryString.decode(urlParsed.query.slice(5));
+          const finalWcUrl = Object.keys(decodedWcUrl)[0];
+          connectWalletConnect(finalWcUrl, toast);
+        }
+
+        if (appNavigatorDeepLinkStatus.current === AppNavigatorDeepLinkStatus.AVAILABLE) {
+          waitForLoginProcessRef.current = new Promise(resolve => {
+            finishLoginProgressRef.current = resolve;
+          });
+          (async () => {
+            await waitForLoginProcessRef.current;
+            Linking.openURL(_url);
+            appNavigatorDeepLinkStatus.current = AppNavigatorDeepLinkStatus.BLOCK;
+            waitForLoginProcessRef.current = null;
+            finishLoginProgressRef.current = null;
+          })();
+        }
+        if (appNavigatorDeepLinkStatus.current === AppNavigatorDeepLinkStatus.RESET) {
+          appNavigatorDeepLinkStatus.current = AppNavigatorDeepLinkStatus.AVAILABLE;
+        }
+      });
+      return () => Linking.removeAllListeners('url');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isReady]);
+
+
+  useEffect(() => {
+    isPreventDeepLinkRef.current = !hasMasterPassword || hasConfirmations;
+  }, [hasConfirmations, hasMasterPassword]);
 
   useEffect(() => {
     let amount = true;

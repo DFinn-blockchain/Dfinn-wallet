@@ -562,7 +562,7 @@ export const vi = {
     cannotGetBalance: 'Can not get balance',
     enableTokenOnChain: 'Please enable {0} on {1}',
     disconnectModalMessage:
-      'Once you disconnect, you will no longer see this connection on SubWallet and on your DApp.',
+      'Once you disconnect, you will no longer see this connection on DfinnWallet and on your DApp.',
     connectedNetworks: '{0} network(s)',
     connectedNetworkConnected: '{0} networks connected',
     connectedAccounts: '{0} account connected',

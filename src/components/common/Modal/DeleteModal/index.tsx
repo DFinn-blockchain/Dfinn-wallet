@@ -7,6 +7,7 @@ import { VoidFunction } from 'types/index';
 import i18n from 'utils/i18n/i18n';
 import createStyle from './styles';
 import { SWModalRefProps } from 'components/design-system-ui/modal/ModalBaseV2';
+import { SubmitButton } from 'components/SubmitButton';
 
 interface Props {
   message: string;
@@ -54,15 +55,15 @@ const DeleteModal: React.FC<Props> = (props: Props) => {
           <Button type="secondary" onPress={closeModal} style={{ width: '45%' }}>
             Cancel
           </Button>
-          <Button
+          <SubmitButton
+            title={buttonTitle || 'Delete'}
             disabled={loading}
             loading={loading}
             style={{ width: '45%' }}
             icon={<Icon phosphorIcon={ButtonIcon || XCircle} size={'lg'} weight={'fill'} />}
             type="danger"
             onPress={onCompleteModal}>
-            {buttonTitle || 'Delete'}
-          </Button>
+          </SubmitButton>
         </View>
       }
       onBackButtonPress={closeModal}

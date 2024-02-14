@@ -15,8 +15,8 @@ import { AppState, Platform, StatusBar, StyleProp, View } from 'react-native';
 import { ThemeContext } from 'providers/contexts';
 import ImportNft from 'screens/ImportToken/ImportNft';
 import SigningScreen from 'screens/Signing/SigningScreen';
-import CompoundActionScreen from 'screens/Staking/Compound/CompoundActionScreen';
-import WithdrawActionScreen from 'screens/Staking/Withdraw/WithdrawActionScreen';
+// import CompoundActionScreen from 'screens/Staking/Compound/CompoundActionScreen';
+// import WithdrawActionScreen from 'screens/Staking/Withdraw/WithdrawActionScreen';
 import { THEME_PRESET } from 'styles/themes';
 import { ToastProvider } from 'react-native-toast-notifications';
 import { RootStackParamList } from 'routes/index';
@@ -67,16 +67,21 @@ import { getValidURL } from 'utils/browser';
 import { ConfigureToken } from 'screens/Tokens/ConfigureToken';
 import useStoreCustomToken from 'hooks/store/useStoreCustomToken';
 import { ImportToken } from 'screens/ImportToken/ImportToken';
-import StakeActionScreen from 'screens/Staking/Stake/StakeActionScreen';
-import UnStakeActionScreen from 'screens/Staking/UnStake/UnStakeActionScreen';
+// import StakeActionScreen from 'screens/Staking/Stake/StakeActionScreen';
+// import UnStakeActionScreen from 'screens/Staking/UnStake/UnStakeActionScreen';
 import { AccountExport } from 'screens/Account/AccountExport';
 import useStoreBackgroundService from 'hooks/store/useStoreBackgroundService';
-import ClaimActionScreen from 'screens/Staking/Claim/ClaimActionScreen';
+// import ClaimActionScreen from 'screens/Staking/Claim/ClaimActionScreen';
 import { NetworkConfig } from 'screens/Settings/NetworkConfig';
 import { NetworkConfigDetail } from 'screens/Settings/NetworkConfigDetail';
 import { CustomTokenSetting } from 'screens/Tokens';
 import { HIDE_MODAL_DURATION, TOAST_DURATION } from 'constants/index';
 import { SendFund } from 'screens/Transaction/SendFund';
+
+export let prevDeeplinkUrl = '';
+export function setPrevDeeplinkUrl(value: string) {
+  prevDeeplinkUrl = value;
+}
 
 const viewContainerStyle: StyleProp<any> = {
   position: 'relative',
@@ -166,7 +171,7 @@ const config: LinkingOptions<RootStackParamList>['config'] = {
 };
 
 const linking: LinkingOptions<RootStackParamList> = {
-  prefixes: ['subwallet://'],
+  prefixes: ['dfinnwallet://'],
   config,
 };
 
@@ -309,14 +314,14 @@ export const App = () => {
                               <Stack.Screen name="NetworkConfigDetail" component={NetworkConfigDetail} />
                               <Stack.Screen name="ConfigureToken" component={ConfigureToken} />
                               <Stack.Screen name="ImportToken" component={ImportToken} />
-                              <Stack.Screen
+                              {/* <Stack.Screen
                                 name="StakeAction"
                                 component={StakeActionScreen}
                                 options={{ gestureEnabled: false }}
-                              />
+                              /> */}
                               <Stack.Screen name="ImportNft" component={ImportNft} />
                               <Stack.Screen name="WebViewDebugger" component={WebViewDebugger} />
-                              <Stack.Screen
+                              {/* <Stack.Screen
                                 name="UnStakeAction"
                                 component={UnStakeActionScreen}
                                 options={{ gestureEnabled: false }}
@@ -330,12 +335,12 @@ export const App = () => {
                                 name="WithdrawStakeAction"
                                 component={WithdrawActionScreen}
                                 options={{ gestureEnabled: false }}
-                              />
-                              <Stack.Screen
+                              /> */}
+                              {/* <Stack.Screen
                                 name="CompoundStakeAction"
                                 component={CompoundActionScreen}
                                 options={{ gestureEnabled: false }}
-                              />
+                              /> */}
                               <Stack.Screen
                                 name="SigningAction"
                                 component={SigningScreen}

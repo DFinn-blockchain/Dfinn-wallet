@@ -10,7 +10,7 @@ import { WebRunnerContext } from 'providers/contexts';
 import { StoreStatus } from 'stores/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'stores/index';
-import { updateConfirmations } from 'stores/Confirmation';
+// import { updateConfirmations } from 'stores/Confirmation';
 import { AuthorizeRequest, MetadataRequest, SigningRequest } from '@subwallet/extension-base/background/types';
 import { getId } from '@subwallet/extension-base/utils/getId';
 
@@ -47,14 +47,14 @@ export default function useStoreConfirmation(): StoreStatus {
           return;
         }
 
-        dispatch(
-          updateConfirmations({
-            authorizeRequest: data.reduce((result, cur) => {
-              result[cur.id] = cur;
-              return result;
-            }, {} as Record<string, AuthorizeRequest>),
-          }),
-        );
+        // dispatch(
+        //   updateConfirmations({
+        //     authorizeRequest: data.reduce((result, cur) => {
+        //       result[cur.id] = cur;
+        //       return result;
+        //     }, {} as Record<string, AuthorizeRequest>),
+        //   }),
+        // );
         console.log('--- subscribeAuthorizeRequestsV2 updated');
       }, subscribeAuthorizeRequestsV2Id).catch(e => {
         console.log('--- subscribeAuthorizeRequestsV2 error:', e);
@@ -65,14 +65,14 @@ export default function useStoreConfirmation(): StoreStatus {
           return;
         }
 
-        dispatch(
-          updateConfirmations({
-            metadataRequest: data.reduce((result, cur) => {
-              result[cur.id] = cur;
-              return result;
-            }, {} as Record<string, MetadataRequest>),
-          }),
-        );
+        // dispatch(
+        //   updateConfirmations({
+        //     metadataRequest: data.reduce((result, cur) => {
+        //       result[cur.id] = cur;
+        //       return result;
+        //     }, {} as Record<string, MetadataRequest>),
+        //   }),
+        // );
         console.log('--- subscribeMetadataRequests updated');
       }, subscribeMetadataRequestsId).catch(e => {
         console.log('--- subscribeMetadataRequests error:', e);
@@ -83,14 +83,14 @@ export default function useStoreConfirmation(): StoreStatus {
           return;
         }
 
-        dispatch(
-          updateConfirmations({
-            signingRequest: data.reduce((result, cur) => {
-              result[cur.id] = cur;
-              return result;
-            }, {} as Record<string, SigningRequest>),
-          }),
-        );
+        // dispatch(
+        //   updateConfirmations({
+        //     signingRequest: data.reduce((result, cur) => {
+        //       result[cur.id] = cur;
+        //       return result;
+        //     }, {} as Record<string, SigningRequest>),
+        //   }),
+        // );
         console.log('--- subscribeSigningRequests updated');
       }, subscribeSigningRequestsId).catch(e => {
         console.log('--- subscribeSigningRequests error:', e);
@@ -100,7 +100,7 @@ export default function useStoreConfirmation(): StoreStatus {
         if (cancel) {
           return;
         }
-        dispatch(updateConfirmations(data));
+        // dispatch(updateConfirmations(data));
         console.log('--- subscribeConfirmations updated');
       }, subscribeConfirmationsId).catch(e => {
         console.log('--- subscribeConfirmations error:', e);

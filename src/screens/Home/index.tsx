@@ -143,6 +143,12 @@ const MainScreen = () => {
   );
 };
 
+export enum AppNavigatorDeepLinkStatus {
+  AVAILABLE = 'available',
+  BLOCK = 'block',
+  RESET = 'reset',
+}
+
 export const Home = () => {
   const isEmptyAccounts = useCheckEmptyAccounts();
   const { isReady } = useSelector((state: RootState) => state.accountState);

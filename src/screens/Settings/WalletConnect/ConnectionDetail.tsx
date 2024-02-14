@@ -25,6 +25,7 @@ import { BUTTON_ACTIVE_OPACITY } from 'constants/index';
 import { WCNetworkItem } from 'components/WalletConnect/Network/WCNetworkItem';
 import { SWModalRefProps } from 'components/design-system-ui/modal/ModalBaseV2';
 import { stripUrl } from './ConnectionList';
+import { SubmitButton } from 'components/SubmitButton';
 
 export const ConnectionDetail = ({
   route: {
@@ -151,13 +152,12 @@ export const ConnectionDetail = ({
                 ))}
               </View>
             </ScrollView>
-            <Button
+            <SubmitButton
+              title={i18n.buttonTitles.disconnect}
               onPress={() => setDisconnectModalVisible(true)}
-              icon={<Icon phosphorIcon={Plugs} size={'lg'} weight={'fill'} />}
               style={{ margin: theme.padding }}
               type={'danger'}>
-              {i18n.buttonTitles.disconnect}
-            </Button>
+            </SubmitButton>
 
             <DeleteModal
               title={i18n.header.disconnect}
@@ -165,7 +165,6 @@ export const ConnectionDetail = ({
               message={i18n.message.disconnectModalMessage}
               onCompleteModal={onDisconnect}
               buttonTitle={i18n.buttonTitles.disconnect}
-              buttonIcon={Plugs}
               loading={loading}
               setVisible={setDisconnectModalVisible}
             />

@@ -27,6 +27,7 @@ export type RootStackParamList = {
     state?: string[];
   };
   ChangePassword: undefined;
+  ConnectWalletConnect: undefined;
   MigratePassword: undefined;
   CreateAccount: { keyTypes?: KeypairType[]; isBack?: boolean };
   QrScanner: undefined;
