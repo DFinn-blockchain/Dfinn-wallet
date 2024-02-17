@@ -1032,6 +1032,11 @@ export const TokenLogoMap: Record<string, string> = {
   szero: ProjectLogos['aleph-zero'],
   klp: ProjectLogos['kulupu-network'],
   joy: ProjectLogos.joystream,
+  zeta: "https://raw.githubusercontent.com/Bharathcoorg/logos/main/zeta.png",
+  mnt: "https://raw.githubusercontent.com/Bharathcoorg/logos/main/mantle.png",
+  neon: "https://raw.githubusercontent.com/Bharathcoorg/logos/main/neon.png",
+  doge: "https://raw.githubusercontent.com/Bharathcoorg/logos/main/doge.png",
+  kava: "https://raw.githubusercontent.com/Bharathcoorg/logos/main/kava.png",
 };
 
 export const CustomLogoMap: Record<string, string> = {
@@ -1052,6 +1057,16 @@ export const CustomLogoMap: Record<string, string> = {
   'custom-Substrate-thundertestnet-997': 'https://projects.edgeverse.space/logos/217.5ire-evm.png',
   'custom-EVM-basemainnet-8453': 'https://projects.edgeverse.space/logos/base-logo-in-blue.png',
   'custom-EVM-lineamainnet-59144': 'https://projects.edgeverse.space/logos/LINEA.png',
+  'custom-EVM-zetachain-7000': 'https://raw.githubusercontent.com/Bharathcoorg/logos/main/zeta.png',
+  'custom-EVM-mantlemainnet-5000': 'https://raw.githubusercontent.com/Bharathcoorg/logos/main/mantle.png',
+  'custom-EVM-mantapacific-169': 'https://raw.githubusercontent.com/Bharathcoorg/logos/main/manta.png',
+  'custom-EVM-rootnetwork-7668': 'https://raw.githubusercontent.com/Bharathcoorg/logos/main/xrp.png',
+  'custom-EVM-merlin-4200': 'https://raw.githubusercontent.com/Bharathcoorg/logos/main/bitcoin.png',
+  'custom-EVM-neonmainnet-245022934': 'https://raw.githubusercontent.com/Bharathcoorg/logos/main/neon.png',
+  'custom-EVM-dogecoinmainnet-2000': 'https://raw.githubusercontent.com/Bharathcoorg/logos/main/doge.png',
+  'custom-EVM-cronosmainnet-25': 'https://raw.githubusercontent.com/Bharathcoorg/logos/main/cronos.png',
+  'custom-EVM-opbnbmainnet-204': 'https://raw.githubusercontent.com/Bharathcoorg/logos/main/bnb.png',
+  'custom-EVM-kavamainnet-2222': 'https://raw.githubusercontent.com/Bharathcoorg/logos/main/kava.png',
   eth: 'https://projects.edgeverse.space/logos/215.arbitrum-nova.png',
   aeth: 'https://projects.edgeverse.space/logos/209.aurora.png',
   avax: 'https://projects.edgeverse.space/logos/207.avalanche.png',

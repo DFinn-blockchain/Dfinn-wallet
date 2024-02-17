@@ -121,6 +121,7 @@ export const TokensLayout = ({
   };
 
   const customRenderItem = (data: ListRenderItemInfo<TokenBalanceItemType>) => {
+    console.log(data.item.slug)
     if (listActions && data.item?.slug === null) {
       return <Animated.View style={stickyHeaderStyles}>{listActions}</Animated.View>;
     }
