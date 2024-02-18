@@ -1032,11 +1032,6 @@ export const TokenLogoMap: Record<string, string> = {
   szero: ProjectLogos['aleph-zero'],
   klp: ProjectLogos['kulupu-network'],
   joy: ProjectLogos.joystream,
-  zeta: "https://raw.githubusercontent.com/Bharathcoorg/logos/main/zeta.png",
-  mnt: "https://raw.githubusercontent.com/Bharathcoorg/logos/main/mantle.png",
-  neon: "https://raw.githubusercontent.com/Bharathcoorg/logos/main/neon.png",
-  doge: "https://raw.githubusercontent.com/Bharathcoorg/logos/main/doge.png",
-  kava: "https://raw.githubusercontent.com/Bharathcoorg/logos/main/kava.png",
 };
 
 export const CustomLogoMap: Record<string, string> = {
@@ -1077,5 +1072,10 @@ export const CustomLogoMap: Record<string, string> = {
   shm: 'https://projects.edgeverse.space/logos/218.sphinx-1.x.png',
   tedg: 'https://projects.edgeverse.space/logos/201.beresheet.png',
   '5ire': 'https://projects.edgeverse.space/logos/217.5ire-evm.png',
+  zeta: "https://raw.githubusercontent.com/Bharathcoorg/logos/main/zeta.png",
+  mnt: "https://raw.githubusercontent.com/Bharathcoorg/logos/main/mantle.png",
+  neon: "https://raw.githubusercontent.com/Bharathcoorg/logos/main/neon.png",
+  doge: "https://raw.githubusercontent.com/Bharathcoorg/logos/main/doge.png",
+  kava: "https://raw.githubusercontent.com/Bharathcoorg/logos/main/kava.png",
 };
 export default ChainLogoMap;
