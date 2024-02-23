@@ -59,13 +59,12 @@ const Logo: React.FC<SWLogoProps> = ({
       (subNetwork.includes('custom') ? CustomLogoMap[subNetwork] : chainLogoMap[subNetwork]) ||
       chainLogoMap[defaultLogoKey];
   }
-
   return (
     <View>
       <Image
         src={
           srcLogo ===
-            'https://raw.githubusercontent.com/Bharathcoorg/logos/main/dfinn-logo.png' ||
+            'https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/dev/packages/chain-list/src/logo/default.png' ||
           !srcLogo
             ? ImageLogosMap.default
             : { uri: srcLogo }
@@ -80,7 +79,7 @@ const Logo: React.FC<SWLogoProps> = ({
           src={
             !srcSubLogo ||
             srcSubLogo ===
-              'https://raw.githubusercontent.com/Bharathcoorg/logos/main/dfinn-logo.png'
+              'https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/dev/packages/chain-list/src/logo/default.png'
               ? ImageLogosMap.default
               : { uri: srcSubLogo }
           }
