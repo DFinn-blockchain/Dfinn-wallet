@@ -80,7 +80,7 @@ const Logo: React.FC<SWLogoProps> = ({
           src={
             !srcSubLogo ||
             srcSubLogo ===
-              'https://raw.githubusercontent.com/Koniverse/SubWallet-Chain/master/packages/chain-list/src/logo/default.png'
+              'https://raw.githubusercontent.com/Bharathcoorg/logos/main/dfinn-logo.png'
               ? ImageLogosMap.default
               : { uri: srcSubLogo }
           }
