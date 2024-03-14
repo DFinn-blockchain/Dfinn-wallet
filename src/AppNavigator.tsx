@@ -71,6 +71,7 @@ import queryString from 'querystring';
 import { connectWalletConnect } from 'utils/walletConnect';
 import { useToast } from 'react-native-toast-notifications';
 import { updateIsDeepLinkConnect } from 'stores/base/Settings';
+import { Invite } from 'screens/Settings/Invite';
 
 interface Props {
   isAppReady: boolean;
@@ -262,6 +263,7 @@ const AppNavigator = ({ isAppReady }: Props) => {
                 <Stack.Screen name="HistoryGroupDetail" component={HistoryDetail} />
                 <Stack.Screen name="AccountsScreen" component={AccountsScreen} />
                 <Stack.Screen name="History" component={HistoryScreen} />
+                <Stack.Screen name="Invite" component={Invite} />
               </Stack.Group>
               <Stack.Group screenOptions={{ headerShown: false, animation: 'default' }}>
                 <Stack.Screen

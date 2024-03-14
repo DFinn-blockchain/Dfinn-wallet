@@ -29,6 +29,7 @@ import { NetworksSetting } from 'screens/NetworksSetting';
 import { STATUS_BAR_HEIGHT } from 'styles/sharedStyles';
 import { Settings } from 'screens/Settings';
 import { Languages } from 'screens/Settings/Languages';
+import { Invite } from 'screens/Settings/Invite';
 import { Security } from 'screens/Settings/Security';
 import { ImportPrivateKey } from 'screens/Account/ImportPrivateKey';
 import { PinCodeScreen } from 'screens/Settings/Security/PinCodeScreen';
@@ -299,6 +300,7 @@ export const App = () => {
                             </Stack.Group>
                             <Stack.Group screenOptions={{ headerShown: false, animation: 'default' }}>
                               <Stack.Screen name="CreateAccount" component={CreateAccount} />
+                              <Stack.Screen name="Invite" component={Invite} />
                               <Stack.Screen name="EditAccount" component={AccountDetail} />
                               <Stack.Screen name="RestoreJson" component={RestoreJson} />
                               <Stack.Screen name="ImportSecretPhrase" component={ImportSecretPhrase} />

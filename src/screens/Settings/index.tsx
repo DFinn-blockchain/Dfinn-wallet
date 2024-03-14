@@ -14,6 +14,7 @@ import {
   LockKeyOpen,
   ShieldCheck,
   User,
+  UserPlus,
   Wallet,
 } from 'phosphor-react-native';
 import { FontMedium, sharedStyles } from 'styles/sharedStyles';
@@ -26,6 +27,7 @@ import { PRIVACY_AND_POLICY_URL, TERMS_OF_SERVICE_URL, WEBSITE_URL } from 'const
 import { useToast } from 'react-native-toast-notifications';
 import VersionNumber from 'react-native-version-number';
 import useAppLock from 'hooks/useAppLock';
+import Share from 'react-native-share';
 
 const settingTitleStyle: StyleProp<any> = {
   ...sharedStyles.mainText,
@@ -68,6 +70,17 @@ export const Settings = () => {
   }, [toast]);
   const [hiddenCount, setHiddenCount] = useState(0);
 
+  const shareUrl = async () => {
+    try {
+      const shareOptions = {
+        url: 'https://dfinnwallet-link.vercel.app/',
+      };
+      await Share.open(shareOptions);
+    } catch (error) {
+      console.log('Error sharing:', error);
+    }
+  };
+
   const settingList: settingItemType[][] = useMemo(
     () => [
       [
@@ -91,6 +104,14 @@ export const Settings = () => {
             DeviceEventEmitter.emit('isDeleteWc', false);
             navigation.navigate('ConnectList', { isDelete: false });
           },
+          backgroundColor: '#004BFF',
+        },
+        {
+          icon: UserPlus,
+          title: 'Invite a friend and earn',
+          hasRightArrow: true,
+          onPress: () => navigation.navigate('Invite'),
+          
           backgroundColor: '#004BFF',
         },
         // {

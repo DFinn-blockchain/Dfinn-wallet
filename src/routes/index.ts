@@ -30,6 +30,7 @@ export type RootStackParamList = {
   ConnectWalletConnect: undefined;
   MigratePassword: undefined;
   CreateAccount: { keyTypes?: KeypairType[]; isBack?: boolean };
+  Invite: undefined;
   QrScanner: undefined;
   AccountsScreen: undefined;
   EditAccount: { address: string; name: string };
