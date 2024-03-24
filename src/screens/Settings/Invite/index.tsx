@@ -72,13 +72,13 @@ const sticyButton: StyleProp<TextStyle> = {
     backgroundColor: 'white',
     borderRadius: 100,
     marginLeft: 30,
+    marginBottom: 20,
     padding: 20,
     color: ColorMap.light,
     justifyContent: 'space-between',
     alignItems: 'center',
 }
 export const Invite = () => {
-    const [address, setAddress] = useState(null);
     const [referralCode, setReferralCode] = useState('');
     const [referralCount, setReferralCount] = useState(0);
     const [isSignedUp, setIsSignedUp] = useState(false);
@@ -88,34 +88,50 @@ export const Invite = () => {
   useEffect(() => {  
     fetchWalletAddress();
     handleSignUp()
-  }, [address]);
-  console.log(walletAddress,'eall')
+  }, [walletAddress]);
 
-  const  generateReferralCode = async () => {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let code = '';
-    for (let i = 0; i < 6; i++) {
-      code += characters.charAt(Math.floor(Math.random() * characters.length));
+  const generateReferralCode = async () => {
+    try {
+      let referralCode = await AsyncStorage.getItem('referralCode');
+      
+      if (!referralCode) {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        referralCode = '';
+        for (let i = 0; i < 6; i++) {
+          referralCode += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        await AsyncStorage.setItem('referralCode', referralCode);
+      }
+      setReferralCode(referralCode)
+      return referralCode;
+    } catch (error) {
+      console.error('Error generating referral code:', error);
+      return null;
     }
-    return code;
   };
 
-  async function fetchWalletAddress() {
+  const fetchWalletAddress = async () => {
     try {
-      const provider = new ethers.JsonRpcProvider('https://mainnet.infura.io/v3/9acab0738fcc4f959fca4f91ab73c495');
-      const wallet = ethers.Wallet.createRandom();
-      const address = await wallet.connect(provider).getAddress();
-      setWalletAddress(address);
+      const existingAddress = await AsyncStorage.getItem('walletAddress');
+  
+      if (!existingAddress) {
+        const provider = new ethers.JsonRpcProvider('https://mainnet.infura.io/v3/9acab0738fcc4f959fca4f91ab73c495');
+        const wallet = ethers.Wallet.createRandom();
+        const address = await wallet.connect(provider).getAddress();
+
+        await AsyncStorage.setItem('walletAddress', address);
+      }
+      setWalletAddress(existingAddress);
       setReferralCode(await generateReferralCode(uuidv4()));
-      fetchReferralInfo(address);
+      fetchReferralInfo(walletAddress);
     } catch (error) {
       console.error('Error fetching wallet address:', error.message);
     }
   }
-
   const fetchReferralInfo = async (address: any) => {
     const encodedAddress = encodeURIComponent(address);
     const doc = await db.collection('users').doc(encodedAddress).get();
+    console.log(doc,'d')
     if (doc.exists) {
       const data = doc.data();
       setReferralCount(data.referralCount);
@@ -123,10 +139,10 @@ export const Invite = () => {
   };
 
   const handleSignUp = async () => {
-    if (address) {
-      const encodedAddress = encodeURIComponent(address);
+    if (walletAddress) {
+      const encodedAddress = encodeURIComponent(walletAddress);
       await db.collection('users').doc(encodedAddress).set({
-        address,
+        walletAddress,
         referralCode,
         referralCount: 0,
       });
@@ -148,27 +164,27 @@ export const Invite = () => {
     return(
         <SubScreenContainer title={'Invite'} navigation={navigation}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-            <Text style={subHeaderTextStyle}>Discover new tokens and opportunities on Dfinn Wallet</Text>
-            <Text style={textStyle}>Your invited friends will also recieve 10 points</Text>
-            <View style={{ justifyContent: 'center', margin: 40 }}>
+              <Text style={subHeaderTextStyle}>Discover new tokens and opportunities on Dfinn Wallet</Text>
+              <Text style={textStyle}>Your invited friends will also recieve 10 points</Text>
+              <View style={{ justifyContent: 'center', margin: 40 }}>
                 <Suspense fallback={<View style={{ width: 100, height: 100 }} />}>
-                    <SVGImages.FirstPageImg width={300} height={200}/>
+                  <SVGImages.FirstPageImg width={300} height={200}/>
                 </Suspense>
-            </View>
-            <View style={invitationCode}>
+              </View>
+              <View style={invitationCode}>
                 <Text style={{ ...TitleFont, fontSize: 16, color: ColorMap.light }}>Invitation code</Text>
                 <Text onPress={shareUrl} style={{ ...TitleFont, fontSize: 14, color: ColorMap.light }}>{referralCode}{'   '}<Copy size={20} color={ColorMap.light} style={{marginBottom: -5}}/>
                 </Text>
-            </View>
-            <View style={invitationLink}>
+              </View>
+              <View style={invitationLink}>
                 <Text style={{ ...TitleFont, fontSize: 16, color: ColorMap.light }}>Invitation link</Text>
                 <Text style={{ ...TitleFont, fontSize: 14, color: ColorMap.light }}>http...mCode={'   '}<Copy  style={{marginBottom: -5}} size={20} color={ColorMap.light}/></Text>
-            </View>
-
-            <TouchableOpacity onPress={shareUrl} style={sticyButton}>
-                <Text style={{fontWeight: 'bold'}}>Invite Now</Text>
-            </TouchableOpacity>
+              </View>
             </ScrollView>
+            <TouchableOpacity onPress={shareUrl} style={sticyButton}>
+              <Text style={{fontWeight: 'bold'}}>Invite Now</Text>
+            </TouchableOpacity>
+           
         </SubScreenContainer>
     )
 }

@@ -1,4 +1,12 @@
 module.exports = {
+  overrides: [
+    {
+      test: './node_modules/ethers',
+      plugins: [
+        ["@babel/plugin-transform-private-methods", { "loose": true }]
+      ]
+    }
+  ],
   plugins: [
     [
       'rewrite-require',
